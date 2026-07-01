@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "british-spelling": {
+      "source": "tedlindholm/faerdigheder",
+      "sourceType": "github",
+      "skillPath": "skills/british-spelling/SKILL.md",
+      "computedHash": "89f308d60ec949f8d9c4189f5fd36b92544e4670cd14d3874452fe68a6f486b5"
+    }
+  }
+}

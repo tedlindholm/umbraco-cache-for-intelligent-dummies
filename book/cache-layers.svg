@@ -1,0 +1,79 @@
+<svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+    <linearGradient id="engineGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="5" flood-color="#667eea" flood-opacity="0.13"/>
+    </filter>
+  </defs>
+
+  <rect width="1000" height="700" fill="white"/>
+
+  <!-- Legend -->
+  <rect x="50" y="34" width="20" height="14" rx="3" fill="white" stroke="#667eea" stroke-width="2"/>
+  <text x="78" y="46" font-size="13" fill="#555">Umbraco-built layer</text>
+  <rect x="260" y="34" width="20" height="14" rx="3" fill="url(#engineGrad)"/>
+  <text x="288" y="46" font-size="13" fill="#555">Microsoft HybridCache engine</text>
+
+  <!-- ===== Published-content cache (left) ===== -->
+  <rect x="50" y="70" width="430" height="460" rx="12" fill="#fbfbfd" stroke="#e6e6f0" stroke-width="1.5" filter="url(#soft)"/>
+  <text x="265" y="106" text-anchor="middle" font-size="19" font-weight="700" fill="#667eea">Umbraco Published-Content Cache</text>
+
+  <!-- L0 -->
+  <rect x="75" y="130" width="380" height="92" rx="10" fill="#f3f4fb"/>
+  <rect x="75" y="130" width="6" height="92" rx="3" fill="url(#lineGrad)"/>
+  <text x="98" y="161" font-size="15" font-weight="700" fill="#2d2d44">L0 — In-process hot lane</text>
+  <text x="98" y="184" font-size="12.5" fill="#555">Converted IPublishedContent / IPublishedElement</text>
+  <text x="98" y="204" font-size="12" fill="#8a8aa0">returned straight from a dictionary</text>
+
+  <path d="M258 228 L272 228 L265 238 Z" fill="#9a9ab5"/>
+
+  <!-- HybridCache engine -->
+  <rect x="75" y="242" width="380" height="92" rx="10" fill="url(#engineGrad)"/>
+  <text x="98" y="273" font-size="15" font-weight="700" fill="white">Microsoft HybridCache</text>
+  <text x="98" y="296" font-size="12.5" fill="white" opacity="0.95">L1 in-memory + optional L2 distributed</text>
+  <text x="98" y="316" font-size="12" fill="white" opacity="0.85">stampede protection · tags · serializer hooks</text>
+
+  <path d="M258 340 L272 340 L265 350 Z" fill="#9a9ab5"/>
+
+  <!-- Database-backed source -->
+  <rect x="75" y="354" width="380" height="92" rx="10" fill="#f3f4fb"/>
+  <rect x="75" y="354" width="6" height="92" rx="3" fill="url(#lineGrad)"/>
+  <text x="98" y="385" font-size="15" font-weight="700" fill="#2d2d44">Database-backed cache source</text>
+  <text x="98" y="408" font-size="12.5" fill="#555">serialised ContentCacheNode</text>
+  <text x="98" y="428" font-size="12" fill="#8a8aa0">MessagePack + LZ4 compression</text>
+
+  <text x="265" y="478" text-anchor="middle" font-size="12.5" fill="#8a8aa0">miss falls through · result populates the layers above</text>
+  <text x="265" y="500" text-anchor="middle" font-style="italic" font-size="12.5" fill="#8a8aa0">The middle layer is the engine; Umbraco adds the top and bottom.</text>
+
+  <!-- ===== Website output cache (top right) ===== -->
+  <rect x="520" y="70" width="430" height="200" rx="12" fill="#fbfbfd" stroke="#e6e6f0" stroke-width="1.5" filter="url(#soft)"/>
+  <rect x="520" y="70" width="6" height="200" rx="3" fill="url(#lineGrad)"/>
+  <text x="735" y="106" text-anchor="middle" font-size="19" font-weight="700" fill="#667eea">Website Output Cache</text>
+  <text x="548" y="142" font-size="13.5" fill="#555">• Rendered HTML stored on the server</text>
+  <text x="548" y="168" font-size="13.5" fill="#555">• Skips the Razor pipeline on cache hits</text>
+  <text x="548" y="194" font-size="13.5" fill="#555">• Opt-in — disabled by default</text>
+  <text x="548" y="220" font-size="13.5" fill="#555">• Evicted by tag: content / media / member / element</text>
+  <text x="548" y="250" font-style="italic" font-size="12.5" fill="#8a8aa0">A different problem from published-content caching.</text>
+
+  <!-- ===== Distributed invalidation (bottom) ===== -->
+  <rect x="50" y="580" width="900" height="95" rx="12" fill="#fbfbfd" stroke="url(#lineGrad)" stroke-width="2.5" filter="url(#soft)"/>
+  <text x="500" y="616" text-anchor="middle" font-size="18" font-weight="700" fill="#667eea">Distributed Invalidation</text>
+  <text x="500" y="641" text-anchor="middle" font-size="14" fill="#444">DistributedCache · ICacheRefresher · IServerMessenger</text>
+  <text x="500" y="662" text-anchor="middle" font-size="12.5" fill="#8a8aa0">broadcasts refresh / remove to every server — invalidation, not shared storage</text>
+
+  <!-- Up arrows from invalidation to both caches -->
+  <line x1="265" y1="578" x2="265" y2="535" stroke="#9a9ab5" stroke-width="2"/>
+  <path d="M258 543 L272 543 L265 531 Z" fill="#9a9ab5"/>
+  <text x="277" y="560" font-size="11.5" fill="#8a8aa0">refresh / remove</text>
+
+  <line x1="735" y1="578" x2="735" y2="280" stroke="#9a9ab5" stroke-width="2"/>
+  <path d="M728 288 L742 288 L735 276 Z" fill="#9a9ab5"/>
+  <text x="747" y="440" font-size="11.5" fill="#8a8aa0">evict by tag</text>
+</svg>

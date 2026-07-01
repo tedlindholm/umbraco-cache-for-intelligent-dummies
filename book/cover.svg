@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="840" viewBox="0 0 600 840">
+  <defs>
+    <linearGradient id="coverGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5a623"/>
+      <stop offset="100%" stop-color="#e8911a"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#333"/>
+    </linearGradient>
+    <linearGradient id="umbracoGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5c6d0"/>
+      <stop offset="100%" stop-color="#e8718a"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="4" dy="4" stdDeviation="6" flood-opacity="0.4"/>
+    </filter>
+    <filter id="softShadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Book background -->
+  <rect width="600" height="840" fill="url(#coverGrad)" rx="6"/>
+
+  <!-- Series strap -->
+  <rect x="60" y="54" width="480" height="30" fill="#1a1a1a" rx="6" opacity="0.9"/>
+  <text x="300" y="74" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" letter-spacing="1" fill="#f5a623" font-weight="bold">INTELLIGENT DUMMIES SERIES</text>
+
+  <!-- Illustration area — cache brain/computer -->
+  <g transform="translate(300, 290)">
+
+    <!-- Monitor body -->
+    <rect x="-120" y="-130" width="240" height="160" rx="12" fill="#1a1a1a" filter="url(#shadow)"/>
+    <rect x="-110" y="-120" width="220" height="140" rx="8" fill="#0d1117"/>
+
+    <!-- Screen glow -->
+    <rect x="-105" y="-115" width="210" height="130" rx="6" fill="#0f1f2f"/>
+
+    <!-- Cache lines on screen — decorative code -->
+    <text x="-90" y="-95" font-family="monospace" font-size="11" fill="#58a6ff">// HybridCache — L1 / L2</text>
+    <text x="-90" y="-78" font-family="monospace" font-size="11" fill="#7ee787">cache<tspan fill="#e3b341">.GetOrCreate</tspan>(key,</text>
+    <text x="-90" y="-61" font-family="monospace" font-size="11" fill="#7ee787">  tags: [<tspan fill="#f97583">"content"</tspan>]);</text>
+    <text x="-90" y="-44" font-family="monospace" font-size="11" fill="#6a737d">// bust it when it matters</text>
+    <text x="-90" y="-27" font-family="monospace" font-size="11" fill="#58a6ff">cache<tspan fill="#e3b341">.EvictByTag</tspan>(</text>
+    <text x="-90" y="-10" font-family="monospace" font-size="11" fill="#f97583">  "content"</text>
+    <text x="-90" y="7" font-family="monospace" font-size="11" fill="#58a6ff">);</text>
+
+    <!-- Cursor blink -->
+    <rect x="-72" y="0" width="8" height="12" fill="#58a6ff" opacity="0.9"/>
+
+    <!-- Monitor stand -->
+    <rect x="-14" y="30" width="28" height="40" rx="4" fill="#2a2a2a"/>
+    <rect x="-50" y="68" width="100" height="10" rx="5" fill="#2a2a2a"/>
+
+  </g>
+
+  <!-- Main title -->
+  <text x="300" y="454" text-anchor="middle" font-family="'Palatino Linotype', 'Book Antiqua', Palatino, serif" font-size="46" fill="#1a1a1a" font-weight="bold" filter="url(#softShadow)">Umbraco Cache</text>
+  <text x="300" y="486" text-anchor="middle" font-family="'Palatino Linotype', 'Book Antiqua', Palatino, serif" font-size="24" fill="#1a1a1a">for</text>
+
+  <!-- "Intelligent Dummies" highlight band -->
+  <rect x="60" y="498" width="480" height="72" fill="#1a1a1a" rx="6"/>
+  <text x="300" y="546" text-anchor="middle" font-family="'Palatino Linotype', 'Book Antiqua', Palatino, serif" font-size="39" fill="#f5a623" font-weight="bold">Intelligent Dummies</text>
+
+  <!-- Divider -->
+  <rect x="60" y="584" width="480" height="3" fill="#1a1a1a" rx="2"/>
+
+  <!-- Subtitle bullet points -->
+  <text x="300" y="620" text-anchor="middle" font-family="Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="600">
+    <tspan x="300" dy="0">&#x2022; HybridCache, NuCache &amp; output caching explained</tspan>
+  </text>
+  <text x="300" y="644" text-anchor="middle" font-family="Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="600">&#x2022; Cache busting &amp; invalidation without the guesswork</text>
+  <text x="300" y="668" text-anchor="middle" font-family="Arial, sans-serif" font-size="14.5" fill="#1a1a1a" font-weight="600">&#x2022; Load balancing, tags, seeding &amp; stale data risk</text>
+
+</svg>
