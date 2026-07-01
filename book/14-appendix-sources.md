@@ -489,3 +489,19 @@ Useful interpretation for the book:
 - these repositories are field examples of derived surfaces, not evidence for Umbraco's internal cache implementation
 - the common theme is that search indexes, Delivery API indexes, headless previews, static front ends, and CDN/edge consumers need explicit refresh, rebuild, preview, webhook, or purge paths
 - the examples support the book's distinction between published-content cache, output cache, search/index projections, and browser/CDN/static edges
+
+### F11. Matt Brailsford — Introducing Umbraco AI Search
+
+- [Introducing Umbraco AI Search](https://mattbrailsford.dev/introducing-umbraco-ai-search) — Matt Brailsford, April 2026.
+
+`Umbraco.AI.Search` is a beta add-on that replaces keyword-based Examine/Lucene search with semantic vector search. The indexer implements `IIndexer` and `ISearcher` from the `Umbraco.Cms.Search` framework, making it a provider-agnostic implementation in the same architectural position as Kenn Jacobsen's Typesense, Elasticsearch, Algolia, and PostgreSQL providers.
+
+Key technical details relevant to Chapter 11:
+
+- at publish time, content is extracted, chunked, and converted to high-dimensional vectors via an embedding model
+- at query time the same model embeds the search phrase; cosine similarity then finds the nearest content vectors
+- the default storage backend is database-backed via EF Core; SQL Server 2025 uses native `VECTOR_DISTANCE()` functions, older versions fall back to .NET cosine similarity
+- the storage interface is designed to be swapped for external services (Qdrant, Pinecone, Azure AI Search)
+- culture-aware indexing, access-protection enforcement at query time, and AI agent integration are included
+
+Cited in Chapter 11 as a field example of the same "provider-agnostic index" architecture applied to a semantic/vector discovery model rather than keyword frequency — a different kind of index, not a different type of tool.

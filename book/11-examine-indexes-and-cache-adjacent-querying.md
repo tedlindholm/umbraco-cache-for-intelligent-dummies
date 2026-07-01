@@ -273,6 +273,16 @@ The linked posts fill in the same model from several angles:
 
 Taken together, these examples are a good beginner test: if the design conversation includes fields, facets, analysers, providers, index options, rebuilds, seed scripts, or webhook payloads, you are probably designing an index or projection, not simply adding a cache.
 
+## Field note: Matt Brailsford's Umbraco AI Search
+
+`Umbraco.AI.Search` (beta, April 2026) illustrates the same architecture as Kenn's providers but with a fundamentally different indexing model: semantic vector search instead of keyword matching.[^13-brailsford-ai-search]
+
+When content publishes, the indexer extracts text, chunks it, and converts each chunk into a high-dimensional vector via an embedding model. At query time the same model embeds the search phrase, then cosine similarity finds the nearest vectors. That means a query like "how to release my site" can surface a document titled "Deployment Guide" — something a keyword index would miss entirely.
+
+The storage backend ships as a database-backed EF Core implementation. SQL Server 2025 uses native `VECTOR_DISTANCE()` functions; older versions fall back to .NET cosine similarity. The storage interface is swappable for external services such as Qdrant, Pinecone, or Azure AI Search — the same provider-agnostic shape as Kenn's Typesense and Elasticsearch providers.
+
+This fits the chapter's decision rule without changing it. If the hard part is discovery across a large content set, reach for an index. Vector search is a different *kind* of index, not a different *type* of tool: the problem is still discovery, not remembering a small computed result.
+
 ## Example: adding a field to an index
 
 Kenn's tailored indexing article shows the sort of code that belongs in an index chapter rather than a cache chapter. A content indexer computes extra fields before content enters the search index:
@@ -353,3 +363,4 @@ If you want one clean sentence to reuse elsewhere, this is probably it:
 [^13-umbfyi-search]: See [F8](./14-appendix-sources.md#f8-umbfyi-cache-and-search-archive-trail), especially the entries for 15 January 2025, 3 September 2025, 10 September 2025, 17 September 2025, 27 May 2026, and 1 July 2026.
 [^13-umbfyi-index-ops]: See [F8](./14-appendix-sources.md#f8-umbfyi-cache-and-search-archive-trail), especially the entries for 7 August 2024 and 28 August 2024.
 [^13-kjac-search]: See [F10](./14-appendix-sources.md#f10-kenn-jacobsen-umbraco-repository-field-notes), especially the Umbraco Search providers, `NoCode.DeliveryApi`, `UmbracoSearchDemo`, and `UmbracoSearchInMemory`.
+[^13-brailsford-ai-search]: See [F11](./14-appendix-sources.md#f11-matt-brailsford-umbraco-ai-search).

@@ -6,6 +6,20 @@ It is written for intelligent beginners and keeps one idea front and centre:
 
 cache busting and invalidation matter at least as much as cache creation.
 
+## Reader Skill
+
+This repository also includes a reader-facing agent skill:
+
+- [umbraco-cache-for-intelligent-dummies](./skills/umbraco-cache-for-intelligent-dummies/SKILL.md)
+
+Install it with the `skills.sh` method:
+
+```bash
+npx skills add tedlindholm/umbraco-cache-for-intelligent-dummies
+```
+
+Use the skill when you want an AI agent to help debug real Umbraco cache symptoms: stale pages, stale published content, load-balanced mismatches, custom caches that do not clear, media-cache confusion, slow warm-up, or stale search/index results. The skill routes the agent to the smallest relevant part of the book and links heavily to GitHub chapters, official docs, and source so it can reason about the issue without blurring NuCache, Hybrid Cache, output cache, media cache, application cache, and distributed invalidation together.
+
 ## Scope
 
 - Primary focus: Umbraco 17.5.1 code and Umbraco 17.latest documentation.
