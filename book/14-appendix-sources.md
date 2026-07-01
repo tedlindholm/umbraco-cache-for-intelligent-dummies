@@ -436,3 +436,56 @@ Useful but broader sustainability/front-end context:
 - [Green Code: A Blueprint for Eco-Friendly Websites](https://24days.in/umbraco-cms/2023/green-code/) - sustainability, lazy loading, CDNs, MiniProfiler, and performance measurement.
 - [10 tips to make your Umbraco site more sustainable](https://24days.in/umbraco-cms/2025/sustainability-tips/) - CDN caching, Cloudflare-style full-page edge caching, image optimisation, static front ends, and scale-to-zero infrastructure.
 - [Turbo charging websites with PJAX](https://archive.24days.in/umbraco-cms/2015/turbo-charging-websites-with-pjax/) - partial-page loading as a bandwidth/perceived-performance pattern rather than a server cache implementation.
+
+### F10. Kenn Jacobsen Umbraco repository field notes
+
+Kenn Jacobsen's public repositories were checked on 1 July 2026 from [kjac on GitHub](https://github.com/kjac?tab=repositories). These are community/package/example sources rather than primary Umbraco CMS implementation sources. They are useful because Kenn works in the Umbraco ecosystem and several repositories show practical Delivery API, search, headless, indexing, preview, and static-front-end patterns.
+
+Repository profile details observed:
+
+- profile lists Kenn Jacobsen as an Umbraco CMS Developer associated with `@umbraco`
+- public repository count observed: 58
+- recent original repositories cluster around Umbraco Search, Delivery API, headless preview, static/headless examples, and search-provider experiments
+
+Most relevant repositories:
+
+- [NoCode.DeliveryApi](https://github.com/kjac/NoCode.DeliveryApi) - no-code/configuration package for Delivery API filters, sorters, CORS policies, and preview/published links. README note: after filter or sorter changes, newly created content sees the change immediately, but existing content must be republished or `DeliveryApiContentIndex` rebuilt from Examine Management.
+- [Kjac.SearchProvider.Typesense](https://github.com/kjac/Kjac.SearchProvider.Typesense) - alternative Umbraco Search provider for Typesense. README note: custom content indexes should use provider registration helpers, especially in load-balanced setups.
+- [Kjac.SearchProvider.Elasticsearch](https://github.com/kjac/Kjac.SearchProvider.Elasticsearch) - alternative Umbraco Search provider for Elasticsearch. README note: custom content indexes should use provider registration helpers, especially in load-balanced setups.
+- [Kjac.SearchProvider.Algolia](https://github.com/kjac/Kjac.SearchProvider.Algolia) - alternative Umbraco Search provider for Algolia.
+- [Kjac.SearchProvider.PostgreSql](https://github.com/kjac/Kjac.SearchProvider.PostgreSql) - alternative Umbraco Search provider for PostgreSQL. README note: functional provider, but not expected to match document/search engines such as Elasticsearch and Typesense on larger content sets; benchmark your solution.
+- [UmbracoSearchDemo](https://github.com/kjac/UmbracoSearchDemo) - demo site for trying out Umbraco Search.
+- [UmbracoSearchInMemory](https://github.com/kjac/UmbracoSearchInMemory) - example of running Umbraco Search in memory.
+- [Kjac.HeadlessPreview](https://github.com/kjac/Kjac.HeadlessPreview) - backoffice preview package for Umbraco and Delivery API consumers.
+- [UmbracoAzureCloudflare](https://github.com/kjac/UmbracoAzureCloudflare) - demo of hosting an Umbraco Delivery API in Azure and consuming it in Cloudflare Pages; links to posts about Jamstack/static-site use and editor preview for static websites.
+- [UmbracoMiniSearch](https://github.com/kjac/UmbracoMiniSearch) - Node.js/MiniSearch service using Umbraco webhooks to provide search-index content.
+- [UmbracoDeliveryApiRazor](https://github.com/kjac/UmbracoDeliveryApiRazor) - Delivery API rendered with Razor templates. README note: the Delivery API index must be rebuilt from Examine Management for the demo to work.
+
+Relevant linked articles from the repository sweep:
+
+- [So you want to cache all the things?](https://kjac.dev/posts/so-you-want-to-cache-all-the-things/) - explains Umbraco 15's shift from loading everything at boot to seeding selected content and loading the rest on demand; includes a background document-cache warm-up example and warns that broad warm-up can be memory and CPU intensive.
+- [Trying out the new Umbraco Search](https://kjac.dev/posts/trying-out-the-new-umbraco-search/) - introduces the new Umbraco Search alpha, including full-text search, filtering, faceting, sorting, languages, segments, protected documents, extension points, and multiple simultaneous search providers.
+- [Tailored indexing for Umbraco Search](https://kjac.dev/posts/tailored-indexing-for-umbraco-search/) - explains property value handlers, custom content indexers, and `IndexingNotification` as extension points for shaping index data.
+- [In-memory Umbraco Search](https://kjac.dev/posts/in-memory-umbraco-search/) - shows how to configure Umbraco Search/Examine to use in-memory indexes and warns about memory footprint, startup time, database pressure, and load-balanced multiplication of rebuild cost.
+- [Building a search service from scratch](https://kjac.dev/posts/building-a-search-service-from-scratch/) - builds a Node.js/MiniSearch service fed by Umbraco webhooks; publish events add or replace index documents, unpublish/delete events discard them, and the index is persisted to disk.
+- [Jamstack for free with Azure and Cloudflare](https://kjac.dev/posts/jamstack-for-free-with-azure-and-cloudflare/) - uses Umbraco Delivery API as a headless source for an Astro/Cloudflare Pages site; Cloudflare deploy hooks are triggered by Umbraco content-published webhooks.
+- [Content editor preview for static websites](https://kjac.dev/posts/content-editor-preview-for-static-websites/) - separates static production generation from a server-rendered preview environment that fetches Delivery API preview content with an API key and `Preview` header.
+
+Repository search details captured during the sweep:
+
+- GitHub code search for `"load balanced" user:kjac` returned relevant README hits in `Kjac.SearchProvider.Typesense` and `Kjac.SearchProvider.Elasticsearch`, plus an older `FormEditor` storage note about Lucene index storage in load-balanced/cloud environments.
+- GitHub code search for `"DeliveryApiContentIndex" user:kjac` returned README hits in `NoCode.DeliveryApi` and `UmbracoDeliveryApiRazor`, plus provider code references in the Typesense and Elasticsearch repositories.
+- Non-fork repository star ordering at the time of the sweep placed `FormEditor`, `NoCode.DeliveryApi`, `Kjac.HeadlessPreview`, `UmbracoSearchDemo`, `UmbracoAzureCloudflare`, and Delivery API/headless examples among the more visible original repositories.
+
+Broader repository inventory observed in the sweep:
+
+- Search, indexing, and provider work: `Examine` fork, `Kjac.SearchProvider.Typesense`, `Kjac.SearchProvider.PostgreSql`, `Kjac.SearchProvider.Algolia`, `Kjac.SearchProvider.Elasticsearch`, `UmbracoSearchInMemory`, `Kjac.SearchExtension.MediaToText`, `UmbracoSearchMediaAzureAiVision`, `UmbracoSearchDemo`, `UmbracoMiniSearch`, `UmbracoLunr`.
+- Delivery API, headless, preview, and static/front-end examples: `NoCode.DeliveryApi`, `Kjac.HeadlessPreview`, `UmbracoHeadlessPreview`, `UmbracoDeliveryApiSecureTokens`, `NextJsUmbracoExampleExtended`, `NoCode.HeadlessMode`, `UmbracoSpa`, `NextJsUmbracoExample`, `UmbracoDeliveryApiRazor`, `UmbracoDeliveryApiExtensions`, `UmbracoDeliveryApiCustomData`, `UmbracoAzureCloudflare`, `AstroUmbracoBlog`, `UmbracoDeliveryApiAuthDemo`, `DeliveryApiDataApplication`.
+- Backoffice, content, property-editor, and package examples: `PersonalisationGroupsAsSegments`, `UmbracoCustomPropertyValueFallback`, `UmbracoMemberGroupSegments`, `UmbracoCustomAuth`, `UmbracoManagementApiCleanStarterKit`, `UmbracoManagementApiClientCredentials`, `UmbracoBlockGridCG23`, `UmbracoBlockGridDemo`, `Our.Umbraco.ReusableContentPicker`, `Our.Umbraco.HelpfulEditors`, `tech-talk-vuhf-demo`, `FormEditor`, `Umbracian-Frontend-Editing`.
+- Forks, docs, and older/general repositories observed: `UmbracoDocs`, `Umbraco.Community.Site.Resources`, `next.js`, `schemastore`, `Dazinator.Extensions.FileProviders`, `Umbraco-CMS`, `CanConUmbrackathon`, `codegarden-2020-group-image`, `Docs`, `scriban`, `Archetype`, `awesome-umbraco`, `umbraco-nested-content`, `Umbraco-Core-Property-Value-Converters`, `testing-stuff`, `Stupid-Table-Plugin`.
+
+Useful interpretation for the book:
+
+- these repositories are field examples of derived surfaces, not evidence for Umbraco's internal cache implementation
+- the common theme is that search indexes, Delivery API indexes, headless previews, static front ends, and CDN/edge consumers need explicit refresh, rebuild, preview, webhook, or purge paths
+- the examples support the book's distinction between published-content cache, output cache, search/index projections, and browser/CDN/static edges

@@ -242,6 +242,80 @@ That is another reason not to call them "just a cache". A cache entry normally h
 
 The UMB.FYI archive points to a useful Examine field report from 2024: an Examine release addressed index-corruption problems for sites using `SyncedFileSystemDirectoryFactory`, added health checks for main and local indexes, and reduced rebuilding overhead in Azure-style environments.[^13-umbfyi-index-ops] The details belong to Examine rather than Umbraco's published-content cache, but the lesson fits this book perfectly: derived read models are only trustworthy when their refresh and repair paths are understood.
 
+## Field note: Kenn Jacobsen's search providers
+
+Kenn Jacobsen's recent public repositories make the index/cache distinction concrete in modern Umbraco terms.[^13-kjac-search]
+
+Several of them implement alternative providers for Umbraco Search:
+
+- `Kjac.SearchProvider.Typesense`
+- `Kjac.SearchProvider.Elasticsearch`
+- `Kjac.SearchProvider.Algolia`
+- `Kjac.SearchProvider.PostgreSql`
+
+Those names matter less than the shape of the architecture. The content still starts in Umbraco, but search is answered by a derived index owned by another provider. That provider may be a document search engine, a relational database, or a hosted search service. Either way, the index is no longer the published-content cache. It is a specialised read model built for discovery.
+
+Two details from the READMEs are especially useful for beginners:
+
+- the Typesense and Elasticsearch providers call out custom content-index registration for load-balanced setups
+- the PostgreSQL provider warns that it is functional but not a match for document/search engines on larger content sets, and recommends benchmarking
+
+That is the practical version of this chapter's rule. Indexes are not just faster dictionaries. They have provider choices, registration rules, rebuild paths, query costs, and operational trade-offs. If your feature is really a search problem, choose and operate an index deliberately. If your feature is just remembering one small computed answer, use a cache.
+
+`NoCode.DeliveryApi` adds one more useful example from the Delivery API side: after filter or sorter configuration changes, existing content must be republished or `DeliveryApiContentIndex` rebuilt. In other words, changing the query rules does not automatically rewrite every already-indexed projection. The refresh path is part of the feature, not an afterthought.
+
+The linked posts fill in the same model from several angles:
+
+- "Trying out the new Umbraco Search" describes search as full-text search, faceting, sorting, languages, segments, protected documents, extension points, and multiple simultaneous providers. That is much richer than a key/value cache.
+- "Tailored indexing for Umbraco Search" shows property value handlers, content indexers, and indexing notifications. Those are explicit places where a project chooses what shape the derived index should have.
+- "In-memory Umbraco Search" shows that Search can run on in-memory Examine indexes, but warns about increased memory footprint, prolonged startup, database reindexing pressure, and load-balanced multiplication of that cost.
+- "Building a search service from scratch" uses Umbraco webhooks to add, replace, or discard documents in a MiniSearch index, then persists that index to disk. That is a small, readable example of an index as an external projection with its own update and repair path.
+
+Taken together, these examples are a good beginner test: if the design conversation includes fields, facets, analysers, providers, index options, rebuilds, seed scripts, or webhook payloads, you are probably designing an index or projection, not simply adding a cache.
+
+## Example: adding a field to an index
+
+Kenn's tailored indexing article shows the sort of code that belongs in an index chapter rather than a cache chapter. A content indexer computes extra fields before content enters the search index:
+
+```csharp
+using Umbraco.Cms.Core.Models;
+using Umbraco.Cms.Search.Core.Models.Indexing;
+using Umbraco.Cms.Search.Core.Services.ContentIndexing;
+
+public class ProductCategoryContentIndexer : IContentIndexer
+{
+  public async Task<IEnumerable<IndexField>> GetIndexFieldsAsync(
+    IContentBase content,
+    string?[] cultures,
+    bool published,
+    CancellationToken cancellationToken)
+  {
+    if (content.ContentType.Alias != "product")
+    {
+      return [];
+    }
+
+    string[] categories = await FindProductCategoriesAsync(content.Key, cancellationToken);
+
+    return categories.Length == 0
+      ? []
+      :
+      [
+        new IndexField(
+          "category",
+          new IndexValue { Keywords = categories },
+          Culture: null,
+          Segment: null)
+      ];
+  }
+
+  private Task<string[]> FindProductCategoriesAsync(Guid productKey, CancellationToken cancellationToken)
+    => Task.FromResult<string[]>(["implement", "your", "mapping"]);
+}
+```
+
+That is not a cache entry. It is a deliberate read model. The project chooses that category should exist as an indexed keyword field, so later faceted queries can ask the search provider instead of traversing content and filtering in memory.
+
 ## In a nutshell
 
 If you want one clean sentence to reuse elsewhere, this is probably it:
@@ -270,6 +344,7 @@ If you want one clean sentence to reuse elsewhere, this is probably it:
   - [Hybrid Cache förändrar allt — Umbraco Kalaset slides (PDF)](https://www.umbracokalaset.se/media/ccvhwzvs/hybrid-cache-forandrar-allt.pdf)
   - [Examine ISearcher API](https://shazwazza.github.io/Examine/api/Examine.ISearcher.html)
   - [UMB.FYI archive](https://umb.fyi/archive)
+  - [Kenn Jacobsen's public Umbraco repository field notes](./14-appendix-sources.md#f10-kenn-jacobsen-umbraco-repository-field-notes)
 
 [^13-examine]: See [U15](./14-appendix-sources.md#u15-examine-overview), [U16](./14-appendix-sources.md#u16-examine-management), and [U17](./14-appendix-sources.md#u17-examine-isearcher-api).
 [^13-searchers]: See [U16](./14-appendix-sources.md#u16-examine-management) and [U17](./14-appendix-sources.md#u17-examine-isearcher-api).
@@ -277,3 +352,4 @@ If you want one clean sentence to reuse elsewhere, this is probably it:
 [^13-umbfyi]: See [F8](./14-appendix-sources.md#f8-umbfyi-cache-and-search-archive-trail), especially the entries for 27 November 2024, 10 June 2026, and 1 July 2026.
 [^13-umbfyi-search]: See [F8](./14-appendix-sources.md#f8-umbfyi-cache-and-search-archive-trail), especially the entries for 15 January 2025, 3 September 2025, 10 September 2025, 17 September 2025, 27 May 2026, and 1 July 2026.
 [^13-umbfyi-index-ops]: See [F8](./14-appendix-sources.md#f8-umbfyi-cache-and-search-archive-trail), especially the entries for 7 August 2024 and 28 August 2024.
+[^13-kjac-search]: See [F10](./14-appendix-sources.md#f10-kenn-jacobsen-umbraco-repository-field-notes), especially the Umbraco Search providers, `NoCode.DeliveryApi`, `UmbracoSearchDemo`, and `UmbracoSearchInMemory`.

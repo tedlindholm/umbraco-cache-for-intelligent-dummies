@@ -209,6 +209,64 @@ Controls what creates separate cache entries, for example:
 - custom cookies
 - culture markers
 
+## Example: a custom output-cache tag
+
+The useful pattern is a pair: one provider adds a tag when a response is cached, and another provider evicts the same tag when a related content change happens.
+
+Imagine the homepage renders a latest-news block. The homepage should be evicted when any `newsArticle` changes, even though the homepage itself was not published.
+
+```csharp
+using Umbraco.Cms.Core.Cache;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Core.Composing;
+using Umbraco.Cms.Core.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+
+public class LatestNewsOutputCacheTagProvider : IWebsiteOutputCacheTagProvider
+{
+  public IEnumerable<string> GetTags(IPublishedContent content)
+  {
+    if (content.ContentType.Alias == "home")
+    {
+      yield return "latest-news";
+    }
+  }
+}
+
+public class LatestNewsOutputCacheEvictionProvider : IWebsiteOutputCacheEvictionProvider
+{
+  private readonly IContentService _contentService;
+
+  public LatestNewsOutputCacheEvictionProvider(IContentService contentService)
+    => _contentService = contentService;
+
+  public Task<IEnumerable<string>> GetAdditionalEvictionTagsAsync(
+    OutputCacheContentChangedContext context,
+    CancellationToken cancellationToken = default)
+  {
+    var changedContent = _contentService.GetById(context.ContentId);
+
+    IEnumerable<string> tags = changedContent?.ContentType.Alias == "newsArticle"
+      ? ["latest-news"]
+      : [];
+
+    return Task.FromResult(tags);
+  }
+}
+
+public class LatestNewsOutputCacheComposer : IComposer
+{
+  public void Compose(IUmbracoBuilder builder)
+  {
+    builder.Services.AddSingleton<IWebsiteOutputCacheTagProvider, LatestNewsOutputCacheTagProvider>();
+    builder.Services.AddSingleton<IWebsiteOutputCacheEvictionProvider, LatestNewsOutputCacheEvictionProvider>();
+  }
+}
+```
+
+The important idea is not the tag name. It is that cached output should be tagged with the dependencies it actually renders, then evicted by those same dependency tags when the source changes.
+
 ## Debugging tips
 
 The docs recommend enabling debug logging for:

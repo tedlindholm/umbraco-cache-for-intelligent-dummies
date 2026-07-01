@@ -51,6 +51,43 @@ So the cache fill logic becomes:
 - if key does not exist, fetch from `ITagQuery`
 - store and return the result
 
+In code, the fill side can be as small as this:
+
+```csharp
+using Umbraco.Cms.Core.Cache;
+using Umbraco.Cms.Core.Models;
+using Umbraco.Cms.Core.PublishedCache;
+using Umbraco.Extensions;
+
+public class BlogTagCache
+{
+    private const string CacheKey = "blogTags";
+    private readonly AppCaches _appCaches;
+    private readonly ITagQuery _tagQuery;
+
+    public BlogTagCache(AppCaches appCaches, ITagQuery tagQuery)
+    {
+        _appCaches = appCaches;
+        _tagQuery = tagQuery;
+    }
+
+    public IReadOnlyCollection<TagModel> GetBlogTags()
+        => _appCaches.RuntimeCache.GetCacheItem(
+            CacheKey,
+            () => _tagQuery
+                .GetAllContentTags("blog")
+                .OfType<TagModel>()
+                .ToArray(),
+            TimeSpan.FromMinutes(30))
+        ?? [];
+
+    public void ClearBlogTags()
+        => _appCaches.RuntimeCache.ClearByKey(CacheKey);
+}
+```
+
+That is the smallest honest cache shape: one stable key, one source query, one fill function, and one explicit clear method.
+
 ## The bust rule
 
 The example then adds a notification handler for:[^07-publish]
@@ -66,6 +103,51 @@ That means:
 - publish blog post
 - clear `blogTags`
 - next request repopulates from source
+
+The bust side is a notification handler:
+
+```csharp
+using Umbraco.Cms.Core.Events;
+using Umbraco.Cms.Core.Notifications;
+
+public class BlogTagCacheInvalidationHandler
+    : INotificationHandler<ContentPublishedNotification>
+{
+    private readonly BlogTagCache _blogTagCache;
+
+    public BlogTagCacheInvalidationHandler(BlogTagCache blogTagCache)
+        => _blogTagCache = blogTagCache;
+
+    public void Handle(ContentPublishedNotification notification)
+    {
+        if (notification.PublishedEntities.Any(content =>
+                content.ContentType.Alias == "blogPost"))
+        {
+            _blogTagCache.ClearBlogTags();
+        }
+    }
+}
+```
+
+Register the service and handler during composition:
+
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using Umbraco.Cms.Core.Composing;
+using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Core.Notifications;
+
+public class BlogTagCacheComposer : IComposer
+{
+    public void Compose(IUmbracoBuilder builder)
+    {
+        builder.Services.AddSingleton<BlogTagCache>();
+        builder.AddNotificationHandler<
+            ContentPublishedNotification,
+            BlogTagCacheInvalidationHandler>();
+    }
+}
+```
 
 <div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 

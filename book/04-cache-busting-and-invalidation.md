@@ -257,6 +257,33 @@ The 2015 CDN article makes the same point at a larger scale. A CDN may cache sta
 
 That is why this book keeps separating layers. Umbraco can broadcast cache-refresher notifications to its own servers. It cannot magically revoke a browser cache entry, a CDN object, or a static HTML file unless your HTTP headers, URLs, webhook, or CDN purge path carry that instruction too.
 
+## Field note: Kenn Jacobsen's headless and Delivery API examples
+
+Kenn Jacobsen's public Umbraco repositories are useful field examples because they live at the edge where Umbraco content becomes something else: a Delivery API response, a search index, a headless preview, a static front end, or a Cloudflare-hosted consumer.[^04-kjac-edge]
+
+The repeated lesson is the same as the 24days examples, but in newer Umbraco language:
+
+- a Delivery API consumer does not automatically know why a content item changed
+- a search index is a derived projection that has its own rebuild path
+- a static or headless front end needs a preview, rebuild, webhook, purge, or refetch path
+- a CDN or edge host follows its own freshness rules unless you explicitly connect it to the publishing flow
+
+For this book, the most important example is `NoCode.DeliveryApi`. Its README says that when a Delivery API filter or sorter is created or updated, the change applies immediately for newly created content, but existing content must be republished or the `DeliveryApiContentIndex` rebuilt from Examine Management. That is cache-busting in plain clothes: the configuration changed, but the already-built projection did not automatically rewrite itself.
+
+`UmbracoAzureCloudflare` points in the same direction from the front-end side. It demonstrates an Umbraco Delivery API in Azure consumed by Cloudflare Pages, with related writing about static sites and editor preview. Once the published content has left Umbraco and become a static/headless experience, the hard question is no longer only "did Umbraco refresh its published-content cache?" It is also "who tells the consumer, edge, or generated output that the old answer is no longer trustworthy?"
+
+The linked article makes that instruction explicit: Cloudflare Pages can expose a deploy hook, Umbraco can call it from a content-published webhook, and the static site is rebuilt after publish. That is not Umbraco's in-process cache refresher crossing the internet. It is a deliberately connected webhook-to-build pipeline.
+
+The preview follow-up shows the other half of the story. Pure static-site generation is a poor fit for preview because editors need saved-but-unpublished changes immediately, not after a full production rebuild. Kenn's example uses a separate Cloudflare preview environment with server-side rendering, Delivery API preview headers, an API key, and environment-specific configuration. Preview freshness is therefore handled as a dynamic request-time path, while production remains statically generated.
+
+`UmbracoMiniSearch` gives the same lesson for search. Umbraco webhooks push publish, unpublish, and delete events to a Node.js search service; the service updates a MiniSearch index and persists it to disk. The article even calls out two cache-adjacent risks: deferred disk writes improve bulk-update performance but can lose recent index changes if the service crashes, and the index must be seeded when webhooks have not replayed all historical content.
+
+So the beginner rule becomes broader:
+
+> Every derived surface needs its own invalidation story.
+
+That surface might be Umbraco's output cache, an Examine index, `DeliveryApiContentIndex`, a Typesense collection, a Cloudflare Pages build, or a preview package. The implementation differs, but the trust problem is the same.
+
 ## Why distributed invalidation matters more than distributed storage
 
 This is the key production lesson.
@@ -278,6 +305,99 @@ They ensure:
 - the refresh instruction is broadcast
 - each server runs the refresher locally
 - each server clears its own stale state
+
+The custom-code shape is the same. Keep the cached value local, but broadcast the instruction that tells every node to clear its own copy:
+
+```csharp
+using Umbraco.Cms.Core.Cache;
+using Umbraco.Extensions;
+
+public sealed record ProductPriceProjection(Guid ProductKey, decimal Price);
+
+public class ProductPriceProjectionCache
+{
+  private const string KeyPrefix = "product-price-projection-";
+  private readonly AppCaches _appCaches;
+
+  public ProductPriceProjectionCache(AppCaches appCaches)
+    => _appCaches = appCaches;
+
+  public ProductPriceProjection? Get(Guid productKey)
+    => _appCaches.RuntimeCache.GetCacheItem<ProductPriceProjection>(
+      KeyPrefix + productKey,
+      () => BuildProjection(productKey));
+
+  public void Clear(Guid productKey)
+    => _appCaches.RuntimeCache.ClearByKey(KeyPrefix + productKey);
+
+  private ProductPriceProjection? BuildProjection(Guid productKey)
+  {
+    // Read the real source of truth here: content, Commerce, ERP, or database.
+    return new ProductPriceProjection(productKey, Price: 0m);
+  }
+}
+```
+
+The missing production piece is not another dictionary. It is a custom `ICacheRefresher` that clears the local value, plus a publisher-side call through `DistributedCache` so every server receives the same clear instruction.[^04-custom-refresher]
+
+```csharp
+using Umbraco.Cms.Core.Cache;
+using Umbraco.Cms.Core.Events;
+using Umbraco.Cms.Core.Notifications;
+using Umbraco.Cms.Core.Sync;
+
+public class ProductPriceProjectionCacheRefresherNotification
+  : CacheRefresherNotification
+{
+  public ProductPriceProjectionCacheRefresherNotification(
+    object messageObject,
+    MessageType messageType)
+    : base(messageObject, messageType)
+  {
+  }
+}
+
+public class ProductPriceProjectionCacheRefresher
+  : CacheRefresherBase<ProductPriceProjectionCacheRefresherNotification>
+{
+  public static readonly Guid UniqueId = Guid.Parse("f55fd719-18ec-4d47-8f1f-cc29f32508f7");
+  private readonly ProductPriceProjectionCache _cache;
+
+  public ProductPriceProjectionCacheRefresher(
+    AppCaches appCaches,
+    IEventAggregator eventAggregator,
+    ICacheRefresherNotificationFactory factory,
+    ProductPriceProjectionCache cache)
+    : base(appCaches, eventAggregator, factory)
+    => _cache = cache;
+
+  public override Guid RefresherUniqueId => UniqueId;
+  public override string Name => "Product Price Projection Cache Refresher";
+
+  public override void Refresh(Guid id)
+  {
+    _cache.Clear(id);
+    base.Refresh(id);
+  }
+}
+```
+
+Then the code that knows a product price changed does not try to clear every server itself. It broadcasts the refresher instruction:
+
+```csharp
+public class ProductPriceChangedHandler
+{
+  private readonly DistributedCache _distributedCache;
+
+  public ProductPriceChangedHandler(DistributedCache distributedCache)
+    => _distributedCache = distributedCache;
+
+  public void Handle(Guid productKey)
+    => _distributedCache.Refresh(ProductPriceProjectionCacheRefresher.UniqueId, productKey);
+}
+```
+
+That is the leap from "works on my node" to "works on the cluster".
 
 This is why cache busting is more important than cache creation.
 
@@ -386,3 +506,5 @@ Umbraco caching works because it is aggressive about invalidation *choreography*
 [^04-worked-trace]: See [C7](./14-appendix-sources.md#c7-core-cache-types-and-refreshers), [C6](./14-appendix-sources.md#c6-website-output-cache-implementation), and [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main). The GUID values in the trace are illustrative sample keys, not constants from Umbraco.
 [^04-field-instructions]: See [F7 in the appendix](./14-appendix-sources.md#f7-distributed-cache-field-reports-v17).
 [^04-24days-edge]: See [F9 in the appendix](./14-appendix-sources.md#f9-24days-caching-field-notes) for the 24days cache-busting and CDN field notes. These articles are historical community sources, not current v17 implementation sources.
+[^04-kjac-edge]: See [F10 in the appendix](./14-appendix-sources.md#f10-kenn-jacobsen-umbraco-repository-field-notes). These repositories are community and package field examples, not primary Umbraco CMS implementation sources.
+[^04-custom-refresher]: See [C7](./14-appendix-sources.md#c7-core-cache-types-and-refreshers), [C11](./14-appendix-sources.md#c11-icacherefresher-interface-path-v17), and [C12](./14-appendix-sources.md#c12-distributedcache-implementation-path-v17).

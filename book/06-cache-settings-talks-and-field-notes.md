@@ -340,6 +340,66 @@ It punishes:
 - pretending startup and memory are free
 - ignoring cache-busting complexity under concurrent refresh
 
+Kenn Jacobsen's article "So you want to cache all the things?" is a useful companion field note because it says the quiet part loudly: loading every document into cache is usually a bad strategy.[^06-kjac-cache-all]
+
+The article explains that Umbraco 15 changed the old habit of loading everything at boot. The newer model seeds a subset of documents and media at startup, then loads the rest on demand. If someone still wants to warm the whole document tree, Kenn shows a background warm-up pattern that runs after application start, walks root documents and descendants, and calls `IDocumentCacheService.GetByKeyAsync()` to force entries into cache.
+
+But the warning matters more than the snippet:
+
+- warming everything can be memory and CPU intensive
+- forcing all content through startup seeding can bring back exaggerated boot times
+- background warm-up keeps the site responsive, but it may still be slower until warm-up finishes
+- in his test setup, an uncached document added only about 10-15 ms compared with a cached document, so broad warm-up was not automatically worth it
+
+That is exactly the operational shape this chapter is trying to teach. Seeding is a scalpel, not a panic button. Use it for content that is actually hot, then measure whether warming more content changes the user experience enough to justify the cost.
+
+A cautious background warm-up has this shape:
+
+```csharp
+using Umbraco.Cms.Core.Events;
+using Umbraco.Cms.Core.HostedServices;
+using Umbraco.Cms.Core.Notifications;
+using Umbraco.Cms.Core.PublishedCache;
+using Umbraco.Cms.Core.Services.Navigation;
+
+public class DocumentCacheWarmUpHandler
+  : INotificationHandler<UmbracoApplicationStartedNotification>
+{
+  private readonly IBackgroundTaskQueue _backgroundTaskQueue;
+  private readonly IDocumentNavigationQueryService _navigationQueryService;
+  private readonly IDocumentCacheService _documentCacheService;
+
+  public DocumentCacheWarmUpHandler(
+    IBackgroundTaskQueue backgroundTaskQueue,
+    IDocumentNavigationQueryService navigationQueryService,
+    IDocumentCacheService documentCacheService)
+  {
+    _backgroundTaskQueue = backgroundTaskQueue;
+    _navigationQueryService = navigationQueryService;
+    _documentCacheService = documentCacheService;
+  }
+
+  public void Handle(UmbracoApplicationStartedNotification notification)
+    => _backgroundTaskQueue.QueueBackgroundWorkItem(WarmRootDocumentsAsync);
+
+  private async Task WarmRootDocumentsAsync(CancellationToken cancellationToken)
+  {
+    if (_navigationQueryService.TryGetRootKeys(out IEnumerable<Guid> rootKeys) is false)
+    {
+      return;
+    }
+
+    foreach (Guid rootKey in rootKeys)
+    {
+      cancellationToken.ThrowIfCancellationRequested();
+      await _documentCacheService.GetByKeyAsync(rootKey, preview: false);
+    }
+  }
+}
+```
+
+This intentionally warms only root documents. Expanding it to descendants is a project decision, not a default goal.
+
 ## Upgrade troubleshooting field note
 
 One practical lesson from early Umbraco 16 upgrade reports is that severe post-upgrade "slowness" is not always a straightforward cache-tuning problem.
@@ -423,3 +483,4 @@ quadrantChart
 [^06-settings-reference]: See [U3](./14-appendix-sources.md#u3-website-output-caching), [U4](./14-appendix-sources.md#u4-cache-settings-for-umbraco-17), [U5](./14-appendix-sources.md#u5-current-cache-settings-page), [M6](./14-appendix-sources.md#m6-hybridcacheoptions), and [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main).
 [^06-rebuildmode]: See [U5](./14-appendix-sources.md#u5-current-cache-settings-page), [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main), and [C5](./14-appendix-sources.md#c5-claudemd-for-umbracopublishedcachehybridcache).
 [^06-upgrade]: See [F1](./14-appendix-sources.md#f1-website-significantly-slower-since-upgrading-from-v13-to-v16), [F2](./14-appendix-sources.md#f2-failed-to-acquire-write-lock-for-id--333), and [F3](./14-appendix-sources.md#f3-umbracooauth_completecode-stuck-after-umbracologout).
+[^06-kjac-cache-all]: See [F10](./14-appendix-sources.md#f10-kenn-jacobsen-umbraco-repository-field-notes), especially "So you want to cache all the things?".
