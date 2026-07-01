@@ -41,6 +41,8 @@ You must turn it on in `appsettings.json`:
 
 ## How the request flows
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 sequenceDiagram
     participant U as User
@@ -60,6 +62,8 @@ sequenceDiagram
     end
 ```
 
+</div>
+
 ## What makes a request cacheable in v17
 
 The main decision logic lives in `WebsiteOutputCachePolicy` plus `DefaultWebsiteOutputCacheRequestFilter`.
@@ -72,7 +76,7 @@ By default, Umbraco refuses to output-cache:[^02-rules]
 - responses with `Set-Cookie`
 - responses marked `Cache-Control: no-store`
 
-> **Gotcha — forms quietly opt out.** That last rule bites more often than you would expect. A page using `@Html.AntiForgeryToken()` usually becomes non-cacheable, because the token sets a cookie and responses carrying `Set-Cookie` are refused. Form-heavy pages need special care for exactly this reason.
+> **Gotcha — forms quietly opt out.** That last rule bites more often than you would expect. A page using `@Html.AntiForgeryToken()` usually becomes non-cacheable because anti-forgery sets `Cache-Control: no-store`; first requests may also be blocked if the response carries `Set-Cookie`. Form-heavy pages need special care for exactly this reason.
 
 ## Default tags Umbraco adds
 
@@ -138,6 +142,8 @@ In other words:
 - but something it depends on changed
 - so Umbraco still invalidates the page cache
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart LR
     A["Page: /team"] -->|references| B["Member photo / media item"]
@@ -145,6 +151,8 @@ flowchart LR
     C --> D["Media cache refresher notification"]
     D --> E["Related pages evicted from website output cache"]
 ```
+
+</div>
 
 ## Load balancing story
 
@@ -232,7 +240,7 @@ Also check the `Age` response header on cached responses.
 
 ## What changes in 18
 
-In Umbraco 18, website output caching gains explicit element-based eviction support via `WebsiteElementOutputCacheEvictionHandler`.
+In Umbraco 18, website output caching gains explicit element-based eviction support via `WebsiteElementOutputCacheEvictionHandler`, with relation-based page eviction and full-cache eviction for element refresh-all cases.
 
 That is a clue that block and element dependencies are becoming more first-class in the cache invalidation model.
 
@@ -268,5 +276,5 @@ That is a clue that block and element dependencies are becoming more first-class
   - `umbraco-v17/src/Umbraco.Web.Website/Caching/RelationOutputCacheEvictionHandlerBase.cs`
   - `umbraco-v18/src/Umbraco.Web.Website/Caching/WebsiteElementOutputCacheEvictionHandler.cs`
 
-[^02-output]: See [U3 in the appendix](./10-appendix-sources.md#u3-website-output-caching) and [C6](./10-appendix-sources.md#c6-website-output-cache-implementation).
-[^02-rules]: See [U3](./10-appendix-sources.md#u3-website-output-caching) and [C6](./10-appendix-sources.md#c6-website-output-cache-implementation).
+[^02-output]: See [U3 in the appendix](./14-appendix-sources.md#u3-website-output-caching) and [C6](./14-appendix-sources.md#c6-website-output-cache-implementation).
+[^02-rules]: See [U3](./14-appendix-sources.md#u3-website-output-caching) and [C6](./14-appendix-sources.md#c6-website-output-cache-implementation).

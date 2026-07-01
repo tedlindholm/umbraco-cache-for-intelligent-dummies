@@ -10,6 +10,8 @@ The published content cache is easiest to understand as a layered lookup path: l
 
 ## First: separate three layers in your head
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart TD
     A["Your code or Razor asks for published content"] --> B["Published object fast cache in process"]
@@ -18,6 +20,8 @@ flowchart TD
     D --> C
     C --> B
 ```
+
+</div>
 
 ### Layer 1. Materialized published objects
 
@@ -40,11 +44,13 @@ This can use:
 
 If the `HybridCache` misses, Umbraco falls back to its database-backed cache repository and then repopulates the cache.[^03-db]
 
-So even though old blog posts still say "NuCache", in v17 the living implementation is now centred around `HybridCache`.
+So even though old blog posts still say "NuCache", the published cache was rebuilt on Microsoft's `HybridCache` back in Umbraco 15. v17 simply continues that architecture — there is no separate NuCache engine to switch back to.
 
 ## The "split the problem" model
 
 One of the most helpful ideas from the HybridCache presentation is that Umbraco no longer treats all published concerns the same way.
+
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
 ```mermaid
 flowchart LR
@@ -56,6 +62,8 @@ flowchart LR
     E --> G["L2 distributed cache"]
     E --> H["Database-backed cache source"]
 ```
+
+</div>
 
 ## What Umbraco registers in v17
 
@@ -108,13 +116,15 @@ The built-in seed providers include:
 - breadth-first traversal of document tree
 - breadth-first traversal of media tree
 
-In newer docs and code direction, element seeding joins that list too.
+In the v18 and `main` source code, element seeding joins that list too.
 
-The union of seed keys is cached at startup.
+The seed-key set is memoised by the cache service after first calculation and is normally filled during startup seeding.
 
 Important consequence:
 
-- if your seed logic is dynamic, new matching content is not considered seeded until restart
+- if your seed logic is dynamic, new matching content will not join that memoised seed set until the seed keys are reset or the application restarts
+
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
 ```mermaid
 flowchart TD
@@ -124,6 +134,8 @@ flowchart TD
     E["New content created later"] -.-> F["Not in cached seed set yet"]
     F -.-> G["Will only join seed set after restart"]
 ```
+
+</div>
 
 ## How a document lookup works in v17
 
@@ -148,7 +160,7 @@ That is one reason the future architecture deserves its own chapter.
 One especially careful bit:
 
 - if a content item exists but its published ancestor path currently fails validation, Umbraco avoids caching that null result in the distributed cache because it may be a transient rebuild race
-- in newer code, there is also a cache-generation guard to stop stale in-flight reads from writing old data back over freshly refreshed entries
+- in the `main` code, there is also a cache-generation guard to stop stale in-flight reads from writing old data back over freshly refreshed entries
 
 That is the kind of detail that explains why the implementation is more subtle than "just cache by key".
 
@@ -158,7 +170,9 @@ The deck makes this change very concrete: traversal and filtering patterns that 
 
 That does not always mean "add another cache".
 
-Sometimes it means "use an index instead of traversal", which is exactly where Examine fits. See [12 - Examine, Indexes, and Cache-Adjacent Querying](./12-examine-indexes-and-cache-adjacent-querying.md) for the full comparison.
+Sometimes it means "use an index instead of traversal", which is exactly where Examine fits. See [11 - Examine, Indexes, and Cache-Adjacent Querying](./11-examine-indexes-and-cache-adjacent-querying.md) for the full comparison.
+
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
 ```mermaid
 flowchart TD
@@ -168,6 +182,8 @@ flowchart TD
     D --> E["More cache lookups"]
     E --> F["Possible L2 or database work"]
 ```
+
+</div>
 
 ## Invalidation after content changes
 
@@ -196,6 +212,8 @@ That means:
 - servers B, C, and D also run the matching cache refresher
 - each server clears or refreshes its own local caches
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 sequenceDiagram
     participant A as Server A
@@ -211,6 +229,8 @@ sequenceDiagram
     B->>B: Clear local caches
     C->>C: Clear local caches
 ```
+
+</div>
 
 This is why the docs say:
 
@@ -262,9 +282,11 @@ The HybridCache presentation material gives a useful warning for beginners:
 - lower memory usage and faster startup are wins
 - but tree traversal and broad in-memory filtering patterns can become more expensive
 
-> **Gotcha — traversal is not free any more.** Code like `.Children().Where(...)` deserves more suspicion than it did in the old "keep everything hot" world: walking the tree can now hydrate and cache every node you touch. When the hard part is *finding* items, prefer an index (see [Chapter 12](./12-examine-indexes-and-cache-adjacent-querying.md)); when it is *recomputing* a small result, prefer `RuntimeCache`.
+> **Gotcha — traversal is not free any more.** Code like `.Children().Where(...)` deserves more suspicion than it did in the old "keep everything hot" world: walking the tree can now hydrate and cache every node you touch. When the hard part is *finding* items, prefer an index (see [Chapter 11](./11-examine-indexes-and-cache-adjacent-querying.md)); when it is *recomputing* a small result, prefer `RuntimeCache`.
 
 ## Cost moved, not vanished
+
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
 ```mermaid
 quadrantChart
@@ -280,6 +302,8 @@ quadrantChart
     "Cold traversal with references": [0.35, 0.8]
     "Single content lookup": [0.8, 0.25]
 ```
+
+</div>
 
 ## Practical checklist
 
@@ -306,7 +330,7 @@ quadrantChart
 ### Where to go next
 
 - [Chapter 4 - Cache Busting and Invalidation](./04-cache-busting-and-invalidation.md) — the invalidation choreography, in full.
-- [Chapter 12 - Examine, Indexes, and Cache-Adjacent Querying](./12-examine-indexes-and-cache-adjacent-querying.md) — when *not* to solve a problem with a cache.
+- [Chapter 11 - Examine, Indexes, and Cache-Adjacent Querying](./11-examine-indexes-and-cache-adjacent-querying.md) — when *not* to solve a problem with a cache.
 - [Chapter 9 - Future Hybrid Cache Architecture](./09-future-hybrid-cache-architecture.md) — where this architecture is heading.
 
 ## Sources
@@ -329,7 +353,7 @@ quadrantChart
   - `umbraco-v17/src/Umbraco.Core/Cache/Refreshers/Implement/ContentCacheRefresher.cs`
   - `umbraco-v18/src/Umbraco.PublishedCache.HybridCache/Services/ElementCacheService.cs`
 
-[^03-l0]: See [C1](./10-appendix-sources.md#c1-umbraco-17-source-checkout) and [C4](./10-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main) in the appendix.
-[^03-hybrid]: See [M2](./10-appendix-sources.md#m2-aspnet-core-hybridcache) and [C1](./10-appendix-sources.md#c1-umbraco-17-source-checkout) in the appendix.
-[^03-db]: See [C4](./10-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main) and [C5](./10-appendix-sources.md#c5-claudemd-for-umbracopublishedcachehybridcache) in the appendix.
-[^03-payload]: See [M6](./10-appendix-sources.md#m6-hybridcacheoptions), [U4](./10-appendix-sources.md#u4-cache-settings-for-umbraco-17), and [T1](./10-appendix-sources.md#t1-releasing-hybridcache-into-the-wild-with-umbraco) in the appendix.
+[^03-l0]: See [C1](./14-appendix-sources.md#c1-umbraco-17-source-checkout) and [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main) in the appendix.
+[^03-hybrid]: See [M2](./14-appendix-sources.md#m2-aspnet-core-hybridcache) and [C1](./14-appendix-sources.md#c1-umbraco-17-source-checkout) in the appendix.
+[^03-db]: See [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main) and [C5](./14-appendix-sources.md#c5-claudemd-for-umbracopublishedcachehybridcache) in the appendix.
+[^03-payload]: See [M6](./14-appendix-sources.md#m6-hybridcacheoptions), [U4](./14-appendix-sources.md#u4-cache-settings-for-umbraco-17), and [T1](./14-appendix-sources.md#t1-releasing-hybridcache-into-the-wild-with-umbraco) in the appendix.

@@ -1,4 +1,4 @@
-# 12. Examine, Indexes, and Cache-Adjacent Querying
+# 11. Examine, Indexes, and Cache-Adjacent Querying
 
 > **Start here.** This is the "when NOT to reach for a cache" chapter. Examine is a search index, not a cache — but it sits close enough to be worth a chapter, because sometimes the honest fix for a slow feature is a better way to *find* things rather than another layer to *remember* things. You will learn where the line sits, why broad tree traversal is costly in the HybridCache world, and how to pick between an index, a cache, and the published-content APIs.
 
@@ -29,6 +29,14 @@ So this chapter is really about choosing the right tool:
 - published-content cache for published-content retrieval
 - `RuntimeCache` for your own small computed results
 - `Examine` for index-shaped query problems
+
+The UMB.FYI archive is useful supporting evidence for how this distinction has been moving in the community conversation. Its cache and search entries point to four related trends: the v15+ shift away from loading all published content into memory at boot, the HybridCache warning that broad traversal now has a more visible cost, the arrival of `Umbraco.Cms.Search` as a search abstraction, and Umbraco 19's planned replacement of core Examine search handling with Umbraco Search.[^13-umbfyi]
+
+That does not make Examine irrelevant. It makes the vocabulary more precise:
+
+- `Examine` remains an important index technology and provider.
+- `Umbraco Search` is the newer abstraction around search behaviour.
+- search providers and indexes solve discovery-shaped problems, not general-purpose caching problems.
 
 ## The shortest possible distinction
 
@@ -68,7 +76,7 @@ Even though Examine is not Umbraco's general-purpose cache, it does share some c
 
 - it stores derived data rather than the original source object
 - it is built so repeated queries become cheap
-- it must be refreshed or rebuilt when underlying content changes
+- the index, and in Umbraco Search also index-value cache data, must be refreshed or rebuilt when underlying content changes
 
 That is why it is fair to call it cache-adjacent.
 
@@ -116,6 +124,8 @@ but:
 
 Examples Markus calls out include cases like sitemap generation and content selection patterns where a query can be expressed more naturally as indexed retrieval than as full traversal and filtering.[^13-talk]
 
+The same theme appears in the UMB.FYI trail around Umbraco Search: the community material keeps returning to filtering, faceting, sorting, provider choice, and tailored indexing. Those are index-shaped concerns. They are adjacent to caching because both can reduce repeated work, but they are not the same kind of tool.[^13-umbfyi-search]
+
 ## A practical decision rule
 
 Ask this question first:
@@ -138,22 +148,26 @@ If the answer is "find the right items", an index is often right.
 
 ## Selection graph
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart TD
   A["Need data for a feature"] --> B{"Do you already know the exact item(s)?"}
   B -- "Yes" --> C{"Need to avoid recomputing a small result?"}
   C -- "Yes" --> D["Use RuntimeCache + invalidation"]
-  C -- "No" --> E["Use published-content APIs"]
+  C -- "No" --> E["Use published-content APIs for the current published representation"]
   B -- "No" --> F{"Need filtering/search across many items?"}
   F -- "Yes" --> G["Use Examine index"]
   F -- "No" --> E
 ```
 
+</div>
+
 The important shape of the decision is this:
 
 - caches remember answers
 - indexes help you find answers
-- published-content APIs retrieve the source of truth
+- published-content APIs retrieve Umbraco's current published representation; the database remains the underlying persistence source
 
 ## Troubleshooting checklist
 
@@ -174,6 +188,8 @@ That checklist is the practical version of the chapter's main message:
 
 ## Decision chart
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart TD
     A["I need data for a feature"] --> B{"What kind of problem is it?"}
@@ -184,6 +200,8 @@ flowchart TD
     C --> G["Optionally combine with output caching"]
     D --> H["Add invalidation when source changes"]
 ```
+
+  </div>
 
 ## Good examples for `RuntimeCache`
 
@@ -200,6 +218,8 @@ These are all cases where your code already knows what data shape it wants and j
 - filtered listings
 - sitemap-like discovery workloads
 - "find all matching content" queries across a large set
+- faceted listings where the index stores fields specifically shaped for filtering
+- provider-backed search where Examine, Elasticsearch, Azure AI Search, or another provider answers the query
 
 These are cases where the main cost is not recomputing one tiny DTO — it is discovering the right set of content in the first place.
 
@@ -214,6 +234,14 @@ This is the trap the HybridCache material warns about:
 
 That may have felt acceptable in older mental models, but it is much less safe in the newer world.
 
+## Operational index gotchas
+
+Indexes have their own invalidation and rebuild story.
+
+That is another reason not to call them "just a cache". A cache entry normally has a key, a value, and an expiry or invalidation path. A search index has fields, analysers, providers, storage, searchers, rebuilds, and synchronisation concerns.
+
+The UMB.FYI archive points to a useful Examine field report from 2024: an Examine release addressed index-corruption problems for sites using `SyncedFileSystemDirectoryFactory`, added health checks for main and local indexes, and reduced rebuilding overhead in Azure-style environments.[^13-umbfyi-index-ops] The details belong to Examine rather than Umbraco's published-content cache, but the lesson fits this book perfectly: derived read models are only trustworthy when their refresh and repair paths are understood.
+
 ## In a nutshell
 
 If you want one clean sentence to reuse elsewhere, this is probably it:
@@ -222,7 +250,7 @@ If you want one clean sentence to reuse elsewhere, this is probably it:
 
 ### Three takeaways
 
-- Caches remember answers, indexes help you find answers, and the published-content APIs retrieve the source of truth — match the tool to the shape of the problem.
+- Caches remember answers, indexes help you find answers, and the published-content APIs retrieve Umbraco's current published representation — match the tool to the shape of the problem.
 - In the HybridCache world, "load a broad slice of the tree and filter in memory" is no longer a cheap habit, so discovery-shaped work often belongs in `Examine` rather than in another cache.
 - Before you add a cache, ask whether you are remembering a small result or finding items across a large set; only the first is really a cache's job.
 
@@ -241,7 +269,11 @@ If you want one clean sentence to reuse elsewhere, this is probably it:
 - Supporting material:
   - [Hybrid Cache förändrar allt — Umbraco Kalaset slides (PDF)](https://www.umbracokalaset.se/media/ccvhwzvs/hybrid-cache-forandrar-allt.pdf)
   - [Examine ISearcher API](https://shazwazza.github.io/Examine/api/Examine.ISearcher.html)
+  - [UMB.FYI archive](https://umb.fyi/archive)
 
-[^13-examine]: See [U15](./10-appendix-sources.md#u15-examine-overview), [U16](./10-appendix-sources.md#u16-examine-management), and [U17](./10-appendix-sources.md#u17-examine-isearcher-api).
-[^13-searchers]: See [U16](./10-appendix-sources.md#u16-examine-management) and [U17](./10-appendix-sources.md#u17-examine-isearcher-api).
-[^13-talk]: See [T2](./10-appendix-sources.md#t2-hybrid-cache-forandrar-allt-pdf).
+[^13-examine]: See [U15](./14-appendix-sources.md#u15-examine-overview), [U16](./14-appendix-sources.md#u16-examine-management), and [U17](./14-appendix-sources.md#u17-examine-isearcher-api).
+[^13-searchers]: See [U16](./14-appendix-sources.md#u16-examine-management) and [U17](./14-appendix-sources.md#u17-examine-isearcher-api).
+[^13-talk]: See [T2](./14-appendix-sources.md#t2-hybrid-cache-forandrar-allt-pdf).
+[^13-umbfyi]: See [F8](./14-appendix-sources.md#f8-umbfyi-cache-and-search-archive-trail), especially the entries for 27 November 2024, 10 June 2026, and 1 July 2026.
+[^13-umbfyi-search]: See [F8](./14-appendix-sources.md#f8-umbfyi-cache-and-search-archive-trail), especially the entries for 15 January 2025, 3 September 2025, 10 September 2025, 17 September 2025, 27 May 2026, and 1 July 2026.
+[^13-umbfyi-index-ops]: See [F8](./14-appendix-sources.md#f8-umbfyi-cache-and-search-archive-trail), especially the entries for 7 August 2024 and 28 August 2024.

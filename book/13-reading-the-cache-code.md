@@ -1,4 +1,4 @@
-# 14. Reading the Cache Code
+# 13. Reading the Cache Code
 
 Opening the Umbraco source and searching for "cache" returns hundreds of files.
 
@@ -21,7 +21,7 @@ Most confusing moments in the source code happen because these two concerns live
 
 `IAppCache`[^15-appcache] is the base interface for all Umbraco application-level caches.
 
-It lives in `Umbraco.Core/Cache/IAppCache.cs` and declares three essential operations:
+It lives in `umbraco-v17/src/Umbraco.Core/Cache/IAppCache.cs` and declares three essential operations:
 
 - **Get** — retrieve a value by key, optionally creating it if absent
 - **Clear** — remove one or all entries
@@ -90,7 +90,7 @@ The factory lambda runs only on a cache miss.
 
 `ICacheRefresher`[^15-refresher] is how Umbraco invalidates caches.
 
-It lives in `Umbraco.Core/Cache/Refreshers/ICacheRefresher.cs`.
+It lives in `umbraco-v17/src/Umbraco.Core/Cache/Refreshers/ICacheRefresher.cs`.
 
 Each refresher has a unique GUID that identifies it across servers.
 
@@ -109,6 +109,8 @@ public interface ICacheRefresher
 
 When something changes on one server, `DistributedCache`[^15-distributed] picks up the instruction and passes it to `IServerMessenger`, which broadcasts the same instruction to every server. Each server then runs the refresher locally.
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart LR
     A["Content saved"] --> B["DistributedCache.Refresh()"]
@@ -118,6 +120,8 @@ flowchart LR
     D --> F["Server B clears own HybridCache entry"]
 ```
 
+</div>
+
 ### The refresher inheritance chain
 
 ```
@@ -126,13 +130,13 @@ ICacheRefresher
     ├── IJsonCacheRefresher      (adds Refresh(string jsonPayload))
     └── IPayloadCacheRefresher<TPayload>  (typed payload)
 
-Base classes (in Umbraco.Core/Cache/Refreshers/):
+Base classes (in umbraco-v17/src/Umbraco.Core/Cache/Refreshers/):
     CacheRefresherBase<TNotification>
-    ├── JsonCacheRefresherBase<TNotification>
+    ├── JsonCacheRefresherBase<TNotification, TJsonPayload>
     └── PayloadCacheRefresherBase<TNotification, TPayload>
 ```
 
-### The 17 (v17) / 19 (v18) concrete refreshers
+### 17 in v17 / 19 in v18 concrete refreshers
 
 Every significant entity type in Umbraco has a matching refresher:
 
@@ -169,6 +173,8 @@ Instead, Umbraco uses a two-step chain:
 1. An entity is saved → Umbraco raises a **notification** (e.g. `ContentSavingNotification`)
 2. A **distributed cache notification handler** receives that notification and calls `DistributedCache` to schedule the refresher
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart TD
     A["ContentPublishingNotification fired"] --> B["ContentTreeChangeDistributedCacheNotificationHandler"]
@@ -176,7 +182,9 @@ flowchart TD
     C --> D["ContentCacheRefresher.Refresh() runs on each server"]
 ```
 
-The handler base classes live in `Umbraco.Core/Cache/NotificationHandlers/`:
+</div>
+
+The handler base classes live in `umbraco-v17/src/Umbraco.Core/Cache/NotificationHandlers/`:
 
 | Base class | Handles |
 |------------|---------|
@@ -195,7 +203,7 @@ There are over 30 concrete implementations in the `Implement/` subfolder — one
 
 The "published content cache" is the cache that serves `IPublishedContent` objects for pages, media, and members.
 
-At the top of this hierarchy are these interfaces in `Umbraco.Core/PublishedCache/`:
+At the top of this hierarchy are these interfaces in `umbraco-v17/src/Umbraco.Core/PublishedCache/`, with one member-cache interface under `umbraco-v17/src/Umbraco.Core/Models/PublishedContent/`:
 
 ```
 IPublishedCache               (base: GetById, GetAtRoot, HasContent)
@@ -204,7 +212,7 @@ IPublishedCache               (base: GetById, GetAtRoot, HasContent)
 ├── IPublishedElementCache    (block elements — v18 only)
 └── IDomainCache              (domain assignments)
 
-IPublishedMemberCache         (members — separate hierarchy)
+IPublishedMemberCache         (members — separate hierarchy, under Models/PublishedContent)
 ```
 
 `ICacheManager` aggregates all of these:
@@ -216,6 +224,7 @@ public interface ICacheManager
     IPublishedMediaCache Media { get; }
     IPublishedMemberCache Members { get; }
     IDomainCache Domains { get; }
+    IAppCache ElementsCache { get; } // v17 low-level element bucket
     // v18 adds: IPublishedElementCache Elements
 }
 ```
@@ -230,6 +239,8 @@ The concrete published cache lives in the `Umbraco.PublishedCache.HybridCache` p
 
 Here is the layered structure:
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart TD
     A["IPublishedContentCache"] --> B["DocumentCache"]
@@ -241,23 +252,25 @@ flowchart TD
     G --> H["umbracoContentNu table"]
 ```
 
+</div>
+
 ### `DocumentCacheService` — the key class
 
 `DocumentCacheService`[^15-docsvc] is where a cache miss becomes a database read.
 
-Its `GetByKeyAsync` method:
+Its `GetByKeyAsync` path:
 
-1. Calls `HybridCache.GetOrCreateAsync(key, ...)` 
-2. On cache miss, falls back to `IDatabaseCacheRepository.GetContentSourceAsync(key)`
-3. Deserialises the result using `IContentCacheDataSerializer`
-4. Returns the entry to `HybridCache` for storage
+1. Calls into `GetNodeAsync`
+2. Checks `HybridCache` with `TryGetValueAsync`
+3. On cache miss, falls back to `IDatabaseCacheRepository.GetContentSourceAsync(key)`
+4. Deserialises/materialises the result and stores it back with `SetAsync`
 
 ### Serialisation options
 
 The cache can serialise content using either:
 
 - **MessagePack** (default) — compact binary format with optional LZ4 compression via `LazyCompressedString`
-- **JSON** — available for debugging or migration from older versions
+- **JSON** — kept mainly for readability/testing and no longer supported as the old NuCache compatibility path in the Hybrid Cache implementation
 
 `NuCacheSerializerType` in the settings controls this, despite the NuCache name.
 
@@ -303,7 +316,7 @@ Each repository picks its own policy when constructed.
 
 Output caching is a separate concern from published content caching.
 
-The interfaces for website output caching live in `Umbraco.Core/Cache/`:
+The interfaces for website output caching are split between `umbraco-v17/src/Umbraco.Core/Cache/` and `umbraco-v17/src/Umbraco.Web.Website/Caching/`:
 
 | Interface | Purpose |
 |-----------|---------|
@@ -311,8 +324,8 @@ The interfaces for website output caching live in `Umbraco.Core/Cache/`:
 | `IWebsiteOutputCacheDurationProvider` | Control how long pages are cached |
 | `IWebsiteOutputCacheTagProvider` | Assign tags to responses so they can be evicted by group |
 | `IWebsiteOutputCacheEvictionProvider` | Define extra eviction logic per content node |
-| `IWebsiteOutputCacheRequestFilter` | Decide whether a request is eligible for caching |
-| `IWebsiteOutputCacheVaryByProvider` | Define Vary-By dimensions (e.g. culture, cookie) |
+| `IWebsiteOutputCacheRequestFilter` | Decide whether a request is eligible for caching; lives in `Umbraco.Web.Website/Caching` |
+| `IWebsiteOutputCacheVaryByProvider` | Define Vary-By dimensions (e.g. culture, cookie); lives in `Umbraco.Web.Website/Caching` |
 
 The Delivery API has its own mirror set:
 
@@ -322,13 +335,13 @@ The Delivery API has its own mirror set:
 - `IDeliveryApiOutputCacheRequestFilter`
 - `IDeliveryApiOutputCacheVaryByProvider`
 
-The eviction handlers in `Umbraco.Web.Website/Caching/` are what connect entity changes to output-cache evictions:
+The eviction handlers in `umbraco-v17/src/Umbraco.Web.Website/Caching/` are what connect entity changes to output-cache evictions:
 
 - `WebsiteDocumentOutputCacheEvictionHandler` — evicts pages by content key tag or ancestor tag
 - `WebsiteMediaOutputCacheEvictionHandler` — evicts pages referencing changed media
 - `WebsiteMemberOutputCacheEvictionHandler` — evicts pages referencing changed members
 
-In v18, `DeliveryApiElementOutputCacheEvictionHandler` adds the same pattern for block element changes.
+In v18, `WebsiteElementOutputCacheEvictionHandler` and `DeliveryApiElementOutputCacheEvictionHandler` add parallel element-change handling; both are absent from v17.
 
 ---
 
@@ -350,6 +363,8 @@ When you need to understand a specific cache behaviour, start here:
 ---
 
 ## The full type map (v17)
+
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
 ```mermaid
 flowchart TD
@@ -400,6 +415,8 @@ flowchart TD
     end
 ```
 
+</div>
+
 ---
 
 ## What v18 adds to the type map
@@ -413,12 +430,13 @@ v17 Published Cache:         v18 adds:
   ContentCacheRefresher   →    ElementCacheRefresher
                                ElementContainerCacheRefresher
   (no element handler)    →    ElementTreeChangeDistributedCacheNotificationHandler
-  (no element eviction)   →    DeliveryApiElementOutputCacheEvictionHandler
+  (no element eviction)   →    WebsiteElementOutputCacheEvictionHandler
+                               DeliveryApiElementOutputCacheEvictionHandler
   (no element seeding)    →    ElementBreadthFirstKeyProvider
                                IElementSeedKeyProvider
 ```
 
-The pattern is identical to documents and media — element types just did not have their own lane before v18.
+The pattern is parallel to documents and media — element types just did not have their own lane before v18.
 
 ---
 
@@ -469,8 +487,8 @@ If you split cache *storage* (`IAppCache` and `HybridCache`) from cache *invalid
   - `umbraco-v18/src/Umbraco.Core/PublishedCache/IPublishedElementCache.cs`
   - `umbraco-v18/src/Umbraco.Core/Cache/Refreshers/Implement/ElementCacheRefresher.cs`
 
-[^15-appcache]: `umbraco-v17/src/Umbraco.Core/Cache/IAppCache.cs`
-[^15-appcaches]: `umbraco-v17/src/Umbraco.Core/Cache/AppCaches.cs`
-[^15-refresher]: `umbraco-v17/src/Umbraco.Core/Cache/Refreshers/ICacheRefresher.cs`
-[^15-distributed]: `umbraco-v17/src/Umbraco.Core/Cache/DistributedCache.cs`
-[^15-docsvc]: `umbraco-v17/src/Umbraco.PublishedCache.HybridCache/Services/DocumentCacheService.cs`
+[^15-appcache]: See [C9 in the appendix](./14-appendix-sources.md#c9-iappcache-interface-path-v17).
+[^15-appcaches]: See [C10 in the appendix](./14-appendix-sources.md#c10-appcaches-implementation-path-v17).
+[^15-refresher]: See [C11 in the appendix](./14-appendix-sources.md#c11-icacherefresher-interface-path-v17).
+[^15-distributed]: See [C12 in the appendix](./14-appendix-sources.md#c12-distributedcache-implementation-path-v17).
+[^15-docsvc]: See [C13 in the appendix](./14-appendix-sources.md#c13-documentcacheservice-path-v17-hybridcache).

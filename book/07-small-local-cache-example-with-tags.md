@@ -25,6 +25,8 @@ The idea is:
 
 ## The simple architecture
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart TD
     A["Request for blog tags"] --> B{"Runtime cache hit for blogTags?"}
@@ -33,6 +35,8 @@ flowchart TD
     D --> E["Store in RuntimeCache"]
     E --> C
 ```
+
+</div>
 
 ## The fill rule
 
@@ -63,6 +67,8 @@ That means:
 - clear `blogTags`
 - next request repopulates from source
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 sequenceDiagram
     participant E as Editor
@@ -77,6 +83,8 @@ sequenceDiagram
     R->>R: Re-read tags from source
     R->>C: Store new blogTags value
 ```
+
+</div>
 
 ## Why this pattern is good
 
@@ -99,7 +107,7 @@ There is also a separate question hiding underneath it:
 - if the problem is "remember this small computed result", `RuntimeCache` is a good fit
 - if the problem is "find the right items across a large content set", Examine may be the better fit
 
-See [12 - Examine, Indexes, and Cache-Adjacent Querying](./12-examine-indexes-and-cache-adjacent-querying.md).
+See [11 - Examine, Indexes, and Cache-Adjacent Querying](./11-examine-indexes-and-cache-adjacent-querying.md).
 
 ## Good mental split
 
@@ -132,6 +140,8 @@ The bigger chapters explain:
 
 ## Tiny decision chart
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart TD
     A["I want to cache custom data"] --> B{"Single server or just learning the pattern?"}
@@ -140,6 +150,8 @@ flowchart TD
     D -- yes --> E["Add ICacheRefresher + DistributedCache"]
     D -- no --> F["Simple local cache may still be enough"]
 ```
+
+</div>
 
 ## Another useful connection: seed providers
 
@@ -169,7 +181,7 @@ This tags example teaches the smallest useful cache-busting loop in Umbraco: fil
 
 - [04 - Cache Busting and Invalidation](./04-cache-busting-and-invalidation.md) for the busting story in full.
 - [03 - Published Cache and Load Balancing](./03-published-cache-and-load-balancing.md) for why multiple servers change everything.
-- [12 - Examine, Indexes, and Cache-Adjacent Querying](./12-examine-indexes-and-cache-adjacent-querying.md) for when "search across content" beats "remember one result".
+- [11 - Examine, Indexes, and Cache-Adjacent Querying](./11-examine-indexes-and-cache-adjacent-querying.md) for when "search across content" beats "remember one result".
 
 ## Sources
 
@@ -178,5 +190,5 @@ This tags example teaches the smallest useful cache-busting loop in Umbraco: fil
   - [Application cache](https://docs.umbraco.com/umbraco-cms/extend-your-project/server-side-extensions/cache/application-cache.md)
   - [Server-side cache extensions](https://docs.umbraco.com/umbraco-cms/extend-your-project/server-side-extensions/cache.md)
 
-[^07-tags]: See [U10 in the appendix](./10-appendix-sources.md#u10-tags-example) and [U7](./10-appendix-sources.md#u7-application-cache-docs).
-[^07-publish]: See [U10](./10-appendix-sources.md#u10-tags-example) and [U6](./10-appendix-sources.md#u6-server-side-extensions-cache-docs).
+[^07-tags]: See [U10 in the appendix](./14-appendix-sources.md#u10-tags-example) and [U7](./14-appendix-sources.md#u7-application-cache-docs).
+[^07-publish]: See [U10](./14-appendix-sources.md#u10-tags-example) and [U6](./14-appendix-sources.md#u6-server-side-extensions-cache-docs).

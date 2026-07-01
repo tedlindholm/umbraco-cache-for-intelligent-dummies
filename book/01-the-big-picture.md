@@ -31,7 +31,7 @@ This is the finished plate kept warm and ready to serve: rather than re-cook a r
 
 - Stores ready-made JSON responses on the server
 - Skips re-fetching from the published content cache on repeated requests to the same URL
-- Keyed on URL, query string, and culture
+- Varied by route and Delivery API headers such as `Accept-Language`, `Accept-Segment`, and `StartItem`; custom vary providers can add more dimensions
 - Invalidated automatically when content is published or unpublished
 - Opt-in, disabled by default
 
@@ -93,6 +93,8 @@ There is a subtler case worth knowing about. Imagine page A has a picker propert
 
 Umbraco handles this through its relation system. When content is saved with a picker property, Umbraco automatically records a `RelatedDocument` relation from A (the referencing page, treated as parent) to B (the picked item, treated as child). After every content change, the eviction handler queries those relations and evicts the referencing pages too:
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart LR
     subgraph Content tree
@@ -116,6 +118,8 @@ flowchart LR
     R -- EvictByTag umb-dapi-content-A --> CA
 ```
 
+</div>
+
 The code in `RelationOutputCacheEvictionHandlerBase.EvictRelatedContentAsync` looks up all `RelatedDocument` relations where the changed content is the child, then evicts the cache tag for each parent it finds. This is why publishing a referenced item correctly clears the pages that embed it — without needing to know their URLs in advance.
 
 > **Using Razor views instead?** If your project renders HTML server-side through Razor views, Umbraco 17 also ships a website output cache built on ASP.NET Core output caching[^01-output]. The idea is the same — store ready-made responses on the server — but it stores HTML rather than JSON. The rest of this book assumes headless-first, so that path is not covered in depth.
@@ -132,6 +136,8 @@ This is the bag waiting on the shelf by the door: ordinary HTTP caching, nothing
 ## Mental model
 
 Put all three layers together and a headless request looks like this:
+
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
 ```mermaid
 flowchart TD
@@ -151,11 +157,13 @@ flowchart TD
     L --> M["Possibly store JSON in CDA output cache"]
 ```
 
+</div>
+
 ## How the cache families relate
 
 The diagram above follows a single request from top to bottom. This next diagram steps back and shows how the main cache families sit *alongside* each other — what Microsoft provides, what Umbraco builds on top, and where invalidation crosses the boundaries.
 
-![How the Umbraco cache families relate](./cache-layers.svg)
+![How the Umbraco cache families relate](./assets/cache-layers.svg)
 
 ## What changed in Umbraco 17, and why it matters
 
@@ -167,7 +175,7 @@ In Umbraco 17:
 - old configuration names still appear under `Umbraco:CMS:NuCache` for backward compatibility[^01-nucache]
 - output caching for API and website responses became a first-class documented feature
 
-One thing worth clearing up straight away: those `NuCache` config names are *just names*. The NuCache engine itself was retired in Umbraco 15, so v17 does **not** ship two cache engines for you to choose between. Anything still labelled `NuCache` — settings, serialiser options, SQL templates — is quietly feeding Hybrid Cache under the hood. [Chapter 11](./11-nucache-vs-hybrid-cache.md) walks through this in detail if you want the full story.
+One thing worth clearing up straight away: those `NuCache` config names are *just names*. The NuCache engine itself was retired in Umbraco 15, so v17 does **not** ship two cache engines for you to choose between. Anything still labelled `NuCache` — settings, serialiser options, SQL templates — is quietly feeding Hybrid Cache under the hood. [Chapter 10](./10-nucache-vs-hybrid-cache.md) walks through this in detail if you want the full story.
 
 Looking ahead beyond v17, the documentation also reveals where the platform is heading next:
 
@@ -254,7 +262,7 @@ The biggest cache-related addition in the Umbraco 18 codebase is first-class ele
 The practical difference this makes:
 
 - in v17, publishing content clears element caches broadly because individual elements are hard to target precisely
-- in v18, element caching and element-driven output-cache eviction become explicit and surgical — the same tag-based precision that the CDA cache already uses
+- in v18, element caching and element-driven output-cache eviction become explicit, with relation-based page eviction and full-cache eviction for element refresh-all cases
 
 This should make the cache story considerably easier to reason about for projects that use block-based content heavily.
 
@@ -268,9 +276,9 @@ If a timeline helps, here it is in one line per era:
 
 ## Cache Architecture Evolution (v7 - v18)
 
-![Cache Architecture Evolution from v7 to v18](./cache-timeline.svg)
+![Cache Architecture Evolution from v7 to v18](./assets/cache-timeline.svg)
 
-For more detail on the differences between NuCache and Hybrid Cache, see [Chapter 11 - NuCache vs Hybrid Cache](./11-nucache-vs-hybrid-cache.md).
+For more detail on the differences between NuCache and Hybrid Cache, see [Chapter 10 - NuCache vs Hybrid Cache](./10-nucache-vs-hybrid-cache.md).
 
 ## In a nutshell
 
@@ -294,12 +302,12 @@ If you remember nothing else from this chapter, remember the kitchen:
 - [Chapter 3 - Published Content Cache, AppCaches, and Load Balancing](./03-published-cache-and-load-balancing.md) — the prep stations, up close.
 - [Chapter 4 - Cache Busting and Invalidation](./04-cache-busting-and-invalidation.md) — the "86 the salmon!" chapter, and the heart of the book.
 
-[^01-response]: See [U2 in the appendix](./10-appendix-sources.md#u2-response-caching).
-[^01-output]: See [U3](./10-appendix-sources.md#u3-website-output-caching) and [C6](./10-appendix-sources.md#c6-website-output-cache-implementation) in the appendix.
-[^01-hybrid]: See [M2](./10-appendix-sources.md#m2-aspnet-core-hybridcache), [C1](./10-appendix-sources.md#c1-umbraco-17-source-checkout), and [C4](./10-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main) in the appendix.
-[^01-msstack]: See [M1](./10-appendix-sources.md#m1-caching-in-net) and [M2](./10-appendix-sources.md#m2-aspnet-core-hybridcache) in the appendix.
-[^01-distributed]: See [C7](./10-appendix-sources.md#c7-core-cache-types-and-refreshers) and [M1](./10-appendix-sources.md#m1-caching-in-net) in the appendix.
-[^01-nucache]: See [11 - NuCache vs Hybrid Cache](./11-nucache-vs-hybrid-cache.md) and [C1](./10-appendix-sources.md#c1-umbraco-17-source-checkout) in the appendix.
+[^01-response]: See [U2 in the appendix](./14-appendix-sources.md#u2-response-caching).
+[^01-output]: See [U3](./14-appendix-sources.md#u3-website-output-caching) and [C6](./14-appendix-sources.md#c6-website-output-cache-implementation) in the appendix.
+[^01-hybrid]: See [M2](./14-appendix-sources.md#m2-aspnet-core-hybridcache), [C1](./14-appendix-sources.md#c1-umbraco-17-source-checkout), and [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main) in the appendix.
+[^01-msstack]: See [M1](./14-appendix-sources.md#m1-caching-in-net) and [M2](./14-appendix-sources.md#m2-aspnet-core-hybridcache) in the appendix.
+[^01-distributed]: See [C7](./14-appendix-sources.md#c7-core-cache-types-and-refreshers) and [M1](./14-appendix-sources.md#m1-caching-in-net) in the appendix.
+[^01-nucache]: See [10 - NuCache vs Hybrid Cache](./10-nucache-vs-hybrid-cache.md) and [C1](./14-appendix-sources.md#c1-umbraco-17-source-checkout) in the appendix.
 
 ## Sources
 

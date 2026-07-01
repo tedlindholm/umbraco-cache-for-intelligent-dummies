@@ -26,7 +26,7 @@ Forms has a narrow but important interaction with the website output cache.
 
 ### Why form pages are non-cacheable by default
 
-The website output cache skips storing any response that sets a cookie or carries `Cache-Control: no-store`. Form pages that render `@Html.AntiForgeryToken()` trigger a `Set-Cookie` response header, which the `DefaultWebsiteOutputCacheRequestFilter` treats as non-cacheable.[^05-forms]
+The website output-cache policy skips storing any response that sets a cookie or carries `Cache-Control: no-store`. Form pages that render `@Html.AntiForgeryToken()` usually trigger anti-forgery `no-store` behaviour, while the default request filter separately excludes preview and authenticated requests.[^05-forms]
 
 > **Gotcha — this is a feature, not a bug.** It is tempting to read "form pages are excluded" as a limitation to work around. It is not. Anti-forgery tokens must be unique per session, so a page that embeds one cannot safely be served from a shared cache entry.
 
@@ -53,6 +53,8 @@ A normal editor publish fires one cache refresher notification per changed item,
 
 Deploy's notification model is intentionally batched: less per-item signalling during transfer, and one coordinated refresh step after completion.
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart LR
     subgraph A["Normal CMS publish"]
@@ -64,6 +66,8 @@ flowchart LR
         B3 --> B4["Refresher fires once for all changes"]
     end
 ```
+
+</div>
 
 ### The key setting
 
@@ -155,23 +159,25 @@ That makes it cache-adjacent rather than a normal cache.
 
 ### Search indexes are derived data
 
-A search index stores a prepared representation of content so queries can find matches quickly without walking the published tree every time. That is the same distinction explained in [Chapter 13](./12-examine-indexes-and-cache-adjacent-querying.md): a cache remembers an answer; an index helps find answers.
+A search index stores a prepared representation of content so queries can find matches quickly without walking the published tree every time. That is the same distinction explained in [Chapter 11](./11-examine-indexes-and-cache-adjacent-querying.md): a cache remembers an answer; an index helps find answers.
 
 The Umbraco Search docs currently describe compatibility with Umbraco 17, while the repository describes the project as the new search implementation that may replace the current one from Umbraco v19 onward.[^05-search]
 
 ### It uses cache refreshers as a signal bus
 
-The interesting cache detail is not `HybridCache` storage. In the source inspected for this chapter, Umbraco Search does not appear to use `HybridCache`, `IMemoryCache`, `IDistributedCache`, or `RuntimeCache` as its ordinary storage layer.
+The interesting cache detail in the local documentation is not `HybridCache` storage. The supplied CMS source trees do not include the `Umbraco.Cms.Search` implementation, so source-level storage details for Search should be treated as package-source evidence rather than CMS-source evidence.
 
-Instead, it defines custom cache refreshers and cache-refresher notifications so search indexing can react to content changes across servers.[^05-search-cache]
+The Search docs describe distributed reindexing and indexing notifications so search indexing can react to content changes across servers.[^05-search-cache]
 
-The reason is written plainly in the source comments:
+The package-source notes explain the motivation this way:
 
 - core content cache refreshers are too coarse to distinguish every indexing case
 - Search needs to know the difference between saved draft content and published content
 - Search needs more detail for public access changes, because "refresh everything" is too expensive
 
 So Search uses the cache-refresher pipeline in the Umbraco sense: not as a place to store data, but as distributed invalidation and re-indexing choreography.
+
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
 ```mermaid
 flowchart TD
@@ -181,11 +187,13 @@ flowchart TD
     D --> E["Update, delete, or rebuild affected index entries"]
 ```
 
+</div>
+
 ### It keeps a database-backed index-document source
 
 The docs call this the "Database Cache for Index Values". All content index data gathered by content indexers is cached in the database so indexes can be rebuilt more efficiently when needed.[^05-search-db-cache]
 
-That is not the published content cache. It is better understood as a persisted cache of prepared index values: a representation that can be deleted, rebuilt, or replayed into a search provider. The source implementation stores serialised index fields in the database using MessagePack with LZ4 compression.[^05-search-docs]
+That is not the published content cache. It is better understood as a persisted cache of prepared index values: a representation that can be deleted, rebuilt, or replayed into a search provider. The local docs confirm the database-backed index-value cache; implementation details such as the exact serialisation format need the separate Search source tree to verify locally.[^05-search-docs]
 
 The docs also make the operational trade-off explicit. If you change custom content indexers or property value handlers, already indexed content may need one of three levels of repair:
 
@@ -203,7 +211,7 @@ That puts Search very close to the rest of this book's invalidation theme: each 
 
 ### Examine provider: active and shadow indexes
 
-The Examine provider adds another freshness pattern: zero-downtime rebuilds. It keeps an active index and a shadow index. During rebuild, Search can write to the shadow index while the active index remains readable. When the shadow index has committed and looks healthy, the provider swaps which one is active.[^05-search-shadow]
+Package-source notes for the Examine provider describe another freshness pattern: zero-downtime rebuilds. In that model Search keeps an active index and a shadow index. During rebuild, it can write to the shadow index while the active index remains readable. When the shadow index has committed and looks healthy, the provider swaps which one is active.[^05-search-shadow]
 
 That is another cache-adjacent pattern:
 
@@ -226,6 +234,8 @@ Each product has one or more of these four cache concerns:
 3. **Notification batching** — the product uses the CMS refresher pipeline but fires notifications in a different pattern from a normal editor publish (Deploy).
 4. **Derived-data freshness** — the product maintains data that is not the source of truth, but must still be kept fresh after content changes (Search indexes).
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart TD
     A["HQ extension in use"] --> B{"Does page content vary per visitor?"}
@@ -237,6 +247,8 @@ flowchart TD
     A --> H{"Does it maintain derived data?"}
     H -- "Yes (Search)" --> I["Keep indexes coherent through refresh, rebuild, delete, or swap"]
 ```
+
+</div>
 
 ## In a nutshell
 
@@ -256,7 +268,7 @@ flowchart TD
 
 - [Chapter 4: Cache busting and invalidation](./04-cache-busting-and-invalidation.md) — the refresher and `DistributedCache` mechanics Deploy batches on top of.
 - [Chapter 2: Website output caching](./02-website-output-caching.md) — the exclusion rules that make Forms, Engage, and Commerce pages behave as they do.
-- [Chapter 13: Examine, indexes, and cache-adjacent querying](./12-examine-indexes-and-cache-adjacent-querying.md) — why Search belongs near caching without being the same thing.
+- [Chapter 11: Examine, indexes, and cache-adjacent querying](./11-examine-indexes-and-cache-adjacent-querying.md) — why Search belongs near caching without being the same thing.
 - [Chapter 7: Small local cache example with tags](./07-small-local-cache-example-with-tags.md) — the tag-and-evict pattern to use for cacheable catalogue pages.
 
 ## Sources
@@ -270,14 +282,14 @@ flowchart TD
 - [Umbraco Search docs](https://docs.umbraco.com/umbraco-search)
 - [Umbraco.Cms.Search repository](https://github.com/umbraco/Umbraco.Cms.Search)
 
-[^05-forms]: See [U18 in the appendix](./10-appendix-sources.md#u18-umbraco-forms-docs) and [U3](./10-appendix-sources.md#u3-website-output-caching).
-[^05-engage]: See [U19 in the appendix](./10-appendix-sources.md#u19-umbraco-engage-docs) and [U3](./10-appendix-sources.md#u3-website-output-caching).
-[^05-commerce]: See [U20 in the appendix](./10-appendix-sources.md#u20-umbraco-commerce-docs), [U3](./10-appendix-sources.md#u3-website-output-caching), and [U6](./10-appendix-sources.md#u6-server-side-extensions-cache-docs).
-[^05-suppress]: See [U12 in the appendix](./10-appendix-sources.md#u12-deploy-settings).
-[^05-search]: See [U21](./10-appendix-sources.md#u21-umbraco-search-overview), [U22](./10-appendix-sources.md#u22-umbraco-search-installation), and [S2](./10-appendix-sources.md#s2-umbracocmssearch-repository) in the appendix.
-[^05-search-cache]: See [S2](./10-appendix-sources.md#s2-umbracocmssearch-repository), especially `src/Umbraco.Cms.Search.Core/Cache/UmbracoBuilderExtensions.cs`, `ContentNotificationHandlerBase.cs`, and the custom cache refresher types under `src/Umbraco.Cms.Search.Core/Cache`.
-[^05-search-docs]: See [S2](./10-appendix-sources.md#s2-umbracocmssearch-repository), especially `src/Umbraco.Cms.Search.Core/Persistence/IndexDocumentRepository.cs`.
-[^05-search-shadow]: See [S2](./10-appendix-sources.md#s2-umbracocmssearch-repository), especially `src/Umbraco.Cms.Search.Provider.Examine/Services/ActiveIndexManager.cs` and `src/Umbraco.Cms.Search.Provider.Examine/NotificationHandlers/ZeroDowntimeRebuildNotificationHandler.cs`.
-[^05-search-db-cache]: See [U23 in the appendix](./10-appendix-sources.md#u23-umbraco-search-database-cache-for-index-values).
-[^05-search-reindex]: See [U24 in the appendix](./10-appendix-sources.md#u24-umbraco-search-reindexing-content).
-[^05-search-notifications]: See [U25 in the appendix](./10-appendix-sources.md#u25-umbraco-search-indexing-notification-handling).
+[^05-forms]: See [U18 in the appendix](./14-appendix-sources.md#u18-umbraco-forms-docs) and [U3](./14-appendix-sources.md#u3-website-output-caching).
+[^05-engage]: See [U19 in the appendix](./14-appendix-sources.md#u19-umbraco-engage-docs) and [U3](./14-appendix-sources.md#u3-website-output-caching).
+[^05-commerce]: See [U20 in the appendix](./14-appendix-sources.md#u20-umbraco-commerce-docs), [U3](./14-appendix-sources.md#u3-website-output-caching), and [U6](./14-appendix-sources.md#u6-server-side-extensions-cache-docs).
+[^05-suppress]: See [U12 in the appendix](./14-appendix-sources.md#u12-deploy-settings).
+[^05-search]: See [U21](./14-appendix-sources.md#u21-umbraco-search-overview), [U22](./14-appendix-sources.md#u22-umbraco-search-installation), and [S2](./14-appendix-sources.md#s2-umbracocmssearch-repository) in the appendix.
+[^05-search-cache]: See [U24](./14-appendix-sources.md#u24-umbraco-search-reindexing-content), [U25](./14-appendix-sources.md#u25-umbraco-search-indexing-notification-handling), and [S2](./14-appendix-sources.md#s2-umbracocmssearch-repository). The CMS source trees supplied for this book do not include the separate Search implementation.
+[^05-search-docs]: See [U23 in the appendix](./14-appendix-sources.md#u23-umbraco-search-database-cache-for-index-values). Implementation details need the separate [S2](./14-appendix-sources.md#s2-umbracocmssearch-repository) source tree to verify locally.
+[^05-search-shadow]: See [S2](./14-appendix-sources.md#s2-umbracocmssearch-repository), especially the Examine provider source; this is package-source evidence rather than CMS-source evidence in the local checkouts.
+[^05-search-db-cache]: See [U23 in the appendix](./14-appendix-sources.md#u23-umbraco-search-database-cache-for-index-values).
+[^05-search-reindex]: See [U24 in the appendix](./14-appendix-sources.md#u24-umbraco-search-reindexing-content).
+[^05-search-notifications]: See [U25 in the appendix](./14-appendix-sources.md#u25-umbraco-search-indexing-notification-handling).

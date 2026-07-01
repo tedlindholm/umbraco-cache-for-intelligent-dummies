@@ -10,7 +10,7 @@ cache busting and invalidation matter at least as much as cache creation.
 
 - Primary focus: Umbraco 17.5.1 code and Umbraco 17.latest documentation.
 - Secondary focus: useful and relevant changes observed in Umbraco 18.0.2 and `main`.
-- Canonical source register: [10 - Appendix: Sources](./book/10-appendix-sources.md).
+- Canonical source register: [14 - Appendix: Sources](./book/14-appendix-sources.md).
 
 ## Chapters
 
@@ -23,11 +23,29 @@ cache busting and invalidation matter at least as much as cache creation.
 - [07 - Small Local Cache Example with Tags](./book/07-small-local-cache-example-with-tags.md)
 - [08 - Storage Providers and Media Caching](./book/08-storage-providers-and-media-caching.md)
 - [09 - Future Hybrid Cache Architecture](./book/09-future-hybrid-cache-architecture.md)
-- [10 - Appendix: Sources](./book/10-appendix-sources.md)
-- [11 - NuCache vs Hybrid Cache](./book/11-nucache-vs-hybrid-cache.md)
-- [12 - Examine, Indexes, and Cache-Adjacent Querying](./book/12-examine-indexes-and-cache-adjacent-querying.md)
-- [13 - Lessons from the Issue Tracker](./book/13-lessons-from-the-issue-tracker.md)
-- [14 - Reading the Cache Code](./book/14-reading-the-cache-code.md)
+- [10 - NuCache vs Hybrid Cache](./book/10-nucache-vs-hybrid-cache.md)
+- [11 - Examine, Indexes, and Cache-Adjacent Querying](./book/11-examine-indexes-and-cache-adjacent-querying.md)
+- [12 - Lessons from the Issue Tracker](./book/12-lessons-from-the-issue-tracker.md)
+- [13 - Reading the Cache Code](./book/13-reading-the-cache-code.md)
+- [14 - Appendix: Sources](./book/14-appendix-sources.md)
+
+## PDF Export Note (Large Graphs)
+
+Some Mermaid diagrams are large enough to be split by page breaks in PDF export.
+
+This repository now includes print helpers:
+
+- chapter-level wrappers (`.pdf-keep-together`) around large diagrams
+- a shared print stylesheet: `book/pdf-export.css`
+
+If your exporter supports custom CSS, include `book/pdf-export.css` when generating the PDF.
+
+Typical examples:
+
+- Pandoc: `pandoc input.md -o output.pdf --css book/pdf-export.css`
+- Markdown PDF tools that accept stylesheet paths: add `book/pdf-export.css` in the tool settings/options
+
+If a single diagram is taller than one page, no break rule can keep it intact; in that case split the diagram into two smaller diagrams.
 
 ## Primary Sources
 

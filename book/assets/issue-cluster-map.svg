@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="980" viewBox="0 0 1500 980" role="img" aria-labelledby="title desc">
+  <title id="title">Cache-related issue clusters for Umbraco 17 and 18</title>
+  <desc id="desc">A root node points to five theme nodes. Four themes branch to detailed issue-pattern nodes.</desc>
+
+  <defs>
+    <style>
+      .root { fill: #f5efe5; stroke: #3d2f1f; stroke-width: 2; }
+      .theme { fill: #e8f3ff; stroke: #1f4d7a; stroke-width: 1.8; }
+      .leaf { fill: #f7fbff; stroke: #426b8f; stroke-width: 1.2; }
+      .hist { fill: #f8f0f0; stroke: #7d4b4b; stroke-width: 1.8; }
+      .txtRoot { font: 700 20px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #1f1f1f; }
+      .txtTheme { font: 700 16px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #173b5e; }
+      .txtLeaf { font: 500 14px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #1f3345; }
+      .txtHist { font: 700 15px 'Helvetica Neue', Helvetica, Arial, sans-serif; fill: #5a2f2f; }
+      .line { stroke: #4b6278; stroke-width: 1.6; fill: none; marker-end: url(#arrow); }
+      .lineSoft { stroke: #6b7f92; stroke-width: 1.3; fill: none; marker-end: url(#arrowSoft); }
+    </style>
+
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b6278" />
+    </marker>
+
+    <marker id="arrowSoft" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7f92" />
+    </marker>
+  </defs>
+
+  <!-- Root -->
+  <rect class="root" x="590" y="24" width="340" height="66" rx="10" />
+  <text class="txtRoot" x="760" y="64" text-anchor="middle">Cache-related issues, v17/v18</text>
+
+  <!-- Themes -->
+  <rect class="theme" x="50" y="150" width="220" height="72" rx="9" />
+  <text class="txtTheme" x="160" y="178" text-anchor="middle">URL / routing cache</text>
+  <text class="txtTheme" x="160" y="198" text-anchor="middle">DocumentUrlService</text>
+
+  <rect class="theme" x="350" y="150" width="220" height="72" rx="9" />
+  <text class="txtTheme" x="460" y="178" text-anchor="middle">Cold start, upgrade,</text>
+  <text class="txtTheme" x="460" y="198" text-anchor="middle">migration</text>
+
+  <rect class="theme" x="650" y="150" width="220" height="72" rx="9" />
+  <text class="txtTheme" x="760" y="178" text-anchor="middle">Distributed invalidation</text>
+  <text class="txtTheme" x="760" y="198" text-anchor="middle">and load balancing</text>
+
+  <rect class="theme" x="950" y="150" width="220" height="72" rx="9" />
+  <text class="txtTheme" x="1060" y="178" text-anchor="middle">HybridCache internals</text>
+  <text class="txtTheme" x="1060" y="198" text-anchor="middle">locking, traversal, config</text>
+
+  <rect class="hist" x="1250" y="150" width="170" height="72" rx="9" />
+  <text class="txtHist" x="1335" y="180" text-anchor="middle">Historical</text>
+  <text class="txtHist" x="1335" y="200" text-anchor="middle">NuCache .db</text>
+
+  <!-- Root connections -->
+  <path class="line" d="M700 90 C620 118, 300 118, 160 150" />
+  <path class="line" d="M730 90 C700 120, 520 120, 460 150" />
+  <path class="line" d="M760 90 C760 120, 760 120, 760 150" />
+  <path class="line" d="M790 90 C860 120, 1000 120, 1060 150" />
+  <path class="line" d="M820 90 C980 116, 1250 116, 1335 150" />
+
+  <!-- URL/routing leaves -->
+  <rect class="leaf" x="40" y="280" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="160" y="309" text-anchor="middle">Pages lose their links / 404</text>
+
+  <rect class="leaf" x="40" y="344" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="160" y="373" text-anchor="middle">Alias rebuilt from draft state</text>
+
+  <rect class="leaf" x="40" y="408" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="160" y="437" text-anchor="middle">Key change blocked by foreign key</text>
+
+  <rect class="leaf" x="40" y="472" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="160" y="501" text-anchor="middle">Bulk save crashes on SqlBulkCopy</text>
+
+  <path class="lineSoft" d="M160 222 L160 248 L20 248 L20 304 L40 304" />
+  <path class="lineSoft" d="M160 222 L160 248 L20 248 L20 368 L40 368" />
+  <path class="lineSoft" d="M160 222 L160 248 L20 248 L20 432 L40 432" />
+  <path class="lineSoft" d="M160 222 L160 248 L20 248 L20 496 L40 496" />
+
+  <!-- Cold start leaves -->
+  <rect class="leaf" x="340" y="300" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="460" y="329" text-anchor="middle">404 after migrations</text>
+
+  <rect class="leaf" x="340" y="366" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="460" y="395" text-anchor="middle">Content blank after 13->17 upgrade</text>
+
+  <rect class="leaf" x="340" y="432" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="460" y="461" text-anchor="middle">Cold boot rebuilds everything</text>
+
+  <path class="lineSoft" d="M460 222 L460 250 L320 250 L320 324 L340 324" />
+  <path class="lineSoft" d="M460 222 L460 250 L320 250 L320 390 L340 390" />
+  <path class="lineSoft" d="M460 222 L460 250 L320 250 L320 456 L340 456" />
+
+  <!-- Distributed invalidation leaves -->
+  <rect class="leaf" x="640" y="280" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="760" y="309" text-anchor="middle">Publisher stops broadcasting</text>
+
+  <rect class="leaf" x="640" y="344" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="760" y="373" text-anchor="middle">Transient Delivery API 404s</text>
+
+  <rect class="leaf" x="640" y="408" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="760" y="437" text-anchor="middle">Publish notifications race the cache</text>
+
+  <rect class="leaf" x="640" y="472" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="760" y="501" text-anchor="middle">Index rebuild not propagated</text>
+
+  <path class="lineSoft" d="M760 222 L760 250 L620 250 L620 304 L640 304" />
+  <path class="lineSoft" d="M760 222 L760 250 L620 250 L620 368 L640 368" />
+  <path class="lineSoft" d="M760 222 L760 250 L620 250 L620 432 L640 432" />
+  <path class="lineSoft" d="M760 222 L760 250 L620 250 L620 496 L640 496" />
+
+  <!-- Hybrid internals leaves -->
+  <rect class="leaf" x="940" y="300" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="1060" y="329" text-anchor="middle">Read-lock timeouts</text>
+
+  <rect class="leaf" x="940" y="366" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="1060" y="395" text-anchor="middle">Traversal warms whole cache</text>
+
+  <rect class="leaf" x="940" y="432" width="240" height="48" rx="8" />
+  <text class="txtLeaf" x="1060" y="461" text-anchor="middle">Member cache cannot be disabled</text>
+
+  <path class="lineSoft" d="M1060 222 L1060 250 L920 250 L920 324 L940 324" />
+  <path class="lineSoft" d="M1060 222 L1060 250 L920 250 L920 390 L940 390" />
+  <path class="lineSoft" d="M1060 222 L1060 250 L920 250 L920 456 L940 456" />
+
+  <!-- Historical branch note -->
+  <rect class="leaf" x="1220" y="300" width="230" height="62" rx="8" />
+  <text class="txtLeaf" x="1335" y="328" text-anchor="middle">Why HybridCache exists:</text>
+  <text class="txtLeaf" x="1335" y="347" text-anchor="middle">NuCache .db pain</text>
+  <path class="lineSoft" d="M1335 222 L1335 300" />
+</svg>

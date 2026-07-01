@@ -1,4 +1,4 @@
-# 10. Appendix: Sources
+# 14. Appendix: Sources
 
 This appendix is the book's source register.
 
@@ -93,7 +93,7 @@ The main chapters use footnotes to point here when a claim depends on a specific
 
 ### U14. Storage Providers docs
 
-- [Umbraco Storage Providers](https://docs.umbraco.com/umbraco-dxp/packages/storage-providers)
+- [Umbraco Storage Providers](https://docs.umbraco.com/marketplace-and-integrations/packages/storage-providers)
 
 ### U15. Examine overview
 
@@ -125,7 +125,7 @@ The main chapters use footnotes to point here when a claim depends on a specific
 
 ### U22. Umbraco Search installation
 
-- [Umbraco Search installation](https://docs.umbraco.com/umbraco-search/installation/installation)
+- [Umbraco Search installation](https://docs.umbraco.com/umbraco-search/installation)
 
 ### U23. Umbraco Search database cache for index values
 
@@ -147,11 +147,11 @@ The main chapters use footnotes to point here when a claim depends on a specific
 
 ### C1. Umbraco 17 source checkout
 
-- `umbraco-v17` cloned from `release/17.5.1`
+- `umbraco-v17` on branch `release/17.5.1`; local shallow HEAD during this audit was `d48a8c1f` (`release-17.5.0` tag)
 
 ### C2. Umbraco 18 source checkout
 
-- `umbraco-v18` cloned from `release/18.0.2`
+- `umbraco-v18` on branch `release/18.0.2`; local shallow HEAD during this audit was `c087ce9f` (`release-18.0.0` tag)
 
 ### C3. Umbraco main branch source checkout
 
@@ -172,6 +172,36 @@ The main chapters use footnotes to point here when a claim depends on a specific
 ### C7. Core cache types and refreshers
 
 - `umbraco-v17/src/Umbraco.Core/Cache`
+
+### C8. v18 and main NuCache vocabulary audit
+
+- Local source search across `umbraco-v18` and `umbraco-main` for `NuCache`, `PublishedSnapshot`, `NuCacheSettings`, `NuCacheSerializerType`, `NuCacheDatabaseDataSource`, and `RefreshAllPublishedSnapshot`
+- Main paths checked:
+  - `src/Umbraco.Core/Configuration/Models`
+  - `src/Umbraco.Core/Cache/DistributedCacheExtensions.cs`
+  - `src/Umbraco.Core/Constants-SqlTemplates.cs`
+  - `src/Umbraco.PublishedCache.HybridCache`
+  - `src/Umbraco.Web.UI.Client/src/assets/lang`
+
+### C9. `IAppCache` interface path (v17)
+
+- `umbraco-v17/src/Umbraco.Core/Cache/IAppCache.cs`
+
+### C10. `AppCaches` implementation path (v17)
+
+- `umbraco-v17/src/Umbraco.Core/Cache/AppCaches.cs`
+
+### C11. `ICacheRefresher` interface path (v17)
+
+- `umbraco-v17/src/Umbraco.Core/Cache/Refreshers/ICacheRefresher.cs`
+
+### C12. `DistributedCache` implementation path (v17)
+
+- `umbraco-v17/src/Umbraco.Core/Cache/DistributedCache.cs`
+
+### C13. `DocumentCacheService` path (v17 HybridCache)
+
+- `umbraco-v17/src/Umbraco.PublishedCache.HybridCache/Services/DocumentCacheService.cs`
 
 ## Storage Providers source
 
@@ -257,7 +287,7 @@ The main chapters use footnotes to point here when a claim depends on a specific
 
 ### F4. Open cache issue survey (v17/v18)
 
-Survey backing [chapter 14](./13-lessons-from-the-issue-tracker.md). All issues were read in full, including comments, on 30 June 2026. State is captured as of that date.
+Survey backing [chapter 12](./12-lessons-from-the-issue-tracker.md). All issues were read in full, including comments, on 30 June 2026. State is captured as of that date.
 
 URL and routing cache (`DocumentUrlService`):
 
@@ -299,6 +329,84 @@ Historical NuCache `.db` pain:
 Merge states verified against the GitHub API on 30 June 2026.
 
 - [Prevent changing the `Key` property on existing entities (merged into v18)](https://github.com/umbraco/Umbraco-CMS/pull/21374)
+- [Document URL Cache: ensure URLs are rebuilt after upgrade and prevent duplicate initialisation (merged into v17.2)](https://github.com/umbraco/Umbraco-CMS/pull/21379)
+- [Database Cache: fix full database cache rebuild dropping variant and composed property values (merged into v17.2.1)](https://github.com/umbraco/Umbraco-CMS/pull/21890)
 - [Published Content Cache: defensive hardening against race conditions (merged)](https://github.com/umbraco/Umbraco-CMS/pull/22393)
 - [Add a scope-level cache version tier to reduce database hits in bulk operations (merged into v17)](https://github.com/umbraco/Umbraco-CMS/pull/22563)
 - [Reduce NuCache memory allocations with `StringPool`/`ArrayPool` (closed without merging)](https://github.com/umbraco/Umbraco-CMS/pull/15808)
+
+### F6. Closed cache issue survey (v17/v18)
+
+Closed cache-issue sample used in [chapter 12](./12-lessons-from-the-issue-tracker.md), captured from GitHub issue search on 1 July 2026.
+
+Query:
+
+- [Umbraco CMS closed issues matching `cache`](https://github.com/umbraco/Umbraco-CMS/issues?q=is%3Aissue%20is%3Aclosed%20cache)
+
+Representative closed issues referenced in chapter 12:
+
+- [#22587 - Published Content routinely falls out of Memory Cache on startup](https://github.com/umbraco/Umbraco-CMS/issues/22587)
+- [#23001 - Thousands of queries on start](https://github.com/umbraco/Umbraco-CMS/issues/23001)
+- [#22883 - Content Delivery API returns inconsistent results on startup](https://github.com/umbraco/Umbraco-CMS/issues/22883)
+- [#21337 - After upgrade from v13 to v17, document URL cache is not populated correctly](https://github.com/umbraco/Umbraco-CMS/issues/21337)
+- [#21882 - Rebuilding Database Cache from scratch leads to empty property values](https://github.com/umbraco/Umbraco-CMS/issues/21882)
+- [#23106 - Subscriber cache sync stops permanently if `Sync()` hangs](https://github.com/umbraco/Umbraco-CMS/issues/23106)
+- [#23214 - Document URLs not persisted during distributed-cache-only notification dispatch](https://github.com/umbraco/Umbraco-CMS/issues/23214)
+- [#22570 - ReadOnly database issues for subscribers due to `ContentCacheRefresher` exceptions](https://github.com/umbraco/Umbraco-CMS/issues/22570)
+- [#22646 - Severe performance regression in tree traversal in v17](https://github.com/umbraco/Umbraco-CMS/issues/22646)
+- [#22250 - `ContentTypeRepository` deep clone cost on cache read](https://github.com/umbraco/Umbraco-CMS/issues/22250)
+- [#22933 - NuCache rebuild errors are not logged](https://github.com/umbraco/Umbraco-CMS/issues/22933)
+
+### F7. Distributed cache field reports (v17)
+
+Community reports used as field notes in [chapter 4](./04-cache-busting-and-invalidation.md). These are not primary implementation sources; they are operational examples of how stale distributed-cache instructions surface in real projects.
+
+- [U17 - Distributed cache is not updated](https://forum.umbraco.com/t/u17-distributed-cache-is-not-updated/7212/7)
+- [Distributed cache is not updated (U17)](https://forum.umbraco.com/t/distributed-cache-is-not-updated-u17/7358)
+
+Useful details captured on 1 July 2026:
+
+- both reports involved Umbraco 17.1.0 and repeated `DISTRIBUTED CACHE IS NOT UPDATED` log entries
+- the stronger report traced the problem to staging and local environments sharing a database, with old rows left in `umbracoCacheInstruction`
+- clearing the offending instruction row, or clearing the table as a recovery action, stopped the repeated errors in the reported cases
+
+### F8. UMB.FYI cache and search archive trail
+
+Archive sweep performed on 1 July 2026. UMB.FYI is a community newsletter, not an implementation source. It is useful here as a discovery trail for community articles, videos, package announcements, and public announcements that fit this book's cache/index theme.
+
+Main archive:
+
+- [UMB.FYI archive](https://umb.fyi/archive)
+
+Most relevant cache and index entries:
+
+- [2026-07-01 - Umbraco Search replaces existing search in Umbraco 19](https://umb.fyi/2026-07-01)
+  - Points to [Umbraco announcement issue 36](https://github.com/umbraco/Announcements/issues/36)
+  - Useful for future-facing wording: Umbraco Search is planned to replace existing Examine search handling and core indexes in Umbraco 19, while existing Examine implementations can still coexist during the transition.
+- [2026-06-10 - CodeGarden-talk: Hybrid Cache changes everything](https://umb.fyi/2026-06-10)
+  - Points to [Hybrid Cache Changes Everything - Enkelmedia blog](https://www.enkelmedia.se/blogg/2026/6/7/codegarden-talk-hybrid-cache-changes-everything)
+  - Useful for the book's central warning that HybridCache improves memory/start-up characteristics but makes broad traversal and content-loading habits more visible.
+- [2026-05-27 - Umbraco Search Explained](https://umb.fyi/2026-05-27)
+  - Points to [Umbraco Search Explained - Umbraco India Meetup](https://www.youtube.com/watch?v=wwQBvBDGhPE)
+  - Useful as a video explainer for provider-agnostic search, including Algolia, Elasticsearch, and Examine-shaped integrations.
+- [2025-09-17 - Tailored indexing for Umbraco Search](https://umb.fyi/2025-09-17)
+  - Points to [Tailored indexing for Umbraco Search](https://kjac.dev/posts/tailored-indexing-for-umbraco-search/)
+  - Useful for property value handlers, content indexers, and notifications as indexing control points.
+- [2025-09-10 - Umbraco's New Search in Alpha](https://umb.fyi/2025-09-10)
+  - Points to [Umbraco's New Search in Alpha](https://www.youtube.com/watch?v=7NCwIvgbdHM)
+  - Useful for explaining the search abstraction and reduced dependency on direct Examine usage.
+- [2025-09-03 - Trying out the new Umbraco Search](https://umb.fyi/2025-09-03)
+  - Points to [Trying out the new Umbraco Search](https://kjac.dev/posts/trying-out-the-new-umbraco-search/)
+  - Useful for the beginner distinction between search features such as full-text search, sorting, faceting, and provider-backed querying.
+- [2025-01-15 - RFC 0027, The Future of Search](https://umb.fyi/2025-01-15)
+  - Points to [RFC 0027 - The Future of Search](https://github.com/umbraco/rfcs/discussions/43)
+  - Useful for historical transition framing: a proposed search and indexing abstraction intended to replace the current Examine-based implementation.
+- [2024-11-27 - So you want to cache all the things?](https://umb.fyi/2024-11-27)
+  - Points to [So you want to cache all the things?](https://kjac.dev/posts/so-you-want-to-cache-all-the-things/)
+  - Useful for v15+ cache warm-up framing: on-demand loading, deliberate seeding, and avoiding "cache everything" instincts.
+- [2024-08-28 - Facetted search and string sorting with Examine](https://umb.fyi/2024-08-28)
+  - Points to [Facetted search with Examine - Umbraco 13](https://dev.to/jemayn/facetted-search-with-examine-umbraco-13-k7i) and [How to sort on a string field in Umbraco Examine](https://www.debasish.tech/blogs/how-to-sort-on-a-string-field-in-umbraco-examine)
+  - Useful as practical examples of shaping an index for filtering, faceting, sorting, and query ergonomics.
+- [2024-08-07 - An Examine fix for Umbraco index corruption](https://umb.fyi/2024-08-07)
+  - Points to [An Examine fix for Umbraco index corruption](https://shazwazza.com/post/an-examine-fix-for-umbraco-index-corruption/)
+  - Useful for the operational side of indexes: corruption, health checks, main/local index synchronisation, Azure-style environments, and rebuild overhead.

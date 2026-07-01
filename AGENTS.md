@@ -54,7 +54,7 @@ Rules:
 
 ## Citations and evidence
 
-- The book must have an appendix source register in `book/10-appendix-sources.md`.
+- The book must have an appendix source register in `book/14-appendix-sources.md`.
 - Important claims in chapters should use footnotes that point back to the appendix.
 - Prefer footnoting:
   - non-obvious technical claims

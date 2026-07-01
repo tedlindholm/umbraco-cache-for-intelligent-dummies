@@ -25,6 +25,8 @@ The newer `main` branch code also reveals more of the actual mechanics behind th
 
 ## One-picture summary
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 mindmap
   root((Cache Settings))
@@ -47,6 +49,8 @@ mindmap
       Database cache source
 ```
 
+</div>
+
 ## Two cache-settings pages matter
 
 ### The versioned Umbraco 17 page
@@ -63,6 +67,30 @@ Use this as a signal for where the platform is moving:
 
 It includes newer element-related settings that go beyond the earlier v17-focused page.
 
+## Cache settings reference
+
+Here is the quick "what does this dial actually touch?" reference. Some names still say `NuCache`; in Umbraco 17 and newer these settings feed the Hybrid Cache implementation rather than selecting the old NuCache engine.[^06-settings-reference]
+
+| Setting or option | Layer | What it changes | Beginner caution |
+| --- | --- | --- | --- |
+| `HybridCacheOptions.MaximumPayloadBytes` | Microsoft `HybridCache`, as configured by Umbraco | Maximum size of one serialised cache entry; Umbraco raises the generic Microsoft default to 100 MB | If large pages appear not to cache, check this before blaming invalidation |
+| `Umbraco:CMS:NuCache:NuCacheSerializerType` | Published-content Hybrid Cache | Chooses the serialiser used for database-backed cache payloads, commonly MessagePack | Old name, real effect; it is not a switch back to NuCache |
+| `Umbraco:CMS:NuCache:SqlPageSize` | Database-backed cache source | Controls how many rows are read per SQL page during cache-source work | Bigger batches are not always better; they can increase database pressure |
+| `Umbraco:CMS:NuCache:UsePagedSqlQuery` | Database-backed cache source | Chooses paged SQL query behaviour for large cache-source reads | Mostly a scale knob; leave it alone unless you are investigating large-tree behaviour |
+| `ContentTypeRebuildMode` | Hybrid Cache rebuild flow | Controls whether content-type structural changes rebuild immediately or defer work | `Deferred` can briefly serve old structures while the background rebuild catches up |
+| `ContentTypeKeys` | Seeding | Seeds selected content and element types during startup | Useful for hot paths; wasteful if you seed everything without intent |
+| `DocumentBreadthFirstSeedCount` | Seeding | Warms the first N documents using breadth-first traversal | Good for shallow top-level navigation; less useful for deep long-tail content |
+| `MediaBreadthFirstSeedCount` | Seeding | Warms the first N media items using breadth-first traversal | Can help media-heavy sites, but still costs startup work |
+| `ElementBreadthFirstSeedCount` | Newer seeding docs | Warms element cache entries in newer Hybrid Cache builds | Treat as a newer-direction setting when comparing v17 with later docs |
+| `DocumentSeedBatchSize` | Seeding | Controls document seed processing batch size | Tunes startup pressure, not request-time correctness |
+| `MediaSeedBatchSize` | Seeding | Controls media seed processing batch size | Same trade-off: warmer startup versus more upfront work |
+| `ElementSeedBatchSize` | Newer seeding docs | Controls element seed processing batch size | Relevant when element seeding is available |
+| `LocalCacheDuration` | Local Hybrid Cache entry lifetime | Controls how long local entries stay warm | Duration does not replace invalidation; publishes still bust stale entries |
+| `RemoteCacheDuration` | Remote/distributed cache lifetime | Controls how long remote cache entries can live | Longer remote lifetime improves reuse but increases reliance on correct invalidation |
+| `SeedCacheDuration` | Seeded entries | Controls how long pre-warmed entries live | Seed what matters first; duration is the second question |
+| `Umbraco:CMS:Website:OutputCache:Enabled` | Website output cache | Turns website HTML output caching on or off | Output caching is opt-in and needs a busting story |
+| `Umbraco:CMS:Website:OutputCache:ContentDuration` | Website output cache | Default duration for cached website responses | A longer duration without correct tag eviction is how stale pages become visible |
+
 ## The settings that matter most
 
 ### `HybridCacheOptions.MaximumPayloadBytes`
@@ -73,6 +101,8 @@ That hundredfold jump is not arbitrary. Multilingual payloads and block editors 
 
 It is also a tidy example of Microsoft versus Umbraco responsibilities. Microsoft exposes `MaximumPayloadBytes` as a base `HybridCache` option; Umbraco raises it because real published-content payloads are much larger than the generic default expects. The `main` branch code makes the reason even clearer: entries are serialised `ContentCacheNode` payloads that may carry a lot of culture, property, and nested data. Compression helps, but realistic sites still produce large objects.
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 xychart-beta
     title "Conceptual Payload Pressure"
@@ -80,6 +110,8 @@ xychart-beta
     y-axis "Relative payload pressure" 0 --> 100
     bar [10, 35, 60, 95]
 ```
+
+</div>
 
 ## Seeding settings
 
@@ -92,6 +124,8 @@ These decide what gets prepped before doors open: the content warmed into cache 
 And in newer docs:
 
 - `ElementBreadthFirstSeedCount`
+
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
 ```mermaid
 flowchart LR
@@ -106,6 +140,8 @@ flowchart LR
     F --> G
     G --> H["Warm selected cache entries"]
 ```
+
+</div>
 
 ## Seed batch sizes
 
@@ -167,6 +203,8 @@ The `main` branch code also shows how this works operationally:
 - matching `HybridCache` tags are removed
 - matching converted-object caches are cleared
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 sequenceDiagram
     participant S as Content type save
@@ -180,6 +218,8 @@ sequenceDiagram
     B->>C: Rebuild serialised cache data
     B->>C: Evict again after rebuild
 ```
+
+</div>
 
 ## Old `NuCache` settings that still linger
 
@@ -197,7 +237,7 @@ These exist mostly for backward-compatibility reasons.
 
 > **Gotcha — old names, new engine.** Seeing `NuCache` keys in your configuration does not mean you are running the old system. The modern implementation is HybridCache-based, but not every old configuration name disappeared overnight, so a lingering key is a leftover label rather than a live gear.
 
-For a clearer separation between the old architecture and the newer one, see [11 - NuCache vs Hybrid Cache](./11-nucache-vs-hybrid-cache.md). The deeper point is that the current architecture is no longer "just old NuCache with a new wrapper": it is a layered pipeline with explicit seeding, serialisation, rebuilding, and cache tagging, even if a few of the old names survive on the surface.
+For a clearer separation between the old architecture and the newer one, see [10 - NuCache vs Hybrid Cache](./10-nucache-vs-hybrid-cache.md). The deeper point is that the current architecture is no longer "just old NuCache with a new wrapper": it is a layered pipeline with explicit seeding, serialisation, rebuilding, and cache tagging, even if a few of the old names survive on the surface.
 
 ## Microsoft-first takeaway
 
@@ -231,6 +271,8 @@ The talk [Releasing HybridCache into the Wild with Umbraco](https://www.youtube.
 - startup and memory profile improve
 - query and traversal habits matter more now
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart LR
     A["Old mental model"] --> B["Traverse freely"]
@@ -239,6 +281,8 @@ flowchart LR
     D --> F["Use cache, DTOs, or index intentionally"]
     D --> G["Be suspicious of broad traversal"]
 ```
+
+</div>
 
 ## PDF notes
 
@@ -258,6 +302,8 @@ Big warnings:
 
 ## Query strategy graph
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart TD
     A["Need a result list"] --> B{"How are you getting it?"}
@@ -268,12 +314,14 @@ flowchart TD
     B -- "RuntimeCache DTO" --> G["Great for menu, footer, listings"]
 ```
 
+</div>
+
 That is also the cleanest place to separate index and cache concerns:
 
 - `Examine` is often the right answer when the hard part is discovery
 - `RuntimeCache` is often the right answer when the hard part is recomputation
 
-See [12 - Examine, Indexes, and Cache-Adjacent Querying](./12-examine-indexes-and-cache-adjacent-querying.md) for the full comparison.
+See [11 - Examine, Indexes, and Cache-Adjacent Querying](./11-examine-indexes-and-cache-adjacent-querying.md) for the full comparison.
 
 ## Best field note
 
@@ -320,6 +368,8 @@ None of these are small implementation details; they are the practical engineeri
 
 ## Trade-off chart
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 quadrantChart
     title "HybridCache Trade-offs"
@@ -334,6 +384,8 @@ quadrantChart
     "Reasonable defaults": [0.8, 0.6]
     "Lazy traversal habits": [0.2, 0.2]
 ```
+
+</div>
 
 ## In a nutshell
 
@@ -351,9 +403,9 @@ quadrantChart
 
 ### Where to go next
 
-- [11 - NuCache vs Hybrid Cache](./11-nucache-vs-hybrid-cache.md) — the clean split between the old architecture and the new one.
+- [10 - NuCache vs Hybrid Cache](./10-nucache-vs-hybrid-cache.md) — the clean split between the old architecture and the new one.
 - [09 - Future Hybrid Cache Architecture](./09-future-hybrid-cache-architecture.md) — the seeding, serialisation, and rebuild machinery these dials control.
-- [12 - Examine, Indexes, and Cache-Adjacent Querying](./12-examine-indexes-and-cache-adjacent-querying.md) — the query habits the talks keep warning about.
+- [11 - Examine, Indexes, and Cache-Adjacent Querying](./11-examine-indexes-and-cache-adjacent-querying.md) — the query habits the talks keep warning about.
 
 ## Sources
 
@@ -364,7 +416,8 @@ quadrantChart
   - [Hybrid Cache förändrar allt — Umbraco Kalaset session (YouTube)](https://www.youtube.com/watch?v=JyXlvDoreS8)
   - [Hybrid Cache förändrar allt — Umbraco Kalaset slides (PDF)](https://www.umbracokalaset.se/media/ccvhwzvs/hybrid-cache-forandrar-allt.pdf)
 
-[^06-talks]: See [T1](./10-appendix-sources.md#t1-releasing-hybridcache-into-the-wild-with-umbraco), [T2](./10-appendix-sources.md#t2-hybrid-cache-forandrar-allt-pdf), [T4](./10-appendix-sources.md#t4-enkelmedia-article), [T5](./10-appendix-sources.md#t5-enkelmedia-pdf), [B1](./10-appendix-sources.md#b1-umbraco-15-release), [B5](./10-appendix-sources.md#b5-umbraco-product-update---august-2024), and [B6](./10-appendix-sources.md#b6-umbraco-product-update---q1-2025).
-[^06-payload]: See [M6](./10-appendix-sources.md#m6-hybridcacheoptions), [U4](./10-appendix-sources.md#u4-cache-settings-for-umbraco-17), [U5](./10-appendix-sources.md#u5-current-cache-settings-page), and [C4](./10-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main).
-[^06-rebuildmode]: See [U5](./10-appendix-sources.md#u5-current-cache-settings-page), [C4](./10-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main), and [C5](./10-appendix-sources.md#c5-claudemd-for-umbracopublishedcachehybridcache).
-[^06-upgrade]: See [F1](./10-appendix-sources.md#f1-website-significantly-slower-since-upgrading-from-v13-to-v16), [F2](./10-appendix-sources.md#f2-failed-to-acquire-write-lock-for-id--333), and [F3](./10-appendix-sources.md#f3-umbracooauth_completecode-stuck-after-umbracologout).
+[^06-talks]: See [T1](./14-appendix-sources.md#t1-releasing-hybridcache-into-the-wild-with-umbraco), [T2](./14-appendix-sources.md#t2-hybrid-cache-forandrar-allt-pdf), [T4](./14-appendix-sources.md#t4-enkelmedia-article), [T5](./14-appendix-sources.md#t5-enkelmedia-pdf), [B1](./14-appendix-sources.md#b1-umbraco-15-release), [B5](./14-appendix-sources.md#b5-umbraco-product-update---august-2024), and [B6](./14-appendix-sources.md#b6-umbraco-product-update---q1-2025).
+[^06-payload]: See [M6](./14-appendix-sources.md#m6-hybridcacheoptions), [U4](./14-appendix-sources.md#u4-cache-settings-for-umbraco-17), [U5](./14-appendix-sources.md#u5-current-cache-settings-page), and [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main).
+[^06-settings-reference]: See [U3](./14-appendix-sources.md#u3-website-output-caching), [U4](./14-appendix-sources.md#u4-cache-settings-for-umbraco-17), [U5](./14-appendix-sources.md#u5-current-cache-settings-page), [M6](./14-appendix-sources.md#m6-hybridcacheoptions), and [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main).
+[^06-rebuildmode]: See [U5](./14-appendix-sources.md#u5-current-cache-settings-page), [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main), and [C5](./14-appendix-sources.md#c5-claudemd-for-umbracopublishedcachehybridcache).
+[^06-upgrade]: See [F1](./14-appendix-sources.md#f1-website-significantly-slower-since-upgrading-from-v13-to-v16), [F2](./14-appendix-sources.md#f2-failed-to-acquire-write-lock-for-id--333), and [F3](./14-appendix-sources.md#f3-umbracooauth_completecode-stuck-after-umbracologout).

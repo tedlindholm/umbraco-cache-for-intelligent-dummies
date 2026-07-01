@@ -1,0 +1,24 @@
+/* PDF print helpers for Mermaid-heavy chapters */
+
+@media print {
+  .pdf-keep-together {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    margin: 0.8rem 0;
+  }
+
+  /* Mermaid rendered output */
+  .pdf-keep-together .mermaid,
+  .pdf-keep-together .mermaid svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Fallback when Mermaid is still code in pre blocks */
+  .pdf-keep-together pre,
+  .pdf-keep-together code {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}

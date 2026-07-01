@@ -77,6 +77,8 @@ So when we use Microsoft sources, we should keep filtering them through one ques
 
 ## What comes from Microsoft, and what Umbraco adds
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart LR
     A["Microsoft HybridCache"] --> B["Primary memory cache"]
@@ -95,6 +97,8 @@ flowchart LR
     H --> O["Local converted-object L0 caches"]
 ```
 
+</div>
+
 ## Microsoft HybridCache in one sentence
 
 Microsoft `HybridCache` is the engine.
@@ -102,6 +106,8 @@ Microsoft `HybridCache` is the engine.
 Umbraco's Hybrid Cache module is the published-content system built around that engine.[^10-umbracoblog]
 
 ## The four layers
+
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
 ```mermaid
 flowchart TD
@@ -112,6 +118,8 @@ flowchart TD
     C --> B
     B --> E["Return IPublishedContent or IPublishedElement"]
 ```
+
+</div>
 
 ## Why this is more than "memory plus Redis"
 
@@ -187,6 +195,8 @@ The document lookup path is roughly:
 6. convert it into `IPublishedContent`
 7. store the converted object in the L0 cache
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 sequenceDiagram
     participant R as Request
@@ -211,6 +221,8 @@ sequenceDiagram
         L0-->>R: Return IPublishedContent
     end
 ```
+
+</div>
 
 > **Analogy — the fully modernised kitchen.** Picture the whole thing as a restaurant kitchen at the top of its game. The nearest shelf holds dishes that are already plated and ready to serve: that is the L0 converted-object cache. Behind it sit prepped ingredients, portioned and labelled — the `HybridCache` L1, with an optional shared store (L2) for the whole chain. Further back is the walk-in fridge, and it has a dedicated section of pre-prepped cache rather than raw ingredients — the database-backed source. You almost never start a plate from scratch. And the head chef keeps a clipboard with a running order number so that a slow, stale order can never overwrite a freshly updated plate. Hold on to that kitchen; the rest of the chapter walks through each station in turn.
 
@@ -256,7 +268,7 @@ So serialisation is not just an implementation detail — it is part of cache co
 
 ## Seeding is first-class, not an afterthought
 
-The future model treats seeding as a normal startup workflow.
+The current `main` model treats seeding as a normal startup workflow.
 
 At application start, Umbraco can seed:
 
@@ -276,6 +288,8 @@ The key idea is simple:
 
 ## Seeding flow
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart TD
     A["Application starting"] --> B["Collect seed keys from providers"]
@@ -284,6 +298,8 @@ flowchart TD
     D --> E["Fetch uncached nodes from database cache source"]
     E --> F["Store as seed entries"]
 ```
+
+</div>
 
 ## Seed entries and normal entries have different durations
 
@@ -351,7 +367,7 @@ That means cache busting can be:
 - broad when needed
 - selective when possible
 
-This is one of the biggest reasons the future model deserves to be called smarter rather than merely newer.
+This is one of the biggest reasons the model deserves to be called smarter rather than merely newer.
 
 It is also one of the clearest examples of the split between Microsoft and Umbraco.
 
@@ -366,11 +382,11 @@ Umbraco decides what those tags mean in content terms:
 
 ## Negative-cache entries are treated carefully
 
-> **Gotcha — even "not found" must expire.** There is a lovely correctness detail here: Umbraco tags its null entries too. If it caches "not found" and later clears by tag, those negative-cache entries have to be evicted as well — otherwise "not found" becomes permanently stale. In the kitchen this is the "we're OUT of the salmon" note taped to the pass: the moment the salmon is back, someone has to remember to tear that note down, or the kitchen keeps turning away orders it could now fill. That is the sort of edge-case engineering that makes the architecture trustworthy.
+> **Gotcha — even "not found" must expire.** There is a lovely correctness detail here: document and element negative-cache entries are tagged too. If Umbraco caches "not found" and later clears by tag, those negative-cache entries have to be evicted as well — otherwise "not found" becomes permanently stale. Media avoids caching removed or null items. That is the sort of edge-case engineering that makes the architecture trustworthy.
 
 ## The stale-set clobber problem
 
-This is one of the most interesting implementation details in the whole module. `DocumentCacheService` and `ElementCacheService` keep a monotonic cache-generation counter.[^10-generation] Why? Because a request can start reading old data just before a concurrent publish or refresh updates the cache, and without protection that older in-flight read could finish later and write stale data back over the fresher entry.
+This is one of the most interesting implementation details in the whole module. `DocumentCacheService`, `MediaCacheService`, and `ElementCacheService` keep a monotonic cache-generation counter.[^10-generation] Why? Because a request can start reading old data just before a concurrent publish or refresh updates the cache, and without protection that older in-flight read could finish later and write stale data back over the fresher entry.
 
 The generation counter prevents exactly that. If the generation changed while the request was doing its read-through work:
 
@@ -382,6 +398,8 @@ That is an excellent example of a subtle bug being solved at the architecture le
 > **Key term — the generation counter.** This is the head chef's clipboard with a running order number. When a request starts a slow read-through, it notes the current number. Meanwhile a publish comes in, updates the plate, and ticks the number up. When the slow request finally returns, it re-checks the clipboard, sees the number has moved, and quietly declines to slap its now-stale plate back on the shelf. The diner still gets served, but the fresher plate is never clobbered.
 
 ## Stale-set protection
+
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
 ```mermaid
 sequenceDiagram
@@ -399,6 +417,8 @@ sequenceDiagram
     A-->>C: Do not write stale snapshot back
 ```
 
+</div>
+
 ## Structural vs non-structural content-type changes
 
 Another major improvement is that the code treats content-type changes more intelligently.
@@ -408,6 +428,7 @@ For non-structural changes such as:
 - name
 - icon
 - description
+- new property added
 
 Umbraco can often keep the serialised cache entries and just clear converted content.
 
@@ -431,6 +452,8 @@ This is a very pragmatic trade-off: correctness still matters, but so do availab
 
 ## Rebuild flow
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 ```mermaid
 flowchart TD
     A["Content type structural change"] --> B{"Immediate or deferred?"}
@@ -441,6 +464,8 @@ flowchart TD
     F --> G["Clear matching HybridCache tags"]
     G --> H["Clear matching converted-object cache"]
 ```
+
+</div>
 
 ## Serializer change can trigger full database cache rebuild
 
@@ -457,7 +482,7 @@ That tells us something important:
 
 The old mental model encouraged people to assume lots of content was already hot.
 
-The future Hybrid Cache still gives you hot paths, but it rewards more discipline:
+The current `main` Hybrid Cache still gives you hot paths, but it rewards more discipline:
 
 - seed deliberately
 - avoid broad traversal when a query would do
@@ -466,9 +491,8 @@ The future Hybrid Cache still gives you hot paths, but it rewards more disciplin
 
 In other words:
 
-- startup gets lighter
-- memory use gets lower
-- but poor query habits become easier to feel
+- startup and memory use can be controlled more deliberately, because only selected keys are seeded
+- poor query habits become easier to feel
 
 ## What Microsoft's docs explain well
 
@@ -513,12 +537,12 @@ The layers, from nearest to furthest:
 
 - **It is a pipeline, not a bucket.** A request falls through L0, then `HybridCache`, then the database source — and correctness (draft/published keys, negative-entry tags, the generation counter) is baked into each step.
 - **Tags and the generation counter make it smarter, not just newer.** Cache busting can be broad or surgical, and a slow, stale read can never clobber a freshly published plate.
-- **Discipline is rewarded.** Startup gets lighter and memory use lower, but you seed on purpose and pay for sloppy query habits — so know which layer you are actually hitting.
+- **Discipline is rewarded.** Startup and memory use can be controlled more deliberately, but you seed on purpose and pay for sloppy query habits — so know which layer you are actually hitting.
 
 ### Where to go next
 
-- [12. NuCache vs Hybrid Cache](./11-nucache-vs-hybrid-cache.md) — how this future model differs from the cache it replaces.
-- [15. Reading the cache code](./14-reading-the-cache-code.md) — trace `DocumentCacheService` and friends in the source yourself.
+- [12. NuCache vs Hybrid Cache](./10-nucache-vs-hybrid-cache.md) — how this future model differs from the cache it replaces.
+- [15. Reading the cache code](./13-reading-the-cache-code.md) — trace `DocumentCacheService` and friends in the source yourself.
 - [04. Cache busting and invalidation](./04-cache-busting-and-invalidation.md) — the invalidation story this chapter builds on.
 
 ## Sources
@@ -541,12 +565,12 @@ The layers, from nearest to furthest:
   - `umbraco-main/src/Umbraco.PublishedCache.HybridCache/Serialization/HybridCacheSerializer.cs`
   - `umbraco-main/src/Umbraco.PublishedCache.HybridCache/Persistence/DatabaseCacheRepository.cs`
 
-[^10-msbase]: See [M1](./10-appendix-sources.md#m1-caching-in-net), [M2](./10-appendix-sources.md#m2-aspnet-core-hybridcache), and [M4](./10-appendix-sources.md#m4-hybrid-cache-is-now-ga).
-[^10-relevant]: See [M1](./10-appendix-sources.md#m1-caching-in-net), [M2](./10-appendix-sources.md#m2-aspnet-core-hybridcache), [M5](./10-appendix-sources.md#m5-hybridcacheentryoptions), and [M6](./10-appendix-sources.md#m6-hybridcacheoptions).
-[^10-registers]: See [C4](./10-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main) and [C5](./10-appendix-sources.md#c5-claudemd-for-umbracopublishedcachehybridcache).
-[^10-l0]: See [C4](./10-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main).
-[^10-serialiser]: See [C4](./10-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main), [M2](./10-appendix-sources.md#m2-aspnet-core-hybridcache), and [M6](./10-appendix-sources.md#m6-hybridcacheoptions).
-[^10-tags]: See [M2](./10-appendix-sources.md#m2-aspnet-core-hybridcache), [M4](./10-appendix-sources.md#m4-hybrid-cache-is-now-ga), and [C4](./10-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main).
-[^10-generation]: See [C4](./10-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main).
-[^10-msdocs]: See [M1](./10-appendix-sources.md#m1-caching-in-net), [M2](./10-appendix-sources.md#m2-aspnet-core-hybridcache), and [M3](./10-appendix-sources.md#m3-aspnet-core-caching-overview).
-[^10-umbracoblog]: See [B1](./10-appendix-sources.md#b1-umbraco-15-release), [B2](./10-appendix-sources.md#b2-umbraco-15-release-candidate), [B3](./10-appendix-sources.md#b3-umbraco-17-beta-is-out), and [B6](./10-appendix-sources.md#b6-umbraco-product-update---q1-2025).
+[^10-msbase]: See [M1](./14-appendix-sources.md#m1-caching-in-net), [M2](./14-appendix-sources.md#m2-aspnet-core-hybridcache), and [M4](./14-appendix-sources.md#m4-hybrid-cache-is-now-ga).
+[^10-relevant]: See [M1](./14-appendix-sources.md#m1-caching-in-net), [M2](./14-appendix-sources.md#m2-aspnet-core-hybridcache), [M5](./14-appendix-sources.md#m5-hybridcacheentryoptions), and [M6](./14-appendix-sources.md#m6-hybridcacheoptions).
+[^10-registers]: See [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main) and [C5](./14-appendix-sources.md#c5-claudemd-for-umbracopublishedcachehybridcache).
+[^10-l0]: See [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main).
+[^10-serialiser]: See [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main), [M2](./14-appendix-sources.md#m2-aspnet-core-hybridcache), and [M6](./14-appendix-sources.md#m6-hybridcacheoptions).
+[^10-tags]: See [M2](./14-appendix-sources.md#m2-aspnet-core-hybridcache), [M4](./14-appendix-sources.md#m4-hybrid-cache-is-now-ga), and [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main).
+[^10-generation]: See [C4](./14-appendix-sources.md#c4-umbracopublishedcachehybridcache-on-main).
+[^10-msdocs]: See [M1](./14-appendix-sources.md#m1-caching-in-net), [M2](./14-appendix-sources.md#m2-aspnet-core-hybridcache), and [M3](./14-appendix-sources.md#m3-aspnet-core-caching-overview).
+[^10-umbracoblog]: See [B1](./14-appendix-sources.md#b1-umbraco-15-release), [B2](./14-appendix-sources.md#b2-umbraco-15-release-candidate), [B3](./14-appendix-sources.md#b3-umbraco-17-beta-is-out), and [B6](./14-appendix-sources.md#b6-umbraco-product-update---q1-2025).
