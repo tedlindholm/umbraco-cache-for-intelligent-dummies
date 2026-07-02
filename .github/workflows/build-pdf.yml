@@ -42,3 +42,19 @@ jobs:
               --title "Latest PDF build" \
               --notes "Automatically rebuilt from book/*.md on push to main."
           fi
+
+      - name: Publish PDF to today's dated release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PDF_PATH="book/umbraco-cache-for-intelligent-dummies.pdf"
+          DATE_TAG="pdf-$(date -u +%Y-%m-%d)"
+          if gh release view "$DATE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$DATE_TAG" "$PDF_PATH" --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$DATE_TAG" "$PDF_PATH" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "PDF build ($(date -u +%Y-%m-%d))" \
+              --notes "Automatically rebuilt from book/*.md on push to main. Multiple same-day pushes update this release." \
+              --latest=false
+          fi
