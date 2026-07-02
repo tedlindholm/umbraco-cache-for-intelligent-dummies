@@ -109,13 +109,69 @@ const chapters = [
   '20-appendix-index.md',
 ];
 
+// Mirrors GitHub's heading-slug algorithm closely enough to reproduce the
+// anchors already used by this book's cross-references (e.g. "### C1. Foo"
+// -> "c1-foo"), so existing `file.md#fragment` links keep working once the
+// `file.md` part is stripped for the single-page PDF.
+function githubSlug(text, seen) {
+  const base = text
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '') // strip diacritics: förändrar -> forandrar
+    .toLowerCase()
+    .replace(/[^\w\- ]+/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+  let slug = base;
+  let i = 1;
+  while (seen.has(slug)) {
+    slug = `${base}-${i}`;
+    i += 1;
+  }
+  seen.add(slug);
+  return slug;
+}
+
+// Inserts an <a id="..."> anchor before every heading so internal links
+// resolve inside the single concatenated PDF document. The chapter's own
+// title (its first heading) always gets the chapter's filename-derived id,
+// since that is what plain `./NN-chapter.md` links (no #fragment) target.
+function addHeadingAnchors(markdown, chapterId, seenSlugs) {
+  seenSlugs.add(chapterId);
+  let sawFirstHeading = false;
+  return markdown
+    .split(/\r?\n/)
+    .map(line => {
+      const heading = line.match(/^#{1,6}\s+(.+)$/);
+      if (!heading) return line;
+      const id = sawFirstHeading ? githubSlug(heading[1], seenSlugs) : chapterId;
+      sawFirstHeading = true;
+      // A blank line must separate the anchor from the heading: without it,
+      // CommonMark treats them as one HTML block and the heading is never
+      // parsed as a heading at all (it would print literally as "## Text").
+      return `<a id="${id}"></a>\n\n${line}`;
+    })
+    .join('\n');
+}
+
+// Rewrites `[text](./NN-chapter.md)` and `[text](./NN-chapter.md#fragment)`
+// into same-document anchors (`#NN-chapter` / `#fragment`) so links survive
+// being flattened into one PDF instead of separate GitHub-hosted files.
+function rewriteInternalLinks(markdown) {
+  return markdown.replace(/\]\(\.\/([\w.-]+)\.md(#[\w-]+)?\)/g, (match, file, fragment) =>
+    fragment ? `](${fragment})` : `](#${file})`
+  );
+}
+
 function main() {
   console.log('Reading chapters...');
   const [coverChapter, ...bodyChapters] = chapters;
   const coverMarkdown = fs.readFileSync(path.join(bookDir, coverChapter), 'utf-8');
-  const bodyMarkdown = bodyChapters
-    .map(chapter => fs.readFileSync(path.join(bookDir, chapter), 'utf-8'))
-    .join('\n\n');
+  const seenSlugs = new Set();
+  const bodyMarkdown = rewriteInternalLinks(
+    bodyChapters
+      .map(chapter => addHeadingAnchors(fs.readFileSync(path.join(bookDir, chapter), 'utf-8'), chapter.replace(/\.md$/, ''), seenSlugs))
+      .join('\n\n')
+  );
 
   const markdownItSrc = fs.readFileSync(path.join(vendorDir, 'markdown-it.min.js'), 'utf-8');
   const mermaidSrc = fs.readFileSync(path.join(vendorDir, 'mermaid.min.js'), 'utf-8');

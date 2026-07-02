@@ -59,25 +59,7 @@ When the symptom alone is not enough, walk this diagram. It sorts on one questio
 
 <div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
-```mermaid
-flowchart TD
-    START["Something is wrong<br/>with a cached value"] --> Q1{"Is the value the<br/>same on every server?"}
-    Q1 -->|"No — one node stale"| DIST["Distributed invalidation<br/>Chapter 9"]
-    Q1 -->|Yes| Q2{"What kind of value<br/>is stale or slow?"}
-
-    Q2 -->|"Whole HTML page"| OUT["Website output cache<br/>Chapter 3"]
-    Q2 -->|"JSON / headless"| CDA["Content Delivery API cache<br/>Chapter 4"]
-    Q2 -->|"IPublishedContent<br/>in server code"| PUB["Published-content cache<br/>Chapter 6"]
-    Q2 -->|"Search result"| IDX["Examine / Search index<br/>Chapter 14"]
-    Q2 -->|"Media / image"| MED["Media / storage cache<br/>Chapter 13"]
-    Q2 -->|"My own cached data"| APP["Application cache<br/>Chapter 12"]
-    Q2 -->|"Slow first request<br/>or rebuild"| SEED["Seeding / warm-up<br/>Chapter 11"]
-
-    OUT --> CHECK{"Correct on the server<br/>but stale in the browser?"}
-    CDA --> CHECK
-    CHECK -->|Yes| BROWSER["Browser / proxy / CDN cache<br/>Chapter 1"]
-    CHECK -->|No| DONE["Fix at the layer above"]
-```
+![Decision key for locating the right cache layer. Start from "something is wrong with a cached value" and ask: is the value the same on every server? If no (one node is stale), it is a distributed invalidation problem (Chapter 9). If yes, ask what kind of value is stale or slow and match the symptom: a whole HTML page means the website output cache (Chapter 3); a JSON or headless response means the Content Delivery API cache (Chapter 4); IPublishedContent in code means the published-content cache (Chapter 6); a search result means the Examine or Search index (Chapter 14); media or an image means the media or storage cache (Chapter 13); your own cached data means the application cache (Chapter 12); a slow first request or rebuild means seeding and warm-up (Chapter 11). Only for a whole HTML page or a JSON response: if it is correct on the server but stale in the browser, it is the browser, proxy, or CDN cache (Chapter 1); if it is wrong on the server too, the fix is at the layer above.](./assets/diagram-how-to-find-things-01.svg)
 
 </div>
 

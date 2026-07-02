@@ -381,7 +381,7 @@ If you want one clean sentence to reuse elsewhere, this is probably it:
 [^13-umbfyi-search]: See [F8](./17-appendix-sources.md#f8-umbfyi-cache-and-search-archive-trail), especially the entries for 15 January 2025, 3 September 2025, 10 September 2025, 17 September 2025, 27 May 2026, and 1 July 2026.
 [^13-umbfyi-index-ops]: See [F8](./17-appendix-sources.md#f8-umbfyi-cache-and-search-archive-trail), especially the entries for 7 August 2024 and 28 August 2024.
 [^13-kjac-search]: See [F10](./17-appendix-sources.md#f10-kenn-jacobsen-umbraco-repository-field-notes), especially the Umbraco Search providers, `NoCode.DeliveryApi`, `UmbracoSearchDemo`, and `UmbracoSearchInMemory`.
-[^13-brailsford-ai-search]: See [F11](./17-appendix-sources.md#f11-matt-brailsford-umbraco-ai-search).
+[^13-brailsford-ai-search]: See [F11](./17-appendix-sources.md#f11-matt-brailsford-introducing-umbraco-ai-search).
 [^13-shazwazza-corruption]: See [F12](./17-appendix-sources.md#f12-shannon-deminick-examine-field-notes), "An Examine fix for Umbraco index corruption".
 [^13-shazwazza-frontend]: See [F12](./17-appendix-sources.md#f12-shannon-deminick-examine-field-notes), "Can I disable Examine indexes on Umbraco front-end servers?".
 [^13-shazwazza-ipcq]: See [F12](./17-appendix-sources.md#f12-shannon-deminick-examine-field-notes), "Searching with IPublishedContentQuery in Umbraco".

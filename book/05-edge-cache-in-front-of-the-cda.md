@@ -154,14 +154,7 @@ The edge purge itself you write once per vendor — and it is worth reading a wo
 
 <div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
 
-```mermaid
-flowchart LR
-    PUB["Editor publishes"] --> REF["ContentCacheRefresher<br/>Chapter 9"]
-    REF --> CDAEVICT["CDA output cache evicted<br/>by tag — Chapter 4"]
-    PUB --> NOTIFY["Notification handler<br/>resolves affected item URLs"]
-    NOTIFY --> PURGE["Vendor purge call:<br/>APIM / Front Door / Cloudflare"]
-    PURGE --> EDGE["Item entries dropped now;<br/>query entries wait for TTL"]
-```
+![One publish triggers two parallel evictions. Inside Umbraco, the ContentCacheRefresher (Chapter 9) evicts the CDA output cache by tag (Chapter 4). At the edge, a notification handler resolves the affected item URLs and issues a vendor purge call to APIM, Front Door, or Cloudflare, which drops item entries immediately while query entries wait for their TTL.](./assets/diagram-edge-cache-in-front-of-the-cda-03.svg)
 
 </div>
 

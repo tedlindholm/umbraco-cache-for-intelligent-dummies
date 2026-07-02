@@ -1,4 +1,4 @@
-<svg viewBox="0 0 770 378" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 640 392" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#667eea"/>
@@ -11,32 +11,40 @@
       <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
     </marker>
   </defs>
-  <rect width="770" height="378" fill="white"/>
-<path d="M358,64 C358,149 230,149 230,234" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect width="640" height="392" fill="white"/>
 
-<path d="M385,266 C385,279 385,279 385,292" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <!-- connectors: straight vertical, no crossings -->
+  <path d="M320,84 V124" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M320,184 V224" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="332" y="208" font-size="11" font-style="italic" fill="#6b708c">miss</text>
+  <path d="M320,276 V316" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="332" y="300" font-size="11" font-style="italic" fill="#6b708c">miss</text>
 
-<path d="M385,176 C385,234 385,234 385,292" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <!-- box 1: the request -->
+  <rect x="170" y="24" width="300" height="60" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="170" y="24" width="6" height="60" rx="3" fill="url(#lineGrad)"/>
+  <text x="320" y="46" text-anchor="middle" font-size="13" fill="#2f3142">Your code or Razor asks for</text>
+  <text x="320" y="63" text-anchor="middle" font-size="13" fill="#2f3142">published content</text>
 
-<path d="M567,86 C476,86 476,122 385,122" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <!-- box 2: layer 1 -->
+  <rect x="170" y="124" width="300" height="60" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="170" y="124" width="6" height="60" rx="3" fill="url(#lineGrad)"/>
+  <text x="320" y="146" text-anchor="middle" font-size="13" fill="#2f3142">Published object fast cache</text>
+  <text x="320" y="163" text-anchor="middle" font-size="13" fill="#2f3142">in process</text>
+  <text x="156" y="150" text-anchor="end" font-size="11" font-weight="600" fill="#667eea">Layer 1</text>
+  <text x="156" y="165" text-anchor="end" font-size="10" fill="#6b708c">fastest</text>
 
-<path d="M385,176 C385,189 385,189 385,202" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <!-- box 3: layer 2 -->
+  <rect x="170" y="224" width="300" height="52" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="170" y="224" width="6" height="52" rx="3" fill="url(#lineGrad)"/>
+  <text x="320" y="254" text-anchor="middle" font-size="13" fill="#2f3142">HybridCache entry</text>
+  <text x="156" y="246" text-anchor="end" font-size="11" font-weight="600" fill="#667eea">Layer 2</text>
+  <text x="156" y="261" text-anchor="end" font-size="10" fill="#6b708c">L1 + optional L2</text>
 
-<rect x="48" y="32" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
-<rect x="48" y="32" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
-<text x="203" y="59.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Your code or Razor asks for</text>
-<text x="203" y="76.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">published content</text>
-<rect x="230" y="202" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
-<rect x="230" y="202" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
-<text x="385" y="229.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Published object fast cache in</text>
-<text x="385" y="246.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">process</text>
-<rect x="230" y="122" width="310" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
-<rect x="230" y="122" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
-<text x="385" y="153" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">HybridCache entry</text>
-<rect x="230" y="292" width="310" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
-<rect x="230" y="292" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
-<text x="385" y="323" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">miss</text>
-<rect x="412" y="32" width="310" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
-<rect x="412" y="32" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
-<text x="567" y="63" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Database-backed cache source</text>
+  <!-- box 4: layer 3 -->
+  <rect x="170" y="316" width="300" height="52" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="170" y="316" width="6" height="52" rx="3" fill="url(#lineGrad)"/>
+  <text x="320" y="346" text-anchor="middle" font-size="13" fill="#2f3142">Database-backed cache source</text>
+  <text x="156" y="338" text-anchor="end" font-size="11" font-weight="600" fill="#667eea">Layer 3</text>
+  <text x="156" y="353" text-anchor="end" font-size="10" fill="#6b708c">repopulates</text>
 </svg>
