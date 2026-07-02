@@ -445,9 +445,9 @@ function sequenceSvg(block) {
     if (/^end$/.test(line)) events.push({ type: 'end' });
   }
 
-  const margin = 48;
   const laneGap = 170;
   const headerBoxWidth = 140;
+  const margin = headerBoxWidth / 2 + 10;
   const width = Math.max(620, margin * 2 + (participants.length - 1) * laneGap);
   const positions = new Map(participants.map((participant, index) => [participant.id, margin + index * laneGap]));
 
@@ -460,13 +460,13 @@ function sequenceSvg(block) {
   const rowHeights = events.map((event) => {
     if (event.type === 'message' || event.type === 'note') {
       const lines = splitLabel(event.label, event.type === 'note' ? 28 : 22);
-      return 54 + Math.max(0, lines.length - 1) * 16;
+      return 44 + Math.max(0, lines.length - 1) * 16;
     }
-    if (event.type === 'alt' || event.type === 'else') return 44;
-    if (event.type === 'end') return 14;
-    return 54;
+    if (event.type === 'alt' || event.type === 'else') return 38;
+    if (event.type === 'end') return 12;
+    return 44;
   });
-  const height = lifelineTop + 44 + rowHeights.reduce((sum, value) => sum + value, 0);
+  const height = lifelineTop + 36 + rowHeights.reduce((sum, value) => sum + value, 0);
 
   const header = participants.map((participant, index) => {
     const x = positions.get(participant.id);
@@ -475,7 +475,7 @@ ${textBlock(x, 34 + headerHeight / 2 + 4, headerLines[index], { size: 12, weight
 <path d="M${x},${lifelineTop} V${height - 34}" stroke="${palette.grid}" stroke-width="2" stroke-dasharray="6 6"/>`;
   });
 
-  let y = lifelineTop + 40;
+  let y = lifelineTop + 32;
   const eventParts = [];
   events.forEach((event, index) => {
     const rowHeight = rowHeights[index];
