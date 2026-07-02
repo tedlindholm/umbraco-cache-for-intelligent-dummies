@@ -343,6 +343,46 @@ function layoutGroupedGraph(graph) {
   return { width, height, nodes: graph.nodes, edges: graph.edges, groups };
 }
 
+function elbowH(x1, y1, x2, y2) {
+  if (y1 === y2) return `M${x1},${y1} L${x2},${y2}`;
+  const midX = (x1 + x2) / 2;
+  return `M${x1},${y1} H${midX} V${y2} H${x2}`;
+}
+
+function elbowV(x1, y1, x2, y2) {
+  if (x1 === x2) return `M${x1},${y1} L${x2},${y2}`;
+  const midY = (y1 + y2) / 2;
+  return `M${x1},${y1} V${midY} H${x2} V${y2}`;
+}
+
+function connectorPath(from, to) {
+  const dx = to.x + to.w / 2 - (from.x + from.w / 2);
+  const dy = to.y + to.h / 2 - (from.y + from.h / 2);
+  const horizontalDominant = Math.abs(dx) >= Math.abs(dy);
+
+  let startX;
+  let startY;
+  let endX;
+  let endY;
+
+  if (horizontalDominant) {
+    const leftToRight = dx >= 0;
+    startX = leftToRight ? from.x + from.w : from.x;
+    startY = from.y + from.h / 2;
+    endX = leftToRight ? to.x : to.x + to.w;
+    endY = to.y + to.h / 2;
+  } else {
+    const topToBottom = dy >= 0;
+    startX = from.x + from.w / 2;
+    startY = topToBottom ? from.y + from.h : from.y;
+    endX = to.x + to.w / 2;
+    endY = topToBottom ? to.y : to.y + to.h;
+  }
+
+  const path = horizontalDominant ? elbowH(startX, startY, endX, endY) : elbowV(startX, startY, endX, endY);
+  return { path, midX: (startX + endX) / 2, midY: (startY + endY) / 2 };
+}
+
 function graphSvg(block) {
   const graph = layoutGraph(extractNodesAndEdges(block));
   const byId = new Map(graph.nodes.map((node) => [node.id, node]));
@@ -365,21 +405,11 @@ ${textBlock(minX + 14, minY + 20, [group.label], { anchor: 'start', size: 12, we
     const from = byId.get(edge.from);
     const to = byId.get(edge.to);
     if (!from || !to) return '';
-    const leftToRight = to.x > from.x;
-    const topToBottom = to.y > from.y;
-    const startX = leftToRight ? from.x + from.w : from.x + from.w / 2;
-    const startY = leftToRight ? from.y + from.h / 2 : from.y + from.h;
-    const endX = leftToRight ? to.x : to.x + to.w / 2;
-    const endY = leftToRight ? to.y + to.h / 2 : to.y;
-    const midX = (startX + endX) / 2;
-    const midY = (startY + endY) / 2;
-    const pathData = Math.abs(endX - startX) > Math.abs(endY - startY)
-      ? `M${startX},${startY} C${midX},${startY} ${midX},${endY} ${endX},${endY}`
-      : `M${startX},${startY} C${startX},${midY} ${endX},${midY} ${endX},${endY}`;
+    const { path, midX, midY } = connectorPath(from, to);
     const label = edge.label
       ? textBlock(midX, midY - 8, splitLabel(edge.label), { size: 11, colour: palette.accent, italic: true })
       : '';
-    return `<path d="${pathData}" stroke="${palette.line}" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    return `<path d="${path}" stroke="${palette.line}" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 ${label}`;
   });
 
@@ -560,13 +590,13 @@ function mindmapSvg(block) {
   branches.forEach((branch, index) => {
     const y = 70 + index * ((height - 140) / Math.max(branches.length - 1, 1));
     const x = 390;
-    parts.push(`<path d="M${centreX + 96},${centreY} C${centreX + 170},${centreY} ${x - 100},${y} ${x - 6},${y}" stroke="${palette.line}" stroke-width="2" fill="none" marker-end="url(#arrow)"/>`);
+    parts.push(`<path d="${elbowH(centreX + 96, centreY, x - 6, y)}" stroke="${palette.line}" stroke-width="2" fill="none" marker-end="url(#arrow)"/>`);
     parts.push(`<rect x="${x}" y="${y - 28}" width="168" height="56" rx="10" fill="${palette.pale}" filter="url(#soft)"/>`);
     parts.push(textBlock(x + 84, y + 4, splitLabel(branch.label), { weight: '700', size: 13 }));
     branch.children.forEach((child, childIndex) => {
       const childX = 610;
       const childY = y - (branch.children.length - 1) * 18 + childIndex * 36;
-      parts.push(`<path d="M${x + 168},${y} C${x + 194},${y} ${childX - 30},${childY} ${childX},${childY}" stroke="${palette.line}" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>`);
+      parts.push(`<path d="${elbowH(x + 168, y, childX, childY)}" stroke="${palette.line}" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>`);
       parts.push(`<rect x="${childX}" y="${childY - 17}" width="160" height="34" rx="8" fill="white" stroke="${palette.grid}"/>`);
       parts.push(textBlock(childX + 80, childY + 4, splitLabel(child), { size: 11, colour: palette.muted, lineHeight: 13 }));
     });

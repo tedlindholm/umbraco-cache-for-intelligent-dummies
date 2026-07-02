@@ -1,0 +1,109 @@
+<svg viewBox="0 0 1000 760" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+    </marker>
+  </defs>
+
+  <rect width="1000" height="760" fill="white"/>
+  <text x="500" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#2f3142">The vendor-neutral edge cache decision flow</text>
+
+  <text x="190" y="64" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="0.5" fill="#6b708c">DECIDED AT THE EDGE</text>
+  <text x="770" y="64" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="0.5" fill="#6b708c">FALLS THROUGH TO UMBRACO</text>
+
+  <!-- REQ -->
+  <rect x="50" y="84" width="280" height="56" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="50" y="84" width="6" height="56" rx="3" fill="url(#lineGrad)"/>
+  <text x="190" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Client request to</text>
+  <text x="190" y="124" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">a CDA route</text>
+
+  <!-- BYPASS diamond -->
+  <polygon points="190,168 330,232 190,296 50,232" fill="#fff7e8" stroke="#e2b568" stroke-width="2" filter="url(#soft)"/>
+  <text x="190" y="216" text-anchor="middle" font-size="12" font-weight="700" fill="#2f3142">Bypass rule:</text>
+  <text x="190" y="234" text-anchor="middle" font-size="12" fill="#4b4d60">auth header, preview,</text>
+  <text x="190" y="252" text-anchor="middle" font-size="12" fill="#4b4d60">or member cookie?</text>
+
+  <!-- KEY -->
+  <rect x="50" y="324" width="280" height="56" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="50" y="324" width="6" height="56" rx="3" fill="url(#lineGrad)"/>
+  <text x="190" y="346" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Compute cache key:</text>
+  <text x="190" y="364" text-anchor="middle" font-size="13" fill="#4b4d60">URL + vary dimensions</text>
+
+  <!-- LOOKUP diamond -->
+  <polygon points="190,408 330,468 190,528 50,468" fill="#fff7e8" stroke="#e2b568" stroke-width="2" filter="url(#soft)"/>
+  <text x="190" y="462" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Edge cache</text>
+  <text x="190" y="480" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">lookup</text>
+
+  <!-- SERVE -->
+  <rect x="50" y="556" width="280" height="64" rx="10" fill="#eaf7f0" filter="url(#soft)"/>
+  <rect x="50" y="556" width="6" height="64" rx="3" fill="#2f9e64"/>
+  <text x="190" y="582" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Serve from edge</text>
+  <text x="190" y="600" text-anchor="middle" font-size="12" fill="#3f7d5c">Umbraco never sees the request</text>
+
+  <!-- ORIGIN -->
+  <rect x="630" y="168" width="280" height="64" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="630" y="168" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
+  <text x="770" y="194" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Origin: Umbraco CDA</text>
+  <text x="770" y="212" text-anchor="middle" font-size="12" fill="#6b708c">Chapter 4 output cache</text>
+
+  <!-- STORE diamond -->
+  <polygon points="770,260 910,324 770,388 630,324" fill="#fff7e8" stroke="#e2b568" stroke-width="2" filter="url(#soft)"/>
+  <text x="770" y="308" text-anchor="middle" font-size="12" font-weight="700" fill="#2f3142">Response cacheable?</text>
+  <text x="770" y="326" text-anchor="middle" font-size="12" fill="#4b4d60">TTL from Cache-Control</text>
+  <text x="770" y="344" text-anchor="middle" font-size="12" fill="#4b4d60">or edge override</text>
+
+  <!-- CACHE -->
+  <rect x="630" y="416" width="130" height="56" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="630" y="416" width="6" height="56" rx="3" fill="url(#lineGrad)"/>
+  <text x="695" y="450" text-anchor="middle" font-size="12" font-weight="700" fill="#2f3142">Store at edge</text>
+
+  <!-- RETURN -->
+  <rect x="780" y="416" width="130" height="56" rx="10" fill="#f7f7f9" filter="url(#soft)"/>
+  <rect x="780" y="416" width="6" height="56" rx="3" fill="#9aa0c4"/>
+  <text x="845" y="442" text-anchor="middle" font-size="12" font-weight="700" fill="#2f3142">Return,</text>
+  <text x="845" y="459" text-anchor="middle" font-size="12" font-weight="700" fill="#2f3142">uncached</text>
+
+  <!-- arrows -->
+  <path d="M190,140 V162" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <path d="M330,232 C 460,232 520,210 626,200" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="418" y="188" width="150" height="22" rx="11" fill="white"/>
+  <text x="493" y="203" text-anchor="middle" font-size="11" fill="#a5791f">Yes, always fresh</text>
+
+  <path d="M190,296 V318" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="200" y="298" width="40" height="20" rx="10" fill="white"/>
+  <text x="220" y="313" text-anchor="middle" font-size="11" fill="#a5791f">No</text>
+
+  <path d="M190,380 V402" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <path d="M190,528 V550" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="200" y="530" width="38" height="20" rx="10" fill="white"/>
+  <text x="219" y="545" text-anchor="middle" font-size="11" fill="#a5791f">Hit</text>
+
+  <path d="M330,468 C 500,468 560,300 626,222" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="378" y="388" width="48" height="20" rx="10" fill="white"/>
+  <text x="402" y="403" text-anchor="middle" font-size="11" fill="#a5791f">Miss</text>
+
+  <path d="M770,232 V254" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <path d="M770,388 C 745,400 718,405 698,412" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="672" y="392" width="36" height="20" rx="10" fill="white"/>
+  <text x="690" y="407" text-anchor="middle" font-size="11" fill="#a5791f">Yes</text>
+
+  <path d="M770,388 C 800,400 822,405 842,412" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <rect x="828" y="392" width="32" height="20" rx="10" fill="white"/>
+  <text x="844" y="407" text-anchor="middle" font-size="11" fill="#a5791f">No</text>
+
+  <!-- footer -->
+  <rect x="60" y="655" width="880" height="90" rx="14" fill="white" stroke="#dde1f2"/>
+  <text x="500" y="680" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Why this matters</text>
+  <text x="500" y="700" text-anchor="middle" font-size="12" fill="#6b708c">Only the bypass-yes and lookup-hit paths keep the request off Umbraco entirely.</text>
+  <text x="500" y="718" text-anchor="middle" font-size="12" fill="#6b708c">A miss, a bypass, or an uncacheable response all still reach the Chapter 4 output cache.</text>
+</svg>

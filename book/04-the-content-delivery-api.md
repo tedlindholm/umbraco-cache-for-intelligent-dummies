@@ -44,7 +44,7 @@ Key facts to hold:
   }
   ```
 
-  Both durations default to just 10 seconds, so setting them explicitly is usually the point.
+  Both durations default to one minute in the v17 source (`OutputCacheSettings.StaticDuration = "00:01:00"`), so setting them explicitly is usually the point. The official docs still describe a 10-second default; where the docs and the source disagree, this book follows the source.[^04-outputcache-default]
 
 - **Stores server-side JSON responses**, skipping the published-cache read and JSON projection on repeat hits.
 - **Varied by route and Delivery API headers** — content responses vary by `Accept-Language`, `Accept-Segment`, and `Start-Item`; media responses by `Start-Item` only — so a request for the Danish variant does not receive the English response. Custom vary providers (`IDeliveryApiOutputCacheVaryByProvider`) can add more dimensions.
@@ -134,11 +134,11 @@ Everything above keeps *Umbraco's own* cache honest. But the CDA usually feeds s
 
 > **Gotcha — eviction stops at the edge.** Once JSON has left Umbraco and been baked into a static site or cached at a CDN, publishing content in Umbraco clears *Umbraco's* copy but not the consumer's. That last hop needs its own signal — a content-published webhook, a deploy hook, or a purge call.
 
-This is the recurring theme of [Chapter 6 - Cache Busting and Invalidation](./06-cache-busting-and-invalidation.md), and the field notes there (Kenn Jacobsen's `NoCode.DeliveryApi` and the Azure/Cloudflare examples) are exactly about wiring that last hop.
+This is the recurring theme of [Chapter 9 - Cache Busting and Invalidation](./09-cache-busting-and-invalidation.md), and the field notes there (Kenn Jacobsen's `NoCode.DeliveryApi` and the Azure/Cloudflare examples) are exactly about wiring that last hop.
 
 ## What changes in v18
 
-v18 makes element-driven eviction explicit for the CDA too: `DeliveryApiElementOutputCacheEvictionHandler` joins the document handler, so a change to a block element can evict the responses that embed it without falling back to a broad sweep. In v17, element-level changes are handled more coarsely because individual elements are hard to address precisely. See [Chapter 12 - NuCache vs Hybrid Cache](./12-nucache-vs-hybrid-cache.md) for the v17→v18 arc.
+v18 makes element-driven eviction explicit for the CDA too: `DeliveryApiElementOutputCacheEvictionHandler` joins the document handler, so a change to a block element can evict the responses that embed it without falling back to a broad sweep. In v17, element-level changes are handled more coarsely because individual elements are hard to address precisely. See [Chapter 8 - NuCache vs Hybrid Cache](./08-nucache-vs-hybrid-cache.md) for the v17→v18 arc.
 
 ## In a nutshell
 
@@ -156,9 +156,10 @@ v18 makes element-driven eviction explicit for the CDA too: `DeliveryApiElementO
 
 ### Where to go next
 
-- [Chapter 5 - Published Content Cache, AppCaches, and Load Balancing](./05-published-cache-and-load-balancing.md) — the layer the CDA reads from.
-- [Chapter 6 - Cache Busting and Invalidation](./06-cache-busting-and-invalidation.md) — the full invalidation choreography, including the edge.
-- [Chapter 15 - Reading the Cache Code](./15-reading-the-cache-code.md) — the CDA output-cache types in the source.
+- [Edge Cache in Front of the CDA](./05-edge-cache-in-front-of-the-cda.md) — building the downstream cache this chapter just warned you about, with Cloudflare, Azure API Management, or Azure Front Door.
+- [Chapter 6 - Published Content Cache, AppCaches, and Load Balancing](./06-published-cache-and-load-balancing.md) — the layer the CDA reads from.
+- [Chapter 9 - Cache Busting and Invalidation](./09-cache-busting-and-invalidation.md) — the full invalidation choreography, including the edge.
+- [Chapter 16 - Reading the Cache Code](./16-reading-the-cache-code.md) — the CDA output-cache types in the source.
 
 ## Sources
 
@@ -168,9 +169,11 @@ v18 makes element-driven eviction explicit for the CDA too: `DeliveryApiElementO
   - [Cache settings (v17)](https://docs.umbraco.com/umbraco-cms/17.latest/develop-with-umbraco/configuration/cache-settings.md)
 - Code:
   - `umbraco-v17/src/Umbraco.Core/Constants-DeliveryApi.cs`
+  - `umbraco-v17/src/Umbraco.Core/Configuration/Models/DeliveryApiSettings.cs`
   - `umbraco-v17/src/Umbraco.Cms.Api.Delivery/Caching/DeliveryApiOutputCachePolicyBase.cs`
   - `umbraco-v17/src/Umbraco.Cms.Api.Delivery/Caching/DeliveryApiDocumentOutputCacheEvictionHandler.cs`
   - `umbraco-v17/src/Umbraco.Web.Common/Caching/RelationOutputCacheEvictionHandlerBase.cs`
   - `umbraco-v18/src/Umbraco.Web.Website/Caching/WebsiteElementOutputCacheEvictionHandler.cs`
 
-[^04-interfaces]: See [C7](./16-appendix-sources.md#c7-core-cache-types-and-refreshers) in the appendix; the full mirror set is mapped in [Chapter 15 - Reading the Cache Code](./15-reading-the-cache-code.md).
+[^04-interfaces]: See [C7](./17-appendix-sources.md#c7-core-cache-types-and-refreshers) in the appendix; the full mirror set is mapped in [Chapter 16 - Reading the Cache Code](./16-reading-the-cache-code.md).
+[^04-outputcache-default]: `OutputCacheSettings` in `umbraco-v17/src/Umbraco.Core/Configuration/Models/DeliveryApiSettings.cs` sets `private const string StaticDuration = "00:01:00"; // one minute`, with both `ContentDuration` and `MediaDuration` defaulting to it.

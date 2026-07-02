@@ -317,8 +317,8 @@ That is a clue that block and element dependencies are becoming more first-class
 
 ### Where to go next
 
-- [Chapter 6 - Cache Busting and Invalidation](./06-cache-busting-and-invalidation.md) — how the "evict at the right moment" machinery works across every cache.
-- [Chapter 5 - Published Content Cache, AppCaches, and Load Balancing](./05-published-cache-and-load-balancing.md) — the layer that feeds the renderer in the first place.
+- [Chapter 9 - Cache Busting and Invalidation](./09-cache-busting-and-invalidation.md) — how the "evict at the right moment" machinery works across every cache.
+- [Chapter 6 - Published Content Cache, AppCaches, and Load Balancing](./06-published-cache-and-load-balancing.md) — the layer that feeds the renderer in the first place.
 
 ## Sources
 
@@ -335,5 +335,5 @@ That is a clue that block and element dependencies are becoming more first-class
   - `umbraco-v17/src/Umbraco.Core/Cache/Refreshers/Implement/ContentCacheRefresher.cs`
   - `umbraco-v18/src/Umbraco.Web.Website/Caching/WebsiteElementOutputCacheEvictionHandler.cs`
 
-[^02-output]: See [U3 in the appendix](./16-appendix-sources.md#u3-website-output-caching) and [C6](./16-appendix-sources.md#c6-website-output-cache-implementation).
-[^02-rules]: See [U3](./16-appendix-sources.md#u3-website-output-caching) and [C6](./16-appendix-sources.md#c6-website-output-cache-implementation).
+[^02-output]: See [U3 in the appendix](./17-appendix-sources.md#u3-website-output-caching) and [C6](./17-appendix-sources.md#c6-website-output-cache-implementation).
+[^02-rules]: See [U3](./17-appendix-sources.md#u3-website-output-caching) and [C6](./17-appendix-sources.md#c6-website-output-cache-implementation).

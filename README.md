@@ -1,59 +1,131 @@
 # Umbraco Cache for Intelligent Dummies
 
-This repository is a working book project about caching in Umbraco.
+[![skills.sh install count](https://skills.sh/b/tedlindholm/umbraco-cache-for-intelligent-dummies)](https://skills.sh/tedlindholm/umbraco-cache-for-intelligent-dummies)
 
-It is written for intelligent beginners and keeps one idea front and centre:
+Install the agent skill:
 
-cache busting and invalidation matter at least as much as cache creation.
+```bash
+npx skills add tedlindholm/umbraco-cache-for-intelligent-dummies -g
+```
 
-## Reader Skill
+Use it when you want an AI agent to reason about Umbraco cache problems from a
+source-backed book instead of guessing from generic caching advice.
 
-This repository also includes a reader-facing agent skill:
+The core idea is simple:
+
+> Cache busting and invalidation matter at least as much as cache creation.
+
+This repository is both:
+
+- a reader-facing AI skill for Umbraco cache explanation, triage, source-checking,
+  and debugging
+- a working book project about caching in Umbraco, written for intelligent
+  beginners who want implementation truth without getting lost in old names,
+  half-remembered cache lore, or "just clear the cache" advice
+
+The book separates published-content cache, output cache, browser/CDN cache,
+media/storage cache, application cache, distributed invalidation, and
+search/index freshness. It focuses on Umbraco 17, with carefully labelled notes
+for Umbraco 18 and current `main` where they change the mental model.
+
+## Install the Skill
+
+The skill lives here:
 
 - [umbraco-cache-for-intelligent-dummies](./skills/umbraco-cache-for-intelligent-dummies/SKILL.md)
 
-Install it with the `skills.sh` method:
+Install it globally with the `skills` CLI:
 
 ```bash
-npx skills add tedlindholm/umbraco-cache-for-intelligent-dummies
+npx skills add tedlindholm/umbraco-cache-for-intelligent-dummies -g
 ```
 
-`npx` downloads and runs the [skills.sh](https://skills.sh) CLI on demand, so there is no
-separate install step — you just need Node.js (npm/npx) installed first.
+Skills are reusable capabilities for AI agents. The
+[skills.sh documentation](https://www.skills.sh/docs) describes them as
+procedural knowledge that helps agents perform specific tasks more effectively.
+`npx` downloads and runs the CLI on demand, so there is no separate install step;
+you only need Node.js with npm/npx available.
 
-Use the skill when you want an AI agent to help debug real Umbraco cache symptoms: stale pages, stale published content, load-balanced mismatches, custom caches that do not clear, media-cache confusion, slow warm-up, or stale search/index results. The skill routes the agent to the smallest relevant part of the book and links heavily to GitHub chapters, official docs, and source so it can reason about the issue without blurring NuCache, Hybrid Cache, output cache, media cache, application cache, and distributed invalidation together.
+After installation, ask your agent to use
+`$umbraco-cache-for-intelligent-dummies` for an Umbraco cache question:
+
+```text
+Use $umbraco-cache-for-intelligent-dummies to diagnose why one front-end node
+still serves old content after publish.
+```
+
+## What the Skill Helps With
+
+Use the skill when you want an AI agent to help with:
+
+- stale pages, stale published content, or stale headless JSON
+- load-balanced mismatches and distributed invalidation
+- output-cache tags, vary rules, and cache bypass decisions
+- custom `IAppCache`, `HybridCache`, or tag-based cache code
+- media, blob, CDN, and ImageSharp cache confusion
+- slow warm-up, seeding, traversal cost, rebuilds, and reindexing
+- NuCache naming versus the active Hybrid Cache implementation
+
+The skill routes the agent to the smallest relevant chapter, asks it to check
+the public GitHub book before making factual claims, and keeps cache storage
+separate from cache invalidation.
 
 ## Scope
 
 - Primary focus: Umbraco 17.5.1 code and Umbraco 17.latest documentation.
 - Secondary focus: useful and relevant changes observed in Umbraco 18.0.2 and `main`.
-- Canonical source register: [16 - Appendix: Sources](./book/16-appendix-sources.md).
+- Canonical source register: [17 - Appendix: Sources](./book/17-appendix-sources.md).
 
 ## Chapters
 
+Start here for lookup: [How to Find Things](./book/00b-how-to-find-things.md) — symptom, layer, and task tables plus a "which cache am I looking at?" diagram.
+
+**Part I — Foundations**
+
 - [01 - The Big Picture](./book/01-the-big-picture.md)
 - [02 - The Published Object (`IPublishedContent`)](./book/02-the-published-object.md)
+
+**Part II — The output caches**
+
 - [03 - Website Output Caching](./book/03-website-output-caching.md)
 - [04 - The Content Delivery API](./book/04-the-content-delivery-api.md)
-- [05 - Published Content Cache, AppCaches, and Load Balancing](./book/05-published-cache-and-load-balancing.md)
-- [06 - Cache Busting and Invalidation](./book/06-cache-busting-and-invalidation.md)
-- [07 - HQ Extensions and Cache](./book/07-hq-extensions-and-cache.md)
-- [08 - Cache Settings, Talks, and Field Notes](./book/08-cache-settings-talks-and-field-notes.md)
-- [09 - Small Local Cache Example with Tags](./book/09-small-local-cache-example-with-tags.md)
-- [10 - Storage Providers and Media Caching](./book/10-storage-providers-and-media-caching.md)
-- [11 - Future Hybrid Cache Architecture](./book/11-future-hybrid-cache-architecture.md)
-- [12 - NuCache vs Hybrid Cache](./book/12-nucache-vs-hybrid-cache.md)
-- [13 - Examine, Indexes, and Cache-Adjacent Querying](./book/13-examine-indexes-and-cache-adjacent-querying.md)
-- [14 - Lessons from the Issue Tracker](./book/14-lessons-from-the-issue-tracker.md)
-- [15 - Reading the Cache Code](./book/15-reading-the-cache-code.md)
-- [16 - Appendix: Sources](./book/16-appendix-sources.md)
-- [17 - Appendix: UMB.FYI Archive Notes for Cache and Index Topics](./book/17-appendix-umbfyi-archive-notes.md)
+- [05 - Edge Cache in Front of the Content Delivery API](./book/05-edge-cache-in-front-of-the-cda.md) — Cloudflare, Azure API Management, and Azure Front Door, generalised from Umbraco Cloud's own architecture
+
+**Part III — The published-content engine**
+
+- [06 - Published Content Cache, AppCaches, and Load Balancing](./book/06-published-cache-and-load-balancing.md)
+- [07 - How the Hybrid Cache Engine Works](./book/07-hybrid-cache-engine.md)
+- [08 - NuCache vs Hybrid Cache](./book/08-nucache-vs-hybrid-cache.md)
+
+**Part IV — Invalidation**
+
+- [09 - Cache Busting and Invalidation](./book/09-cache-busting-and-invalidation.md)
+
+**Part V — Extensions and operations**
+
+- [10 - HQ Extensions and Cache](./book/10-hq-extensions-and-cache.md)
+- [11 - Cache Settings, Talks, and Field Notes](./book/11-cache-settings-talks-and-field-notes.md)
+
+**Part VI — Adjacent caches and data**
+
+- [12 - Small Local Cache Example with Tags](./book/12-small-local-cache-example-with-tags.md)
+- [13 - Storage Providers and Media Caching](./book/13-storage-providers-and-media-caching.md)
+- [14 - Examine, Indexes, and Cache-Adjacent Querying](./book/14-examine-indexes-and-cache-adjacent-querying.md)
+
+**Part VII — Diagnosis and reference**
+
+- [15 - Lessons from the Issue Tracker](./book/15-lessons-from-the-issue-tracker.md)
+- [16 - Reading the Cache Code](./book/16-reading-the-cache-code.md)
+- [17 - Appendix: Sources](./book/17-appendix-sources.md)
+- [18 - Appendix: UMB.FYI Archive Notes for Cache and Index Topics](./book/18-appendix-umbfyi-archive-notes.md)
+- [19 - Appendix: Glossary](./book/19-appendix-glossary.md)
+- [20 - Appendix: Index](./book/20-appendix-index.md)
 
 ## PDF Export
 
 Run `node generate-pdf-chrome.js` to build `book/umbraco-cache-for-intelligent-dummies.pdf`.
 
-The build has no npm dependencies — it uses only Node's built-in modules plus your
+The build has no npm dependencies. It uses only Node's built-in modules plus your
 installed Google Chrome. Markdown parsing and Mermaid diagram rendering run as
 vendored browser bundles (`vendor/markdown-it.min.js`, `vendor/mermaid.min.js`)
 executed by Chrome itself, headlessly, the same way `Cmd+P > Save as PDF` would.
@@ -64,7 +136,7 @@ A GitHub Actions workflow (`.github/workflows/build-pdf.yml`) rebuilds the PDF
 automatically on every push to `book/**.md` and publishes it to the `latest-pdf`
 release.
 
-### Large diagrams
+### Diagram Notes
 
 Some Mermaid diagrams are large enough to be split by page breaks. This repository
 includes print helpers for that:
