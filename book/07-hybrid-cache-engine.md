@@ -208,9 +208,13 @@ This is the single most important Microsoft detail for understanding Umbraco's t
 
 </div>
 
+<div class="pdf-keep-together" style="break-inside: avoid; page-break-inside: avoid; -webkit-column-break-inside: avoid; margin: 1rem 0;">
+
 > **Gotcha — tag busting does not free memory.** Because invalidation is a logical timestamp gate, calling `RemoveByTagAsync` on a huge content type does not immediately reclaim RAM; the stale entries linger until their own expiry. If you are chasing memory, tag invalidation is the wrong lever — expiry and payload size are the right ones.
 
 This is precisely why Umbraco can afford to tag *every* document and element and still invalidate a whole content type in one call: the operation is cheap because it is a timestamp bump, not a sweep.
+
+</div>
 
 <div style="page-break-before: always; break-before: page;"></div>
 
