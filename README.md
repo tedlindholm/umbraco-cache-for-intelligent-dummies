@@ -133,8 +133,8 @@ Set the `CHROME_PATH` environment variable if Chrome isn't in the default locati
 for your OS.
 
 A GitHub Actions workflow (`.github/workflows/build-pdf.yml`) rebuilds the PDF
-automatically on every push to `book/**.md` and publishes it to the `latest-pdf`
-release.
+automatically on every push to `book/**.md` and publishes it to a dated release
+(`pdf-YYYY-MM-DD`), updating that same release on repeated same-day pushes.
 
 ### Diagram Notes
 
