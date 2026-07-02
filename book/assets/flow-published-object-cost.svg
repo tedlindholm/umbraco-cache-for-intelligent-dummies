@@ -1,73 +1,73 @@
 <svg viewBox="0 0 700 480" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad2" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft2" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.15"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.15"/>
     </filter>
     <marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
 
   <rect width="700" height="480" fill="white"/>
 
   <!-- connectors: main spine -->
-  <path d="M220,78 V104" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
-  <path d="M220,152 V178" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
-  <path d="M220,226 V246" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
-  <path d="M220,294 V320" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
-  <path d="M220,368 V394" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+  <path d="M220,78 V104" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+  <path d="M220,152 V178" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+  <path d="M220,226 V246" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+  <path d="M220,294 V320" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+  <path d="M220,368 V394" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
 
   <!-- side branch: fast lane hit -->
-  <path d="M400,128 H460" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
-  <text x="410" y="120" font-size="11" fill="#667eea" font-style="italic">yes</text>
+  <path d="M400,128 H460" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+  <text x="410" y="120" font-size="11" fill="#e35aa0" font-style="italic">yes</text>
 
   <!-- side branch: HybridCache miss -> DB load -> merges into deserialise -->
-  <path d="M400,202 H460" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+  <path d="M400,202 H460" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
   <text x="410" y="194" font-size="11" fill="#999" font-style="italic">no</text>
-  <path d="M560,226 V266 H400" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+  <path d="M560,226 V266 H400" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
 
   <!-- Row 1 -->
-  <rect x="40" y="30" width="360" height="48" rx="10" fill="#f3f4fb" filter="url(#soft2)"/>
+  <rect x="40" y="30" width="360" height="48" rx="10" fill="#fdf1f7" filter="url(#soft2)"/>
   <rect x="40" y="30" width="6" height="48" rx="3" fill="url(#lineGrad2)"/>
   <text x="220" y="59" text-anchor="middle" font-size="13" fill="#333">Your code asks for a published node</text>
 
   <!-- Row 2: decision -->
-  <rect x="40" y="104" width="360" height="48" rx="24" fill="white" stroke="#667eea" stroke-width="2" stroke-dasharray="5 4"/>
+  <rect x="40" y="104" width="360" height="48" rx="24" fill="white" stroke="#e35aa0" stroke-width="2" stroke-dasharray="5 4"/>
   <text x="220" y="124" text-anchor="middle" font-size="13" font-weight="600" fill="#4a4a4a">Already materialised in the</text>
   <text x="220" y="140" text-anchor="middle" font-size="13" font-weight="600" fill="#4a4a4a">in-process fast lane?</text>
 
   <!-- Row 2 side: terminal -->
-  <rect x="460" y="104" width="200" height="48" rx="10" fill="white" stroke="#667eea" stroke-width="2"/>
+  <rect x="460" y="104" width="200" height="48" rx="10" fill="white" stroke="#e35aa0" stroke-width="2"/>
   <text x="560" y="122" text-anchor="middle" font-size="11.5" font-style="italic" fill="#4a4a4a">Return live</text>
   <text x="560" y="137" text-anchor="middle" font-size="11.5" font-style="italic" fill="#4a4a4a">IPublishedContent</text>
   <text x="560" y="150" text-anchor="middle" font-size="10.5" font-style="italic" fill="#888">(no deserialisation)</text>
 
   <!-- Row 3: decision -->
-  <rect x="40" y="178" width="360" height="48" rx="24" fill="white" stroke="#667eea" stroke-width="2" stroke-dasharray="5 4"/>
+  <rect x="40" y="178" width="360" height="48" rx="24" fill="white" stroke="#e35aa0" stroke-width="2" stroke-dasharray="5 4"/>
   <text x="220" y="207" text-anchor="middle" font-size="13" font-weight="600" fill="#4a4a4a">Serialised node in HybridCache?</text>
 
   <!-- Row 3 side: DB load -->
-  <rect x="460" y="178" width="200" height="48" rx="10" fill="#f3f4fb" filter="url(#soft2)"/>
+  <rect x="460" y="178" width="200" height="48" rx="10" fill="#fdf1f7" filter="url(#soft2)"/>
   <rect x="460" y="178" width="6" height="48" rx="3" fill="url(#lineGrad2)"/>
   <text x="565" y="198" text-anchor="middle" font-size="11.5" fill="#333">Load from database-</text>
   <text x="565" y="213" text-anchor="middle" font-size="11.5" fill="#333">backed cache source</text>
 
   <!-- Row 4 -->
-  <rect x="40" y="246" width="360" height="48" rx="10" fill="#f3f4fb" filter="url(#soft2)"/>
+  <rect x="40" y="246" width="360" height="48" rx="10" fill="#fdf1f7" filter="url(#soft2)"/>
   <rect x="40" y="246" width="6" height="48" rx="3" fill="url(#lineGrad2)"/>
   <text x="220" y="275" text-anchor="middle" font-size="13" fill="#333">Deserialise the blob</text>
 
   <!-- Row 5 -->
-  <rect x="40" y="320" width="360" height="48" rx="10" fill="#f3f4fb" filter="url(#soft2)"/>
+  <rect x="40" y="320" width="360" height="48" rx="10" fill="#fdf1f7" filter="url(#soft2)"/>
   <rect x="40" y="320" width="6" height="48" rx="3" fill="url(#lineGrad2)"/>
   <text x="220" y="349" text-anchor="middle" font-size="13" fill="#333">Materialise → live IPublishedContent</text>
 
   <!-- Row 6 -->
-  <rect x="40" y="394" width="360" height="48" rx="10" fill="#f3f4fb" filter="url(#soft2)"/>
+  <rect x="40" y="394" width="360" height="48" rx="10" fill="#fdf1f7" filter="url(#soft2)"/>
   <rect x="40" y="394" width="6" height="48" rx="3" fill="url(#lineGrad2)"/>
   <text x="220" y="423" text-anchor="middle" font-size="13" fill="#333">Store in the fast lane, then return it</text>
 </svg>

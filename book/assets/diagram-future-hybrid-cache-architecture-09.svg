@@ -1,42 +1,44 @@
-<svg viewBox="0 0 620 516" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 682 402" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
-  <rect width="620" height="516" fill="white"/>
-<rect x="-4" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="48" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Request A</text>
-<path d="M48,78 V482" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="128" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="180" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Cache generation</text>
-<path d="M180,78 V482" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="260" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="312" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Publish or refresh</text>
-<path d="M312,78 V482" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="392" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="444" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Cache</text>
-<path d="M444,78 V482" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<path d="M48,118 H180" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="114" y="107" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Capture generation 10</text>
-<path d="M48,172 H444" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="246" y="161" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Miss, start read-through</text>
-<path d="M312,226 H444" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="378" y="215" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Refresh entry</text>
-<path d="M312,280 H180" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="246" y="269" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Bump generation to 11</text>
-<path d="M48,334 H180" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="114" y="323" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Re-check generation</text>
-<path d="M180,388 H48" stroke="#9aa0c4" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
-<text x="114" y="377" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Generation changed</text>
-<path d="M48,442 H444" stroke="#9aa0c4" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
-<text x="246" y="422.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Do not write stale snapshot</text>
-<text x="246" y="439.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">back</text>
+  <rect width="682" height="402" fill="white"/>
+<rect x="10" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="80" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Request A</text>
+<path d="M80,94 V382" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="184" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="254" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Cache generation</text>
+<path d="M254,94 V382" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="358" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="428" y="59.5" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Publish or</text>
+<text x="428" y="76.5" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">refresh</text>
+<path d="M428,94 V382" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="532" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="602" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Cache</text>
+<path d="M602,94 V382" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<path d="M80,130 H254" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="167" y="120" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Capture generation 10</text>
+<path d="M80,179 H602" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="341" y="155" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Miss, start</text>
+<text x="341" y="169" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">read-through</text>
+<path d="M428,213 H602" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="515" y="203" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Refresh entry</text>
+<path d="M428,247 H254" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="341" y="237" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Bump generation to 11</text>
+<path d="M80,281 H254" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="167" y="271" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Re-check generation</text>
+<path d="M254,315 H80" stroke="#cf95b6" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+<text x="167" y="305" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Generation changed</text>
+<path d="M80,364 H602" stroke="#cf95b6" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+<text x="341" y="340" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Do not write stale</text>
+<text x="341" y="354" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">snapshot back</text>
 </svg>

@@ -1,69 +1,69 @@
 <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.15"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.15"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
 
   <rect width="700" height="500" fill="white"/>
 
   <!-- connectors: main spine -->
-  <path d="M220,78 V104" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M220,152 V178" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M220,226 V246" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M220,310 V336" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M220,384 V410" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M220,78 V104" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M220,152 V178" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M220,226 V246" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M220,310 V336" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M220,384 V410" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
   <!-- connectors: side branches -->
-  <path d="M400,128 H460" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <text x="410" y="120" font-size="11" fill="#667eea" font-style="italic">yes</text>
+  <path d="M400,128 H460" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="410" y="120" font-size="11" fill="#e35aa0" font-style="italic">yes</text>
 
-  <path d="M400,202 H460" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <text x="410" y="194" font-size="11" fill="#667eea" font-style="italic">yes</text>
+  <path d="M400,202 H460" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="410" y="194" font-size="11" fill="#e35aa0" font-style="italic">yes</text>
 
   <!-- Row 1: action -->
-  <rect x="40" y="30" width="360" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="40" y="30" width="360" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="40" y="30" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="220" y="59" text-anchor="middle" font-size="13" fill="#333">Frontend requests CDA endpoint</text>
 
   <!-- Row 2: decision -->
-  <rect x="40" y="104" width="360" height="48" rx="24" fill="white" stroke="#667eea" stroke-width="2" stroke-dasharray="5 4"/>
+  <rect x="40" y="104" width="360" height="48" rx="24" fill="white" stroke="#e35aa0" stroke-width="2" stroke-dasharray="5 4"/>
   <text x="220" y="133" text-anchor="middle" font-size="13" font-weight="600" fill="#4a4a4a">Browser / CDN has a fresh copy?</text>
 
   <!-- Row 2 side: terminal -->
-  <rect x="460" y="104" width="200" height="48" rx="10" fill="white" stroke="#667eea" stroke-width="2"/>
+  <rect x="460" y="104" width="200" height="48" rx="10" fill="white" stroke="#e35aa0" stroke-width="2"/>
   <text x="560" y="124" text-anchor="middle" font-size="12" font-style="italic" fill="#4a4a4a">Served by browser</text>
   <text x="560" y="140" text-anchor="middle" font-size="12" font-style="italic" fill="#4a4a4a">/ proxy cache</text>
 
   <!-- Row 3: decision -->
-  <rect x="40" y="178" width="360" height="48" rx="24" fill="white" stroke="#667eea" stroke-width="2" stroke-dasharray="5 4"/>
+  <rect x="40" y="178" width="360" height="48" rx="24" fill="white" stroke="#e35aa0" stroke-width="2" stroke-dasharray="5 4"/>
   <text x="220" y="207" text-anchor="middle" font-size="13" font-weight="600" fill="#4a4a4a">CDA output cache hit?</text>
 
   <!-- Row 3 side: terminal -->
-  <rect x="460" y="178" width="200" height="48" rx="10" fill="white" stroke="#667eea" stroke-width="2"/>
+  <rect x="460" y="178" width="200" height="48" rx="10" fill="white" stroke="#e35aa0" stroke-width="2"/>
   <text x="560" y="198" text-anchor="middle" font-size="12" font-style="italic" fill="#4a4a4a">Server returns</text>
   <text x="560" y="214" text-anchor="middle" font-size="12" font-style="italic" fill="#4a4a4a">cached JSON</text>
 
   <!-- Row 4: action (2 lines) -->
-  <rect x="40" y="246" width="360" height="64" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="40" y="246" width="360" height="64" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="40" y="246" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
   <text x="220" y="272" text-anchor="middle" font-size="13" fill="#333">CDA pipeline runs — builds published</text>
   <text x="220" y="290" text-anchor="middle" font-size="13" fill="#333">object via hot cache → HybridCache → DB</text>
 
   <!-- Row 5: action -->
-  <rect x="40" y="336" width="360" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="40" y="336" width="360" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="40" y="336" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="220" y="365" text-anchor="middle" font-size="13" fill="#333">Serialise to JSON response</text>
 
   <!-- Row 6: action -->
-  <rect x="40" y="410" width="360" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="40" y="410" width="360" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="40" y="410" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="220" y="439" text-anchor="middle" font-size="13" fill="#333">Possibly store JSON in CDA output cache</text>
 </svg>

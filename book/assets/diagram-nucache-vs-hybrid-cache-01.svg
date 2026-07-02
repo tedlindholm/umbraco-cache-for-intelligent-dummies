@@ -1,47 +1,47 @@
 <svg viewBox="0 0 720 1118" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
   <rect width="720" height="1118" fill="white"/>
-<path d="M360,102 C360,134 360,134 360,166" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M360,102 C360,134 360,134 360,166" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M360,247 C360,265.5 360,265.5 360,284" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M360,247 C360,265.5 360,265.5 360,284" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M360,348 C360,375 360,375 360,402" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M360,348 C360,375 360,375 360,402" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M360,456 C360,488 360,488 360,520" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M360,456 C360,488 360,488 360,520" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M360,584 C360,611 360,611 360,638" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M360,584 C360,611 360,611 360,638" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<rect x="205" y="48" width="310" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="48" width="310" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="48" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="79" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Old world</text>
-<rect x="205" y="166" width="310" height="81" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="166" width="310" height="81" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="166" width="6" height="81" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="193.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">NuCache as the</text>
 <text x="360" y="210.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">published-content cache</text>
 <text x="360" y="227.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">architecture</text>
-<rect x="205" y="284" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="284" width="310" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="284" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="311.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Names settings and APIs spread</text>
 <text x="360" y="328.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">across the codebase</text>
-<rect x="205" y="402" width="310" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="402" width="310" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="402" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="433" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">New world</text>
-<rect x="205" y="520" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="520" width="310" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="520" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="547.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Hybrid Cache becomes the</text>
 <text x="360" y="564.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">active implementation</text>
-<rect x="205" y="638" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="638" width="310" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="638" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="665.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Some old NuCache and</text>
 <text x="360" y="682.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">PublishedSnapshot names remain</text>

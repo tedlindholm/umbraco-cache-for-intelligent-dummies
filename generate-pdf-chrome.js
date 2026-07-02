@@ -223,6 +223,12 @@ body {
 
 img { max-width: 100%; height: auto; display: block; margin: 1.5rem auto; }
 
+/* Cap diagram height so a tall SVG (and the heading glued above it) fits
+   on a single page instead of ejecting to the next one and stranding a
+   near-empty page behind it. Scoped to #content so the full-bleed cover
+   image is never capped. */
+#content img { max-height: 7.8in; width: auto; }
+
 pre, code {
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;
   font-size: 0.9em;
@@ -238,24 +244,17 @@ a { color: #0066cc; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 h1, h2, h3, h4, h5, h6 {
-  margin-top: 2.4em;
-  margin-bottom: 0.75em;
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
   font-weight: 600;
   line-height: 1.3;
 }
 
-/* Keep a heading glued to the start of what follows it, so a page
-   break never strands a heading above just one orphaned line/item. */
-h2 + p, h2 + ul, h2 + ol, h2 + blockquote,
-h3 + p, h3 + ul, h3 + ol, h3 + blockquote,
-h4 + p, h4 + ul, h4 + ol, h4 + blockquote,
-h2 + p + ul, h2 + p + ol,
-h3 + p + ul, h3 + p + ol,
-h4 + p + ul, h4 + p + ol {
-  page-break-inside: avoid;
-  break-inside: avoid;
-}
-
+/* The per-heading page-break-after:avoid rules below already keep a
+   heading attached to the start of the block that follows it. We do NOT
+   turn that whole following block into an unbreakable unit: doing so
+   ejected long paragraphs and lists to the next page and stranded
+   half-empty pages behind them. Orphan/widow control is enough. */
 p, li { orphans: 3; widows: 3; }
 
 h1 {
@@ -266,6 +265,12 @@ h1 {
   page-break-after: avoid;
   page-break-before: always;
 }
+
+/* The cover already fills page 1, so content naturally starts on page 2.
+   The first chapter heading must NOT also force a break, or the injected
+   heading anchor lands alone on page 2 and pushes the heading to page 3,
+   leaving page 2 blank. Every later h1 still starts its chapter on a new page. */
+#content h1:first-of-type { page-break-before: avoid; }
 
 .cover-page {
   page-break-after: always;
@@ -286,6 +291,16 @@ h1 {
 h2 { font-size: 1.8em; border-bottom: 2px solid #0066cc; padding-bottom: 0.3em; page-break-after: avoid; }
 h3 { font-size: 1.4em; page-break-after: avoid; }
 h4, h5, h6 { font-size: 1.1em; page-break-after: avoid; }
+
+/* When a heading is immediately followed by a diagram, do NOT force the
+   two to stay together. auto still keeps them on the same page when they
+   fit; it only allows a break when the (tall, unbreakable) diagram would
+   not fit in the space left. That lets the heading fill the bottom of the
+   current page and the diagram start the next one, instead of ejecting
+   both and stranding a half-empty page behind them. */
+h2:has(+ .pdf-keep-together),
+h3:has(+ .pdf-keep-together),
+h4:has(+ .pdf-keep-together) { page-break-after: auto; }
 
 p { margin-bottom: 1em; }
 ul, ol { margin: 1em 0; padding-left: 2em; }

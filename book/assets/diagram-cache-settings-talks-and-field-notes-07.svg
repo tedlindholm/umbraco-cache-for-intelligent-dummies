@@ -1,69 +1,69 @@
 <svg viewBox="0 0 1498 928" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
   <rect width="1498" height="928" fill="white"/>
-<path d="M749,102 C749,134 749,134 749,166" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M749,102 C749,134 749,134 749,166" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M749,230 C658,230 658,284 567,284" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="658" y="249" text-anchor="middle" font-size="11" font-weight="400" fill="#667eea" font-style="italic">No, only the Delivery API</text>
-<path d="M567,348 C385,348 385,402 203,402" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M749,230 C658,230 658,284 567,284" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="658" y="249" text-anchor="middle" font-size="11" font-weight="400" fill="#e35aa0" font-style="italic">No, only the Delivery API</text>
+<path d="M567,348 C385,348 385,402 203,402" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M567,348 C567,375 567,375 567,402" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M567,348 C567,375 567,375 567,402" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M904,198 C840,198 840,316 776,316" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="840" y="249" text-anchor="middle" font-size="11" font-weight="400" fill="#667eea" font-style="italic">Yes, pages are blank too</text>
-<path d="M931,348 C931,375 931,375 931,402" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M904,198 C840,198 840,316 776,316" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="840" y="249" text-anchor="middle" font-size="11" font-weight="400" fill="#e35aa0" font-style="italic">Yes, pages are blank too</text>
+<path d="M931,348 C931,375 931,375 931,402" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M931,466 C840,466 840,520 749,520" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M931,466 C840,466 840,520 749,520" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M1086,316 C1086,375 1140,375 1140,434" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M1086,316 C1086,375 1140,375 1140,434" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<rect x="594" y="48" width="310" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="594" y="48" width="310" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="594" y="48" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="749" y="79" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Empty responses after startup</text>
-<rect x="594" y="166" width="310" height="64" rx="28" fill="white" stroke="#667eea" stroke-width="2" stroke-dasharray="5 4" filter=""/>
+<rect x="594" y="166" width="310" height="64" rx="28" fill="white" stroke="#e35aa0" stroke-width="2" stroke-dasharray="5 4" filter=""/>
 
 <text x="749" y="193.5" text-anchor="middle" font-size="13" font-weight="600" fill="#2f3142">Is the rendered site also</text>
 <text x="749" y="210.5" text-anchor="middle" font-size="13" font-weight="600" fill="#2f3142">empty?</text>
-<rect x="412" y="284" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="412" y="284" width="310" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="412" y="284" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="567" y="311.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Delivery API reads its own</text>
 <text x="567" y="328.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">index</text>
-<rect x="48" y="402" width="310" height="98" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="48" y="402" width="310" height="98" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="48" y="402" width="6" height="98" rx="3" fill="url(#lineGrad)"/>
 <text x="203" y="429.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Enable DeliveryApi, then</text>
 <text x="203" y="446.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">rebuild</text>
 <text x="203" y="463.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">DeliveryApiContentIndex in</text>
 <text x="203" y="480.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Examine Management</text>
-<rect x="412" y="402" width="310" height="98" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="412" y="402" width="310" height="98" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="412" y="402" width="6" height="98" rx="3" fill="url(#lineGrad)"/>
 <text x="567" y="429.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Only some items missing? Check</text>
 <text x="567" y="446.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">allowed/disallowed types,</text>
 <text x="567" y="463.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">protected and unpublished</text>
 <text x="567" y="480.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">content</text>
-<rect x="776" y="284" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="776" y="284" width="310" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="776" y="284" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="931" y="311.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Published-content cache has no</text>
 <text x="931" y="328.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">data</text>
-<rect x="776" y="402" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="776" y="402" width="310" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="776" y="402" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="931" y="429.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Published Status: reload</text>
 <text x="931" y="446.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Memory Cache</text>
-<rect x="594" y="520" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="594" y="520" width="310" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="594" y="520" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="749" y="547.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Still empty? Rebuild the</text>
 <text x="749" y="564.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Database Cache</text>
-<rect x="1140" y="402" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="1140" y="402" width="310" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="1140" y="402" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="1295" y="429.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Load balanced? The instruction</text>
 <text x="1295" y="446.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">must reach every node</text>

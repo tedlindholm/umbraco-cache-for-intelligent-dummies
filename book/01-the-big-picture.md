@@ -48,7 +48,6 @@ This is ordinary HTTP caching, and it ranges from a browser quietly obeying a he
 
 At browser scale this needs no design of its own — the platform just does it. Run deliberately as production infrastructure in front of the Content Delivery API, the way Umbraco Cloud itself runs Cloudflare, it needs the same care as any other cache layer in this book: a cache key, a TTL source, and a purge path. That is worth a chapter of its own: [Edge Cache in Front of the CDA](./05-edge-cache-in-front-of-the-cda.md).
 
-<div style="page-break-before: always; break-before: page;"></div>
 
 ## Mental model
 
@@ -181,7 +180,6 @@ If a timeline helps, here it is in one line per era:
 
 For more detail on the differences between NuCache and Hybrid Cache, see [Chapter 8 - NuCache vs Hybrid Cache](./08-nucache-vs-hybrid-cache.md).
 
-<div style="page-break-before: always; break-before: page;"></div>
 
 ## In a nutshell
 

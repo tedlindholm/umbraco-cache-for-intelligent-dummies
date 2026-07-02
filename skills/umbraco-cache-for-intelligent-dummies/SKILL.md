@@ -19,7 +19,7 @@ For any factual, diagnostic, writing, restructuring, or source-checking task:
 
 1. Open the most relevant GitHub book chapter or appendix entry before making claims from the book.
 2. Use the GitHub chapter as the working source of truth for what the book currently says.
-3. Prefer `book/16-appendix-sources.md` when a claim needs source IDs, footnotes, or provenance.
+3. Prefer `book/17-appendix-sources.md` when a claim needs source IDs, footnotes, or provenance.
 4. Link the exact GitHub chapter or appendix page used in the answer.
 5. If the GitHub book content is unavailable, say that clearly and fall back to local files, official docs, or source code.
 6. If local files and GitHub differ, explain which one was used and avoid pretending the difference is resolved.
@@ -136,7 +136,7 @@ Important hubs:
 
 - Book repository: <https://github.com/tedlindholm/umbraco-cache-for-intelligent-dummies>
 - Chapter list: <https://github.com/tedlindholm/umbraco-cache-for-intelligent-dummies/blob/main/README.md>
-- Source appendix: <https://github.com/tedlindholm/umbraco-cache-for-intelligent-dummies/blob/main/book/16-appendix-sources.md>
+- Source appendix: <https://github.com/tedlindholm/umbraco-cache-for-intelligent-dummies/blob/main/book/17-appendix-sources.md>
 - Umbraco docs: <https://docs.umbraco.com/>
 - Umbraco CMS source: <https://github.com/umbraco/Umbraco-CMS>
 - Umbraco Storage Providers source: <https://github.com/umbraco/Umbraco.StorageProviders>
@@ -147,8 +147,8 @@ When working inside the book repository, local files are useful for editing, but
 
 - `README.md` for chapter order and scope.
 - `AGENTS.md` for project rules.
-- `book/16-appendix-sources.md` for source IDs.
-- `book/17-appendix-umbfyi-archive-notes.md` for UMB.FYI archive notes.
+- `book/17-appendix-sources.md` for source IDs.
+- `book/18-appendix-umbfyi-archive-notes.md` for UMB.FYI archive notes.
 
 ## Answer Shapes
 
@@ -219,7 +219,7 @@ Use Mermaid diagrams when they reduce ambiguity, especially for:
 - output cache vs published-content cache
 - Content Delivery API cache flow
 - rebuild and seeding timelines
-z- NuCache history vs Hybrid Cache architecture
+- NuCache history vs Hybrid Cache architecture
 
 Keep diagrams small enough to teach one thing. Prefer a narrow, true diagram over a large diagram that quietly mixes layers.
 

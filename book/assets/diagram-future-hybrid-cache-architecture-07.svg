@@ -1,65 +1,65 @@
 <svg viewBox="0 0 840 710" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
   <rect width="840" height="710" fill="white"/>
-<rect x="10" y="34" width="140" height="60" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+<rect x="10" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
 <text x="80" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Request</text>
-<path d="M80,94 V676" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="180" y="34" width="140" height="60" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+<path d="M80,94 V676" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="180" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
 <text x="250" y="59.5" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Converted object</text>
 <text x="250" y="76.5" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">cache</text>
-<path d="M250,94 V676" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="350" y="34" width="140" height="60" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+<path d="M250,94 V676" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="350" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
 <text x="420" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">HybridCache</text>
-<path d="M420,94 V676" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="520" y="34" width="140" height="60" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+<path d="M420,94 V676" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="520" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
 <text x="590" y="59.5" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Database cache</text>
 <text x="590" y="76.5" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">repository</text>
-<path d="M590,94 V676" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="690" y="34" width="140" height="60" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+<path d="M590,94 V676" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="690" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
 <text x="760" y="59.5" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Published</text>
 <text x="760" y="76.5" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">content factory</text>
-<path d="M760,94 V676" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<path d="M80,126 H250" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M760,94 V676" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<path d="M80,126 H250" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 <text x="165" y="115" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Get by key</text>
-<rect x="58" y="143" width="724" height="34" rx="8" fill="white" stroke="#dde1f2"/>
-<text x="72" y="164" font-size="11" font-weight="700" fill="#667eea">ALT</text>
+<rect x="58" y="143" width="724" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
+<text x="72" y="164" font-size="11" font-weight="700" fill="#e35aa0">ALT</text>
 <text x="420" y="164" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">L0 hit</text>
-<path d="M250,208 H80" stroke="#9aa0c4" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+<path d="M250,208 H80" stroke="#cf95b6" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
 <text x="165" y="182" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Return</text>
 <text x="165" y="196" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">IPublishedContent</text>
-<rect x="58" y="241" width="724" height="34" rx="8" fill="white" stroke="#dde1f2"/>
-<text x="72" y="262" font-size="11" font-weight="700" fill="#667eea">ELSE</text>
+<rect x="58" y="241" width="724" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
+<text x="72" y="262" font-size="11" font-weight="700" fill="#e35aa0">ELSE</text>
 <text x="420" y="262" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">L0 miss</text>
-<path d="M250,306 H420" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M250,306 H420" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 <text x="335" y="295" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Get serialised node</text>
-<rect x="58" y="323" width="724" height="34" rx="8" fill="white" stroke="#dde1f2"/>
-<text x="72" y="344" font-size="11" font-weight="700" fill="#667eea">ALT</text>
+<rect x="58" y="323" width="724" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
+<text x="72" y="344" font-size="11" font-weight="700" fill="#e35aa0">ALT</text>
 <text x="420" y="344" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">HybridCache hit</text>
-<path d="M420,388 H760" stroke="#9aa0c4" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+<path d="M420,388 H760" stroke="#cf95b6" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
 <text x="590" y="377" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">ContentCacheNode</text>
-<rect x="58" y="405" width="724" height="34" rx="8" fill="white" stroke="#dde1f2"/>
-<text x="72" y="426" font-size="11" font-weight="700" fill="#667eea">ELSE</text>
+<rect x="58" y="405" width="724" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
+<text x="72" y="426" font-size="11" font-weight="700" fill="#e35aa0">ELSE</text>
 <text x="420" y="426" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">HybridCache miss</text>
-<path d="M420,470 H590" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M420,470 H590" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 <text x="505" y="459" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Load source node</text>
-<path d="M590,514 H420" stroke="#9aa0c4" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+<path d="M590,514 H420" stroke="#cf95b6" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
 <text x="505" y="503" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">ContentCacheNode</text>
-<path d="M420,558 H760" stroke="#9aa0c4" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+<path d="M420,558 H760" stroke="#cf95b6" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
 <text x="590" y="547" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">ContentCacheNode</text>
-<path d="M760,602 H250" stroke="#9aa0c4" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+<path d="M760,602 H250" stroke="#cf95b6" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
 <text x="505" y="591" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Store converted object</text>
-<path d="M250,646 H80" stroke="#9aa0c4" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+<path d="M250,646 H80" stroke="#cf95b6" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
 <text x="165" y="620" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Return</text>
 <text x="165" y="634" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">IPublishedContent</text>
 </svg>

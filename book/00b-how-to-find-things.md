@@ -51,7 +51,6 @@ If you already know *which* cache you are in, this table tells you what it holds
 
 ---
 
-<div style="page-break-before: always; break-before: page;"></div>
 
 ## 3. Which cache am I looking at?
 

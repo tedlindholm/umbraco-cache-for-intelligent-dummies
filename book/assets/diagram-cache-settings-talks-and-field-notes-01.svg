@@ -1,68 +1,68 @@
 <svg viewBox="0 0 820 460" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
   <rect width="820" height="460" fill="white"/>
 <ellipse cx="180" cy="230" rx="96" ry="46" fill="url(#lineGrad)" filter="url(#soft)"/>
 <text x="180" y="234" text-anchor="middle" font-size="14" font-weight="700" fill="white">Cache Settings</text>
-<path d="M276,230 C350,230 290,70 384,70" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<rect x="390" y="42" width="168" height="56" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+<path d="M276,230 C350,230 290,70 384,70" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="390" y="42" width="168" height="56" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
 <text x="474" y="74" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Startup</text>
-<path d="M558,70 C584,70 580,52 610,52" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="35" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,70 C584,70 580,52 610,52" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="35" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="56" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">Seeding</text>
-<path d="M558,70 C584,70 580,88 610,88" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="71" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,70 C584,70 580,88 610,88" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="71" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="92" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">Batch sizes</text>
-<path d="M276,230 C350,230 290,150 384,150" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<rect x="390" y="122" width="168" height="56" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+<path d="M276,230 C350,230 290,150 384,150" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="390" y="122" width="168" height="56" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
 <text x="474" y="154" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Memory</text>
-<path d="M558,150 C584,150 580,132 610,132" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="115" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,150 C584,150 580,132 610,132" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="115" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="136" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">Local cache duration</text>
-<path d="M558,150 C584,150 580,168 610,168" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="151" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,150 C584,150 580,168 610,168" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="151" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="172" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">Maximum payload size</text>
-<path d="M276,230 C350,230 290,230 384,230" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<rect x="390" y="202" width="168" height="56" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+<path d="M276,230 C350,230 290,230 384,230" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="390" y="202" width="168" height="56" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
 <text x="474" y="234" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Remote cache</text>
-<path d="M558,230 C584,230 580,230 610,230" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="213" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,230 C584,230 580,230 610,230" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="213" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="234" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">Remote cache duration</text>
-<path d="M276,230 C350,230 290,310 384,310" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<rect x="390" y="282" width="168" height="56" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+<path d="M276,230 C350,230 290,310 384,310" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="390" y="282" width="168" height="56" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
 <text x="474" y="314" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Freshness</text>
-<path d="M558,310 C584,310 580,256 610,256" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="239" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,310 C584,310 580,256 610,256" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="239" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="260" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">ContentTypeRebuildMode</text>
-<path d="M558,310 C584,310 580,292 610,292" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="275" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,310 C584,310 580,292 610,292" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="275" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="296" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">Invalidation timing</text>
-<path d="M558,310 C584,310 580,328 610,328" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="311" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,310 C584,310 580,328 610,328" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="311" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="332" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">Tag-based invalidation</text>
-<path d="M558,310 C584,310 580,364 610,364" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="347" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,310 C584,310 580,364 610,364" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="347" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="368" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">Generation guards</text>
-<path d="M276,230 C350,230 290,390 384,390" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<rect x="390" y="362" width="168" height="56" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+<path d="M276,230 C350,230 290,390 384,390" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="390" y="362" width="168" height="56" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
 <text x="474" y="394" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Future direction</text>
-<path d="M558,390 C584,390 580,354 610,354" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="337" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,390 C584,390 580,354 610,354" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="337" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="358" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">Elements</text>
-<path d="M558,390 C584,390 580,390 610,390" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="373" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,390 C584,390 580,390 610,390" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="373" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="394" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">Deferred rebuilds</text>
-<path d="M558,390 C584,390 580,426 610,426" stroke="#9aa0c4" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
-<rect x="610" y="409" width="160" height="34" rx="8" fill="white" stroke="#dde1f2"/>
+<path d="M558,390 C584,390 580,426 610,426" stroke="#cf95b6" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+<rect x="610" y="409" width="160" height="34" rx="8" fill="white" stroke="#f5d9e8"/>
 <text x="690" y="430" text-anchor="middle" font-size="11" font-weight="400" fill="#6b708c">Database cache source</text>
 </svg>

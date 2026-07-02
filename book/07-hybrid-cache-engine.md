@@ -192,7 +192,6 @@ These flags map directly onto Umbraco concerns. A background warm-up that should
 
 > **Gotcha — stampede protection is per process, not per cluster.** The coalescing above happens inside one server's L1. There is no built-in distributed lock in the initial `HybridCache` releases, so on a load-balanced farm each node can still run the factory once for the same key. For Umbraco that is usually fine — the factory reads the prepared database cache source, not the full content graph — but do not assume "stampede protection" means "exactly one fetch across the whole cluster."
 
-<div style="page-break-before: always; break-before: page;"></div>
 
 ## Tag invalidation is logical, not physical
 
@@ -216,7 +215,6 @@ This is precisely why Umbraco can afford to tag *every* document and element and
 
 </div>
 
-<div style="page-break-before: always; break-before: page;"></div>
 
 ## Limits: payload and key size
 
@@ -537,7 +535,6 @@ This is not just another generic cache layer; it is a very deliberate optimisati
 
 > **Key term — L0 converted-object cache.** Every other layer stores content *serialised*, which means it must be deserialised and turned into a live `IPublishedContent` before your template can use it. L0 skips that work entirely by holding the finished objects in memory. It is the closest, cheapest hit in the whole pipeline — and the first thing every request tries.
 
-<div style="page-break-before: always; break-before: page;"></div>
 
 ## Request flow for a document
 
@@ -619,7 +616,6 @@ The key idea is simple:
 - not everything needs to start hot
 - but some things should start hot on purpose
 
-<div style="page-break-before: always; break-before: page;"></div>
 
 ## Seeding flow
 

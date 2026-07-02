@@ -1,60 +1,63 @@
-<svg viewBox="0 0 888 624" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 1204 594" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
-  <rect width="888" height="624" fill="white"/>
-<rect x="-4" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="48" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Editor</text>
-<path d="M48,78 V590" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="128" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="180" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Backoffice</text>
-<path d="M180,78 V590" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="260" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="312" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">DistributedCache</text>
-<path d="M312,78 V590" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="392" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="444" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Server A</text>
-<path d="M444,78 V590" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="524" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="576" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Server B</text>
-<path d="M576,78 V590" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="656" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="708" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Published content cache</text>
-<path d="M708,78 V590" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="788" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="840" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Output cache</text>
-<path d="M840,78 V590" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<path d="M48,118 H180" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="114" y="107" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Publish article 1111...</text>
-<path d="M180,172 H312" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="246" y="152.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">ContentCacheRefresher</text>
-<text x="246" y="169.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">RefreshNode</text>
-<path d="M312,226 H444" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="378" y="215" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Run refresher locally</text>
-<path d="M312,280 H576" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="444" y="269" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Broadcast same refresh</text>
-<path d="M444,334 H708" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="576" y="314.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Refresh or remove article</text>
-<text x="576" y="331.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">entry</text>
-<path d="M576,388 H708" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="642" y="368.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Refresh or remove article</text>
-<text x="642" y="385.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">entry</text>
-<path d="M444,442 H840" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="642" y="422.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Evict HTML tagged with article</text>
-<text x="642" y="439.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">key</text>
-<path d="M576,496 H840" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="708" y="476.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Evict HTML tagged with article</text>
-<text x="708" y="493.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">key</text>
-<path d="M840,550 H840" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="840" y="530.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Evict related pages, such as</text>
-<text x="840" y="547.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">homepage 3333...</text>
+  <rect width="1204" height="594" fill="white"/>
+<rect x="10" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="80" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Editor</text>
+<path d="M80,94 V574" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="184" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="254" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Backoffice</text>
+<path d="M254,94 V574" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="358" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="428" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">DistributedCache</text>
+<path d="M428,94 V574" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="532" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="602" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Server A</text>
+<path d="M602,94 V574" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="706" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="776" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Server B</text>
+<path d="M776,94 V574" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="880" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="950" y="59.5" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Published</text>
+<text x="950" y="76.5" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">content cache</text>
+<path d="M950,94 V574" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="1054" y="34" width="140" height="60" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="1124" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Output cache</text>
+<path d="M1124,94 V574" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<path d="M80,145 H254" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="167" y="121" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Publish article</text>
+<text x="167" y="135" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">1111...</text>
+<path d="M254,194 H428" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="341" y="170" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">ContentCacheRefresher</text>
+<text x="341" y="184" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">RefreshNode</text>
+<path d="M428,228 H602" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="515" y="218" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Run refresher locally</text>
+<path d="M428,262 H776" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="602" y="252" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Broadcast same refresh</text>
+<path d="M602,311 H950" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="776" y="287" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Refresh or remove</text>
+<text x="776" y="301" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">article entry</text>
+<path d="M776,360 H950" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="863" y="336" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Refresh or remove</text>
+<text x="863" y="350" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">article entry</text>
+<path d="M602,409 H1124" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="863" y="385" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Evict HTML tagged with</text>
+<text x="863" y="399" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">article key</text>
+<path d="M776,458 H1124" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="950" y="434" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Evict HTML tagged with</text>
+<text x="950" y="448" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">article key</text>
+<path d="M1124,522 h-34 v16 h34" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="1080" y="512" text-anchor="end" font-size="11" font-weight="400" fill="#2f3142">Evict related pages,</text>
+<text x="1080" y="526" text-anchor="end" font-size="11" font-weight="400" fill="#2f3142">such as homepage</text>
+<text x="1080" y="540" text-anchor="end" font-size="11" font-weight="400" fill="#2f3142">3333...</text>
 </svg>

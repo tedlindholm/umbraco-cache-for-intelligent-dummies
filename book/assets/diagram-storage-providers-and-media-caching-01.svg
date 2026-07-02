@@ -1,53 +1,53 @@
 <svg viewBox="0 0 860 440" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
 
   <rect width="860" height="440" fill="white"/>
   <text x="430" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#2f3142">Media caching has several separate layers</text>
 
-  <rect x="54" y="174" width="178" height="70" rx="11" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="54" y="174" width="178" height="70" rx="11" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="54" y="174" width="6" height="70" rx="3" fill="url(#lineGrad)"/>
   <text x="143" y="202" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Editor uploads</text>
   <text x="143" y="223" text-anchor="middle" font-size="12" fill="#6b708c">original media</text>
 
-  <rect x="300" y="86" width="230" height="88" rx="12" fill="#eef5ff" stroke="#dde1f2" stroke-width="1.5"/>
+  <rect x="300" y="86" width="230" height="88" rx="12" fill="#fdeff6" stroke="#f5d9e8" stroke-width="1.5"/>
   <text x="415" y="118" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Blob or file storage</text>
   <text x="415" y="142" text-anchor="middle" font-size="12" fill="#6b708c">the durable original</text>
 
-  <rect x="300" y="214" width="230" height="88" rx="12" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="300" y="214" width="230" height="88" rx="12" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="300" y="214" width="6" height="88" rx="3" fill="url(#lineGrad)"/>
   <text x="415" y="244" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Origin-side caches</text>
   <text x="415" y="268" text-anchor="middle" font-size="12" fill="#4b4d60">blob metadata cache</text>
   <text x="415" y="286" text-anchor="middle" font-size="12" fill="#4b4d60">and ImageSharp variants</text>
 
-  <rect x="612" y="86" width="194" height="88" rx="12" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="612" y="86" width="194" height="88" rx="12" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="612" y="86" width="6" height="88" rx="3" fill="url(#lineGrad)"/>
   <text x="709" y="118" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">CDN edge cache</text>
   <text x="709" y="142" text-anchor="middle" font-size="12" fill="#4b4d60">closest repeat hit</text>
 
-  <rect x="612" y="236" width="194" height="70" rx="12" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="612" y="236" width="194" height="70" rx="12" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="612" y="236" width="6" height="70" rx="3" fill="url(#lineGrad)"/>
   <text x="709" y="264" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3142">Visitor gets image</text>
   <text x="709" y="285" text-anchor="middle" font-size="12" fill="#4b4d60">without repeating work</text>
 
-  <path d="M232,209 C256,176 274,140 300,130" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M415,174 V206" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M530,130 H604" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M530,258 H604" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M709,174 V228" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M232,209 C256,176 274,140 300,130" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M415,174 V206" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M530,130 H604" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M530,258 H604" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M709,174 V228" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
   <rect x="548" y="190" width="120" height="24" rx="12" fill="white"/>
-  <text x="608" y="207" text-anchor="middle" font-size="11" fill="#667eea">origin fallback</text>
+  <text x="608" y="207" text-anchor="middle" font-size="11" fill="#e35aa0">origin fallback</text>
 
   <text x="430" y="378" text-anchor="middle" font-size="12" fill="#6b708c">Blob metadata, generated variants, and CDN responses are different caches with different invalidation stories.</text>
 </svg>

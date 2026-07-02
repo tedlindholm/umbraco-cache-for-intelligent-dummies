@@ -1,50 +1,50 @@
 <svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
   <rect width="900" height="500" fill="white"/>
 
-  <path d="M213,104 V170" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M213,224 V280" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <text x="227" y="256" font-size="12" font-style="italic" fill="#6b7090">miss</text>
-  <path d="M213,334 V390" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <text x="227" y="366" font-size="12" font-style="italic" fill="#6b7090">miss</text>
+  <path d="M213,104 V170" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M213,224 V280" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="227" y="256" font-size="12" font-style="italic" fill="#97687f">miss</text>
+  <path d="M213,334 V390" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="227" y="366" font-size="12" font-style="italic" fill="#97687f">miss</text>
 
-  <path d="M378,197 H450 V292 H520" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <text x="390" y="187" font-size="12" font-style="italic" fill="#6b7090">hit</text>
+  <path d="M378,197 H450 V292 H520" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="390" y="187" font-size="12" font-style="italic" fill="#97687f">hit</text>
 
-  <path d="M378,307 H520" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <text x="390" y="297" font-size="12" font-style="italic" fill="#6b7090">hit</text>
+  <path d="M378,307 H520" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="390" y="297" font-size="12" font-style="italic" fill="#97687f">hit</text>
 
-  <path d="M378,417 H450 V322 H520" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M378,417 H450 V322 H520" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-  <rect x="48" y="40" width="330" height="64" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="48" y="40" width="330" height="64" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="48" y="40" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
   <text x="213" y="67.5" text-anchor="middle" font-size="13" fill="#2f3142">Request for document or</text>
   <text x="213" y="84.5" text-anchor="middle" font-size="13" fill="#2f3142">element</text>
 
-  <rect x="48" y="170" width="330" height="54" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="48" y="170" width="330" height="54" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="48" y="170" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
   <text x="213" y="201" text-anchor="middle" font-size="13" fill="#2f3142">L0 converted-object cache</text>
 
-  <rect x="48" y="280" width="330" height="54" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="48" y="280" width="330" height="54" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="48" y="280" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
   <text x="213" y="311" text-anchor="middle" font-size="13" fill="#2f3142">HybridCache entry</text>
 
-  <rect x="48" y="390" width="330" height="54" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="48" y="390" width="330" height="54" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="48" y="390" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
   <text x="213" y="421" text-anchor="middle" font-size="13" fill="#2f3142">Database-backed cache source</text>
 
-  <rect x="520" y="274" width="330" height="66" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="520" y="274" width="330" height="66" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="520" y="274" width="6" height="66" rx="3" fill="url(#lineGrad)"/>
   <text x="685" y="302.5" text-anchor="middle" font-size="13" fill="#2f3142">Return IPublishedContent or</text>
   <text x="685" y="319.5" text-anchor="middle" font-size="13" fill="#2f3142">IPublishedElement</text>

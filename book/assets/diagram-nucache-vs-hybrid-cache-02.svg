@@ -1,59 +1,59 @@
 <svg viewBox="0 0 1014 434" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
   <rect width="1014" height="434" fill="white"/>
-<rect x="44" y="44" width="286" height="346" rx="12" fill="#eef5ff" stroke="#dde1f2" stroke-width="1.5"/>
-<text x="58" y="66" text-anchor="start" font-size="12" font-weight="700" fill="#667eea">NuCache-era mental model</text>
-<rect x="364" y="44" width="286" height="346" rx="12" fill="#eef5ff" stroke="#dde1f2" stroke-width="1.5"/>
-<text x="378" y="66" text-anchor="start" font-size="12" font-weight="700" fill="#667eea">Hybrid Cache-era mental model</text>
-<rect x="684" y="44" width="286" height="346" rx="12" fill="#eef5ff" stroke="#dde1f2" stroke-width="1.5"/>
-<text x="698" y="66" text-anchor="start" font-size="12" font-weight="700" fill="#667eea">Process</text>
-<path d="M187,158 C187,167 187,167 187,176" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="44" y="44" width="286" height="346" rx="12" fill="#fdeff6" stroke="#f5d9e8" stroke-width="1.5"/>
+<text x="58" y="66" text-anchor="start" font-size="12" font-weight="700" fill="#e35aa0">NuCache-era mental model</text>
+<rect x="364" y="44" width="286" height="346" rx="12" fill="#fdeff6" stroke="#f5d9e8" stroke-width="1.5"/>
+<text x="378" y="66" text-anchor="start" font-size="12" font-weight="700" fill="#e35aa0">Hybrid Cache-era mental model</text>
+<rect x="684" y="44" width="286" height="346" rx="12" fill="#fdeff6" stroke="#f5d9e8" stroke-width="1.5"/>
+<text x="698" y="66" text-anchor="start" font-size="12" font-weight="700" fill="#e35aa0">Process</text>
+<path d="M187,158 C187,167 187,167 187,176" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M507,148 C507,157 507,157 507,166" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M507,148 C507,157 507,157 507,166" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M507,220 C507,229 507,229 507,238" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M507,220 C507,229 507,229 507,238" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M507,364 C507,229 507,229 507,94" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M507,364 C507,229 507,229 507,94" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M507,364 C507,265 507,265 507,166" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M507,364 C507,265 507,265 507,166" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M827,148 C827,157 827,157 827,166" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="827" y="149" text-anchor="middle" font-size="11" font-weight="400" fill="#667eea" font-style="italic">terminology lingers</text>
-<rect x="63" y="94" width="248" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<path d="M827,148 C827,157 827,157 827,166" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="827" y="149" text-anchor="middle" font-size="11" font-weight="400" fill="#e35aa0" font-style="italic">terminology lingers</text>
+<rect x="63" y="94" width="248" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="63" y="94" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="187" y="121.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Large in-memory published</text>
 <text x="187" y="138.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">snapshot</text>
-<rect x="63" y="176" width="248" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="63" y="176" width="248" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="63" y="176" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="187" y="203.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Tree traversal often assumes</text>
 <text x="187" y="220.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">hot content</text>
-<rect x="383" y="94" width="248" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="383" y="94" width="248" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="383" y="94" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="507" y="125" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">L0 converted-object cache</text>
-<rect x="383" y="166" width="248" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="383" y="166" width="248" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="383" y="166" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="507" y="197" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">HybridCache entry</text>
-<rect x="383" y="238" width="248" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="383" y="238" width="248" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="383" y="238" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="507" y="269" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Database-backed cache source</text>
-<rect x="383" y="310" width="248" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="383" y="310" width="248" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="383" y="310" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="507" y="341" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Distributed invalidation</text>
-<rect x="703" y="94" width="248" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="703" y="94" width="248" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="703" y="94" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="827" y="125" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">OLD</text>
-<rect x="703" y="166" width="248" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="703" y="166" width="248" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="703" y="166" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="827" y="197" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">NEW</text>
 </svg>

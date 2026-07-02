@@ -156,7 +156,6 @@ That is useful for the book because it explains why readers may see:
 
 all in the same codebase and wonder what is going on.
 
-<div style="page-break-before: always; break-before: page;"></div>
 
 ## The best mental model
 

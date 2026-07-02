@@ -1,14 +1,14 @@
 <svg viewBox="0 0 1080 760" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#95a0c6"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
 
@@ -18,140 +18,140 @@
   <text x="540" y="60" text-anchor="middle" font-size="12" fill="#6b708c">Read APIs sit above the engine; refreshers and output-cache eviction sit beside it.</text>
 
   <!-- application cache -->
-  <rect x="44" y="96" width="236" height="250" rx="14" fill="#eef5ff" stroke="#dde1f2" stroke-width="1.5"/>
-  <text x="64" y="124" font-size="14" font-weight="700" fill="#667eea">Application cache</text>
+  <rect x="44" y="96" width="236" height="250" rx="14" fill="#fdeff6" stroke="#f5d9e8" stroke-width="1.5"/>
+  <text x="64" y="124" font-size="14" font-weight="700" fill="#e35aa0">Application cache</text>
 
-  <rect x="68" y="146" width="188" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="68" y="146" width="188" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="68" y="146" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="162" y="175" text-anchor="middle" font-size="12" fill="#2f3142">IAppCache</text>
 
-  <rect x="68" y="216" width="188" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="68" y="216" width="188" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="68" y="216" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="162" y="245" text-anchor="middle" font-size="12" fill="#2f3142">IAppPolicyCache</text>
 
-  <rect x="68" y="286" width="188" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="68" y="286" width="188" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="68" y="286" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="162" y="305" text-anchor="middle" font-size="12" fill="#2f3142">RuntimeCache and</text>
   <text x="162" y="321" text-anchor="middle" font-size="12" fill="#2f3142">RequestCache wrappers</text>
 
-  <path d="M162,194 V208" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M162,264 V278" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M162,194 V208" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M162,264 V278" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
   <!-- published facade -->
-  <rect x="312" y="96" width="304" height="250" rx="14" fill="#eef5ff" stroke="#dde1f2" stroke-width="1.5"/>
-  <text x="332" y="124" font-size="14" font-weight="700" fill="#667eea">Published cache facade</text>
+  <rect x="312" y="96" width="304" height="250" rx="14" fill="#fdeff6" stroke="#f5d9e8" stroke-width="1.5"/>
+  <text x="332" y="124" font-size="14" font-weight="700" fill="#e35aa0">Published cache facade</text>
 
-  <rect x="340" y="146" width="248" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="340" y="146" width="248" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="340" y="146" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="464" y="175" text-anchor="middle" font-size="12" fill="#2f3142">ICacheManager</text>
 
-  <rect x="340" y="216" width="248" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="340" y="216" width="248" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="340" y="216" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="464" y="245" text-anchor="middle" font-size="12" fill="#2f3142">IPublishedContentCache</text>
 
-  <rect x="340" y="286" width="72" height="40" rx="9" fill="white" stroke="#dde1f2"/>
+  <rect x="340" y="286" width="72" height="40" rx="9" fill="white" stroke="#f5d9e8"/>
   <text x="376" y="311" text-anchor="middle" font-size="11" fill="#2f3142">media</text>
 
-  <rect x="428" y="286" width="72" height="40" rx="9" fill="white" stroke="#dde1f2"/>
+  <rect x="428" y="286" width="72" height="40" rx="9" fill="white" stroke="#f5d9e8"/>
   <text x="464" y="311" text-anchor="middle" font-size="11" fill="#2f3142">member</text>
 
-  <rect x="516" y="286" width="72" height="40" rx="9" fill="white" stroke="#dde1f2"/>
+  <rect x="516" y="286" width="72" height="40" rx="9" fill="white" stroke="#f5d9e8"/>
   <text x="552" y="311" text-anchor="middle" font-size="11" fill="#2f3142">domain</text>
 
-  <path d="M464,194 V208" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M464,264 V278" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M464,194 V208" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M464,264 V278" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
   <!-- engine -->
-  <rect x="652" y="96" width="384" height="320" rx="14" fill="#eef5ff" stroke="#dde1f2" stroke-width="1.5"/>
-  <text x="672" y="124" font-size="14" font-weight="700" fill="#667eea">Hybrid Cache implementation</text>
+  <rect x="652" y="96" width="384" height="320" rx="14" fill="#fdeff6" stroke="#f5d9e8" stroke-width="1.5"/>
+  <text x="672" y="124" font-size="14" font-weight="700" fill="#e35aa0">Hybrid Cache implementation</text>
 
-  <rect x="680" y="146" width="328" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="680" y="146" width="328" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="680" y="146" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="844" y="175" text-anchor="middle" font-size="12" fill="#2f3142">DocumentCache</text>
 
-  <rect x="680" y="216" width="328" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="680" y="216" width="328" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="680" y="216" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="844" y="245" text-anchor="middle" font-size="12" fill="#2f3142">DocumentCacheService</text>
 
-  <rect x="680" y="308" width="96" height="58" rx="10" fill="white" stroke="#dde1f2"/>
+  <rect x="680" y="308" width="96" height="58" rx="10" fill="white" stroke="#f5d9e8"/>
   <text x="728" y="333" text-anchor="middle" font-size="11" fill="#2f3142">L0</text>
   <text x="728" y="350" text-anchor="middle" font-size="11" fill="#2f3142">converted objects</text>
 
-  <rect x="796" y="308" width="96" height="58" rx="10" fill="white" stroke="#dde1f2"/>
+  <rect x="796" y="308" width="96" height="58" rx="10" fill="white" stroke="#f5d9e8"/>
   <text x="844" y="333" text-anchor="middle" font-size="11" fill="#2f3142">MS</text>
   <text x="844" y="350" text-anchor="middle" font-size="11" fill="#2f3142">HybridCache</text>
 
-  <rect x="912" y="308" width="96" height="58" rx="10" fill="white" stroke="#dde1f2"/>
+  <rect x="912" y="308" width="96" height="58" rx="10" fill="white" stroke="#f5d9e8"/>
   <text x="960" y="333" text-anchor="middle" font-size="11" fill="#2f3142">database source</text>
   <text x="960" y="350" text-anchor="middle" font-size="11" fill="#2f3142">and serialiser</text>
 
-  <path d="M844,194 V208" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M844,264 V294" stroke="#95a0c6" stroke-width="2" fill="none"/>
-  <path d="M844,294 H728 V300" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M844,294 V300" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M844,294 H960 V300" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M844,194 V208" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M844,264 V294" stroke="#cf95b6" stroke-width="2" fill="none"/>
+  <path d="M844,294 H728 V300" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M844,294 V300" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M844,294 H960 V300" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
   <!-- read path -->
-  <path d="M588,240 H672" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M588,240 H672" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
   <rect x="596" y="217" width="68" height="22" rx="11" fill="white"/>
-  <text x="630" y="232" text-anchor="middle" font-size="11" fill="#667eea">read path</text>
+  <text x="630" y="232" text-anchor="middle" font-size="11" fill="#e35aa0">read path</text>
 
   <!-- invalidation -->
-  <rect x="44" y="450" width="500" height="246" rx="14" fill="#eef5ff" stroke="#dde1f2" stroke-width="1.5"/>
-  <text x="64" y="478" font-size="14" font-weight="700" fill="#667eea">Invalidation path</text>
+  <rect x="44" y="450" width="500" height="246" rx="14" fill="#fdeff6" stroke="#f5d9e8" stroke-width="1.5"/>
+  <text x="64" y="478" font-size="14" font-weight="700" fill="#e35aa0">Invalidation path</text>
 
-  <rect x="72" y="528" width="178" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="72" y="528" width="178" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="72" y="528" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="161" y="548" text-anchor="middle" font-size="12" fill="#2f3142">distributed notification</text>
   <text x="161" y="564" text-anchor="middle" font-size="12" fill="#2f3142">handlers</text>
 
-  <rect x="276" y="528" width="178" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="276" y="528" width="178" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="276" y="528" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="365" y="557" text-anchor="middle" font-size="12" fill="#2f3142">DistributedCache</text>
 
-  <rect x="72" y="612" width="178" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="72" y="612" width="178" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="72" y="612" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="161" y="641" text-anchor="middle" font-size="12" fill="#2f3142">IServerMessenger</text>
 
-  <rect x="276" y="612" width="178" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="276" y="612" width="178" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="276" y="612" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="365" y="641" text-anchor="middle" font-size="12" fill="#2f3142">ICacheRefresher</text>
 
-  <path d="M250,552 H268" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M365,576 V598 H161 V604" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M250,636 H268" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M250,552 H268" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M365,576 V598 H161 V604" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M250,636 H268" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-  <path d="M454,636 H510 V392 H644" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M454,636 H510 V392 H644" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
   <rect x="536" y="377" width="138" height="22" rx="11" fill="white"/>
-  <text x="605" y="392" text-anchor="middle" font-size="11" fill="#667eea">refresh published cache</text>
+  <text x="605" y="392" text-anchor="middle" font-size="11" fill="#e35aa0">refresh published cache</text>
 
   <!-- output cache -->
-  <rect x="580" y="450" width="456" height="246" rx="14" fill="#eef5ff" stroke="#dde1f2" stroke-width="1.5"/>
-  <text x="600" y="478" font-size="14" font-weight="700" fill="#667eea">Output cache path</text>
+  <rect x="580" y="450" width="456" height="246" rx="14" fill="#fdeff6" stroke="#f5d9e8" stroke-width="1.5"/>
+  <text x="600" y="478" font-size="14" font-weight="700" fill="#e35aa0">Output cache path</text>
 
-  <rect x="608" y="528" width="200" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="608" y="528" width="200" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="608" y="528" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="708" y="548" text-anchor="middle" font-size="12" fill="#2f3142">website output-cache</text>
   <text x="708" y="564" text-anchor="middle" font-size="12" fill="#2f3142">eviction handler</text>
 
-  <rect x="836" y="528" width="172" height="48" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="836" y="528" width="172" height="48" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="836" y="528" width="6" height="48" rx="3" fill="url(#lineGrad)"/>
   <text x="922" y="548" text-anchor="middle" font-size="12" fill="#2f3142">IWebsiteOutputCache</text>
   <text x="922" y="564" text-anchor="middle" font-size="12" fill="#2f3142">Manager</text>
 
-  <rect x="708" y="612" width="200" height="48" rx="10" fill="white" stroke="#dde1f2"/>
+  <rect x="708" y="612" width="200" height="48" rx="10" fill="white" stroke="#f5d9e8"/>
   <text x="808" y="632" text-anchor="middle" font-size="12" fill="#2f3142">IWebsiteOutputCache</text>
   <text x="808" y="648" text-anchor="middle" font-size="12" fill="#2f3142">TagProvider</text>
 
-  <path d="M161,528 V504 H708 V520" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M161,528 V504 H708 V520" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
   <rect x="472" y="493" width="98" height="22" rx="11" fill="white"/>
-  <text x="521" y="508" text-anchor="middle" font-size="11" fill="#667eea">eviction signal</text>
+  <text x="521" y="508" text-anchor="middle" font-size="11" fill="#e35aa0">eviction signal</text>
 
-  <path d="M808,612 V590 H922 V584" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M808,612 V590 H922 V584" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
   <rect x="842" y="589" width="66" height="22" rx="11" fill="white"/>
-  <text x="875" y="604" text-anchor="middle" font-size="11" fill="#667eea">tags entries</text>
+  <text x="875" y="604" text-anchor="middle" font-size="11" fill="#e35aa0">tags entries</text>
 
-  <path d="M808,552 H828" stroke="#95a0c6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M808,552 H828" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
   <text x="540" y="730" text-anchor="middle" font-size="12" fill="#6b708c">Published-content reads and invalidation are one system; output-cache eviction listens to the same change flow but clears rendered responses by tag.</text>
 </svg>

@@ -16,14 +16,14 @@ const TARGET_FILES = fs
 const palette = {
   ink: '#2f3142',
   muted: '#6b708c',
-  line: '#9aa0c4',
-  pale: '#f3f4fb',
-  pale2: '#eef5ff',
+  line: '#cf95b6',
+  pale: '#fdf1f7',
+  pale2: '#fdeff6',
   pale3: '#fff7e8',
-  accent: '#667eea',
-  accent2: '#764ba2',
+  accent: '#e35aa0',
+  accent2: '#b83a86',
   danger: '#fdf1f1',
-  grid: '#dde1f2',
+  grid: '#f5d9e8',
 };
 
 function escapeXml(value) {
@@ -445,71 +445,80 @@ function sequenceSvg(block) {
     if (/^end$/.test(line)) events.push({ type: 'end' });
   }
 
-  const laneGap = 170;
-  const headerBoxWidth = 140;
+  // Wrap header labels, then size the header box to the widest resulting line
+  // (including single long words like "WebsiteOutputCachePolicy" that cannot
+  // wrap), and widen the lane gap to match so headers never overlap or clip.
+  const headerLines = participants.map((participant) => splitLabel(participant.label, 16));
+  const charWidth = 6.9; // approx px per char at 12px, 600 weight
+  const widestLine = Math.max(...headerLines.flat().map((line) => line.length * charWidth));
+  const headerBoxWidth = Math.min(240, Math.max(120, Math.round(widestLine) + 30));
+  const laneGap = headerBoxWidth + 34;
   const margin = headerBoxWidth / 2 + 10;
   const width = Math.max(620, margin * 2 + (participants.length - 1) * laneGap);
   const positions = new Map(participants.map((participant, index) => [participant.id, margin + index * laneGap]));
 
-  const headerLines = participants.map((participant) => splitLabel(participant.label, 16));
   const headerHeight = Math.max(44, 26 + Math.max(...headerLines.map((lines) => lines.length)) * 17);
   const lifelineTop = 34 + headerHeight;
 
-  // Precompute row heights up front so multi-line message labels (which need
-  // more clearance above the arrow) don't collide with the row before them.
-  const rowHeights = events.map((event) => {
-    if (event.type === 'message' || event.type === 'note') {
-      const lines = splitLabel(event.label, event.type === 'note' ? 28 : 22);
-      return 44 + Math.max(0, lines.length - 1) * 16;
+  // Lay events out with a running cursor. Each event reserves the vertical
+  // space its own label or box needs above and below its anchor line, so
+  // multi-line labels and note boxes never collide with their neighbours.
+  const eventParts = [];
+  let y = lifelineTop + 20;
+  for (const event of events) {
+    if (event.type === 'message') {
+      const x1 = positions.get(event.from);
+      const x2 = positions.get(event.to);
+      if (x1 == null || x2 == null) continue;
+      const lines = splitLabel(event.label, 22);
+      y += 16 + (lines.length - 1) * 15; // clearance for the label above the arrow
+      if (x1 === x2) {
+        // self-message: a small loop back onto the same lifeline, opening
+        // toward the diagram centre so the label never runs off the edge
+        const rightSide = x1 > width / 2;
+        const loop = rightSide ? `M${x1},${y} h-34 v16 h34` : `M${x1},${y} h34 v16 h-34`;
+        eventParts.push(`<path d="${loop}" stroke="${palette.line}" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+${textBlock(rightSide ? x1 - 44 : x1 + 44, y + 4, lines, { anchor: rightSide ? 'end' : 'start', size: 11, colour: palette.ink, lineHeight: 14 })}`);
+        y += 24 + (lines.length - 1) * 14;
+      } else {
+        const dash = event.dashed ? ' stroke-dasharray="5 5"' : '';
+        eventParts.push(`<path d="M${x1},${y} H${x2}" stroke="${palette.line}" stroke-width="2"${dash} fill="none" marker-end="url(#arrow)"/>
+${textBlock((x1 + x2) / 2, y - 10 - (lines.length - 1) * 7, lines, { size: 11, colour: palette.ink, lineHeight: 14 })}`);
+        y += 18;
+      }
+      continue;
     }
-    if (event.type === 'alt' || event.type === 'else') return 38;
-    if (event.type === 'end') return 12;
-    return 44;
-  });
-  const height = lifelineTop + 36 + rowHeights.reduce((sum, value) => sum + value, 0);
+    if (event.type === 'note') {
+      const x = positions.get(event.over) ?? width / 2;
+      const lines = splitLabel(event.label, 26);
+      const noteHeight = Math.max(40, 20 + lines.length * 16);
+      y += noteHeight / 2 + 12;
+      eventParts.push(`<rect x="${x - 104}" y="${y - noteHeight / 2}" width="208" height="${noteHeight}" rx="9" fill="${palette.pale3}" stroke="#e2b568"/>
+${textBlock(x, y + 4, lines, { size: 11, colour: palette.ink, lineHeight: 15 })}`);
+      y += noteHeight / 2 + 14;
+      continue;
+    }
+    if (event.type === 'alt' || event.type === 'else') {
+      y += 14;
+      eventParts.push(`<rect x="${margin - 22}" y="${y - 19}" width="${width - margin * 2 + 44}" height="34" rx="8" fill="white" stroke="${palette.grid}"/>
+<text x="${margin - 8}" y="${y + 2}" font-size="11" font-weight="700" fill="${palette.accent}">${escapeXml(event.type.toUpperCase())}</text>
+${textBlock(width / 2, y + 2, splitLabel(event.label), { size: 11, colour: palette.muted })}`);
+      y += 30;
+      continue;
+    }
+    if (event.type === 'end') {
+      y += 14;
+    }
+  }
+  const height = y + 20;
 
   const header = participants.map((participant, index) => {
     const x = positions.get(participant.id);
     return `<rect x="${x - headerBoxWidth / 2}" y="34" width="${headerBoxWidth}" height="${headerHeight}" rx="10" fill="${palette.pale}" filter="url(#soft)"/>
 ${textBlock(x, 34 + headerHeight / 2 + 4, headerLines[index], { size: 12, weight: '600' })}
-<path d="M${x},${lifelineTop} V${height - 34}" stroke="${palette.grid}" stroke-width="2" stroke-dasharray="6 6"/>`;
+<path d="M${x},${lifelineTop} V${height - 20}" stroke="${palette.grid}" stroke-width="2" stroke-dasharray="6 6"/>`;
   });
 
-  let y = lifelineTop + 32;
-  const eventParts = [];
-  events.forEach((event, index) => {
-    const rowHeight = rowHeights[index];
-    if (event.type === 'message') {
-      const x1 = positions.get(event.from);
-      const x2 = positions.get(event.to);
-      if (x1 == null || x2 == null) return;
-      const dash = event.dashed ? ' stroke-dasharray="5 5"' : '';
-      const lines = splitLabel(event.label, 22);
-      eventParts.push(`<path d="M${x1},${y} H${x2}" stroke="${palette.line}" stroke-width="2"${dash} fill="none" marker-end="url(#arrow)"/>
-${textBlock((x1 + x2) / 2, y - 11 - (lines.length - 1) * 8, lines, { size: 11, colour: palette.ink, lineHeight: 14 })}`);
-      y += rowHeight;
-      return;
-    }
-    if (event.type === 'note') {
-      const x = positions.get(event.over) ?? width / 2;
-      const lines = splitLabel(event.label, 28);
-      const noteHeight = Math.max(42, 26 + lines.length * 17);
-      eventParts.push(`<rect x="${x - 102}" y="${y - noteHeight / 2 + 1}" width="204" height="${noteHeight}" rx="9" fill="${palette.pale3}" stroke="#e2b568"/>
-${textBlock(x, y + 1, lines, { size: 11, colour: palette.ink })}`);
-      y += rowHeight;
-      return;
-    }
-    if (event.type === 'alt' || event.type === 'else') {
-      eventParts.push(`<rect x="${margin - 22}" y="${y - 27}" width="${width - margin * 2 + 44}" height="34" rx="8" fill="white" stroke="${palette.grid}"/>
-<text x="${margin - 8}" y="${y - 6}" font-size="11" font-weight="700" fill="${palette.accent}">${escapeXml(event.type.toUpperCase())}</text>
-${textBlock(width / 2, y - 6, splitLabel(event.label), { size: 11, colour: palette.muted })}`);
-      y += rowHeight;
-      return;
-    }
-    if (event.type === 'end') {
-      y += rowHeight;
-    }
-  });
   return svgWrap(width, height, [...header, ...eventParts].join('\n'));
 }
 

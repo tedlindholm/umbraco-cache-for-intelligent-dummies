@@ -1,45 +1,48 @@
-<svg viewBox="0 0 620 570" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg viewBox="0 0 630 514" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
-  <rect width="620" height="570" fill="white"/>
-<rect x="-4" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="48" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Writer</text>
-<path d="M48,78 V536" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="128" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="180" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">HybridCache</text>
-<path d="M180,78 V536" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="260" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="312" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Tag timestamps</text>
-<path d="M312,78 V536" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<rect x="392" y="34" width="104" height="44" rx="10" fill="#f3f4fb" filter="url(#soft)"/>
-<text x="444" y="61" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Reader</text>
-<path d="M444,78 V536" stroke="#dde1f2" stroke-width="2" stroke-dasharray="6 6"/>
-<path d="M48,118 H180" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="114" y="107" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">RemoveByTagAsync(&quot;ct:1050&quot;)</text>
-<path d="M180,172 H312" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="246" y="152.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Record &quot;ct:1050 invalidated @</text>
-<text x="246" y="169.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">T&quot;</text>
-<rect x="78" y="201" width="204" height="42" rx="9" fill="#fff7e8" stroke="#e2b568"/>
-<text x="180" y="227" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Nothing is physically deleted</text>
-<path d="M444,280 H180" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="312" y="260.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">GetOrCreateAsync(key tagged</text>
-<text x="312" y="277.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">&quot;ct:1050&quot;)</text>
-<path d="M180,334 H312" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="246" y="323" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Entry created before T?</text>
-<path d="M312,388 H180" stroke="#9aa0c4" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
-<text x="246" y="377" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Yes -&gt; treat as miss</text>
-<path d="M180,442 H180" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-<text x="180" y="431" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Run factory, store fresh value</text>
-<path d="M180,496 H444" stroke="#9aa0c4" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
-<text x="312" y="485" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Fresh value</text>
+  <rect width="630" height="514" fill="white"/>
+<rect x="10" y="34" width="127" height="44" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="73.5" y="60" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Writer</text>
+<path d="M73.5,78 V494" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="171" y="34" width="127" height="44" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="234.5" y="60" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">HybridCache</text>
+<path d="M234.5,78 V494" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="332" y="34" width="127" height="44" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="395.5" y="60" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Tag timestamps</text>
+<path d="M395.5,78 V494" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="493" y="34" width="127" height="44" rx="10" fill="#fdf1f7" filter="url(#soft)"/>
+<text x="556.5" y="60" text-anchor="middle" font-size="12" font-weight="600" fill="#2f3142">Reader</text>
+<path d="M556.5,78 V494" stroke="#f5d9e8" stroke-width="2" stroke-dasharray="6 6"/>
+<path d="M73.5,114 H234.5" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="154" y="104" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">RemoveByTagAsync(&quot;ct:1050&quot;)</text>
+<path d="M234.5,163 H395.5" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="315" y="139" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Record &quot;ct:1050</text>
+<text x="315" y="153" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">invalidated @ T&quot;</text>
+<rect x="130.5" y="193" width="208" height="52" rx="9" fill="#fff7e8" stroke="#e2b568"/>
+<text x="234.5" y="215.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Nothing is physically</text>
+<text x="234.5" y="230.5" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">deleted</text>
+<path d="M556.5,290 H234.5" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="395.5" y="266" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">GetOrCreateAsync(key</text>
+<text x="395.5" y="280" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">tagged &quot;ct:1050&quot;)</text>
+<path d="M234.5,339 H395.5" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="315" y="315" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Entry created before</text>
+<text x="315" y="329" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">T?</text>
+<path d="M395.5,373 H234.5" stroke="#cf95b6" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+<text x="315" y="363" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Yes -&gt; treat as miss</text>
+<path d="M234.5,422 h34 v16 h-34" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="278.5" y="419" text-anchor="start" font-size="11" font-weight="400" fill="#2f3142">Run factory, store</text>
+<text x="278.5" y="433" text-anchor="start" font-size="11" font-weight="400" fill="#2f3142">fresh value</text>
+<path d="M234.5,476 H556.5" stroke="#cf95b6" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#arrow)"/>
+<text x="395.5" y="466" text-anchor="middle" font-size="11" font-weight="400" fill="#2f3142">Fresh value</text>
 </svg>

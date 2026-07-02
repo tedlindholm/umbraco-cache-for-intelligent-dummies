@@ -1,14 +1,14 @@
 <svg viewBox="0 0 720 620" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="shiftGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
 
@@ -16,47 +16,47 @@
 
   <text x="360" y="38" text-anchor="middle" font-size="20" font-weight="700" fill="#2f3142">Cost Moved, Not Vanished</text>
 
-  <rect x="40" y="62" width="290" height="180" rx="12" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="40" y="62" width="290" height="180" rx="12" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="40" y="62" width="6" height="180" rx="3" fill="url(#shiftGrad)"/>
   <text x="185" y="94" text-anchor="middle" font-size="15" font-weight="600" fill="#2f3142">Older all-hot pattern</text>
   <text x="60" y="126" font-size="13" fill="#3d4159">- More startup and memory cost</text>
   <text x="60" y="148" font-size="13" fill="#3d4159">- Broad tree traversal often felt cheap</text>
   <text x="60" y="170" font-size="13" fill="#3d4159">- Many nodes already materialised</text>
 
-  <rect x="390" y="62" width="290" height="180" rx="12" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="390" y="62" width="290" height="180" rx="12" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="390" y="62" width="6" height="180" rx="3" fill="url(#shiftGrad)"/>
   <text x="535" y="94" text-anchor="middle" font-size="15" font-weight="600" fill="#2f3142">HybridCache pattern</text>
   <text x="410" y="126" font-size="13" fill="#3d4159">- Lower startup and memory pressure</text>
   <text x="410" y="148" font-size="13" fill="#3d4159">- Traversal can trigger hydration work</text>
   <text x="410" y="170" font-size="13" fill="#3d4159">- Cost appears at request time</text>
 
-  <path d="M340,152 L380,152" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <text x="360" y="140" text-anchor="middle" font-size="12" font-style="italic" fill="#6b7090">cost shifts</text>
+  <path d="M340,152 L380,152" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="360" y="140" text-anchor="middle" font-size="12" font-style="italic" fill="#97687f">cost shifts</text>
 
   <text x="360" y="288" text-anchor="middle" font-size="15" font-weight="600" fill="#2f3142">One traversal call can fan out into many operations</text>
 
-  <path d="M360,334 V352" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M360,394 V412" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M360,454 V472" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-  <path d="M360,514 V532" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M360,334 V352" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M360,394 V412" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M360,454 V472" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M360,514 V532" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-  <rect x="170" y="304" width="380" height="30" rx="8" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="170" y="304" width="380" height="30" rx="8" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="170" y="304" width="5" height="30" rx="2.5" fill="url(#shiftGrad)"/>
   <text x="360" y="324" text-anchor="middle" font-size="12.5" font-family="Monaco, Menlo, monospace" fill="#2f3142">container.Children().Where(...)</text>
 
-  <rect x="170" y="352" width="380" height="42" rx="8" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="170" y="352" width="380" height="42" rx="8" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="170" y="352" width="5" height="42" rx="2.5" fill="url(#shiftGrad)"/>
   <text x="360" y="378" text-anchor="middle" font-size="13" fill="#2f3142">Resolve child keys and load children one by one</text>
 
-  <rect x="170" y="412" width="380" height="42" rx="8" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="170" y="412" width="380" height="42" rx="8" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="170" y="412" width="5" height="42" rx="2.5" fill="url(#shiftGrad)"/>
   <text x="360" y="438" text-anchor="middle" font-size="13" fill="#2f3142">Resolve references (author/category/image)</text>
 
-  <rect x="170" y="472" width="380" height="42" rx="8" fill="#f3f4fb" filter="url(#soft)"/>
+  <rect x="170" y="472" width="380" height="42" rx="8" fill="#fdf1f7" filter="url(#soft)"/>
   <rect x="170" y="472" width="5" height="42" rx="2.5" fill="url(#shiftGrad)"/>
   <text x="360" y="498" text-anchor="middle" font-size="13" fill="#2f3142">More cache lookups, one per reference</text>
 
-  <rect x="170" y="532" width="380" height="56" rx="8" fill="white" stroke="#667eea" stroke-width="2"/>
+  <rect x="170" y="532" width="380" height="56" rx="8" fill="white" stroke="#e35aa0" stroke-width="2"/>
   <text x="360" y="557" text-anchor="middle" font-size="13" font-weight="600" fill="#2f3142">Possible L2 or database work</text>
   <text x="360" y="576" text-anchor="middle" font-size="12.5" fill="#4a4a4a">for misses along the way</text>
 </svg>

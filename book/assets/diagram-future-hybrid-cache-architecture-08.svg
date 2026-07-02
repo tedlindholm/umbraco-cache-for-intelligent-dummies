@@ -1,46 +1,46 @@
 <svg viewBox="0 0 720 522" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
   <rect width="720" height="522" fill="white"/>
-<path d="M360,78 C360,90 360,90 360,102" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M360,78 C360,90 360,90 360,102" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M360,166 C360,178 360,178 360,190" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M360,166 C360,178 360,178 360,190" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M360,244 C360,256 360,256 360,268" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M360,244 C360,256 360,256 360,268" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M360,332 C360,344 360,344 360,356" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M360,332 C360,344 360,344 360,356" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M360,420 C360,432 360,432 360,444" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M360,420 C360,432 360,432 360,444" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<rect x="205" y="24" width="310" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="24" width="310" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="24" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="55" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Application starting</text>
-<rect x="205" y="102" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="102" width="310" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="102" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="129.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Collect seed keys from</text>
 <text x="360" y="146.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">providers</text>
-<rect x="205" y="190" width="310" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="190" width="310" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="190" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="221" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Batch keys</text>
-<rect x="205" y="268" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="268" width="310" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="268" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="295.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Skip keys already in</text>
 <text x="360" y="312.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">HybridCache</text>
-<rect x="205" y="356" width="310" height="64" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="356" width="310" height="64" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="356" width="6" height="64" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="383.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Fetch uncached nodes from</text>
 <text x="360" y="400.5" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">database cache source</text>
-<rect x="205" y="444" width="310" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="205" y="444" width="310" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="205" y="444" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="360" y="475" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Store as seed entries</text>
 </svg>

@@ -1,59 +1,59 @@
 <svg viewBox="0 0 1458 486" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <defs>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#667eea"/>
-      <stop offset="100%" stop-color="#764ba2"/>
+      <stop offset="0%" stop-color="#e35aa0"/>
+      <stop offset="100%" stop-color="#b83a86"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#667eea" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e35aa0" flood-opacity="0.14"/>
     </filter>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa0c4"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#cf95b6"/>
     </marker>
   </defs>
   <rect width="1458" height="486" fill="white"/>
-<path d="M258,243 C297,243 297,243 336,243" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M258,243 C297,243 297,243 336,243" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M546,243 C546,177 624,177 624,111" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M546,243 C546,177 624,177 624,111" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M546,243 C585,243 585,199 624,199" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M546,243 C585,243 585,199 624,199" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M546,243 C585,243 585,287 624,287" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M546,243 C585,243 585,287 624,287" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M546,243 C546,309 624,309 624,375" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M546,243 C546,309 624,309 624,375" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M834,111 C834,177 912,177 912,243" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M834,111 C834,177 912,177 912,243" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M834,199 C873,199 873,243 912,243" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M834,199 C873,199 873,243 912,243" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M834,287 C873,287 873,243 912,243" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M834,287 C873,287 873,243 912,243" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M834,375 C834,309 912,309 912,243" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M834,375 C834,309 912,309 912,243" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<path d="M1122,243 C1161,243 1161,243 1200,243" stroke="#9aa0c4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<path d="M1122,243 C1161,243 1161,243 1200,243" stroke="#cf95b6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
 
-<rect x="48" y="216" width="210" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="48" y="216" width="210" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="48" y="216" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="153" y="247" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Startup begins</text>
-<rect x="336" y="216" width="210" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="336" y="216" width="210" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="336" y="216" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="441" y="247" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Collect seed keys</text>
-<rect x="624" y="84" width="210" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="624" y="84" width="210" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="624" y="84" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="729" y="115" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">ContentTypeKeys</text>
-<rect x="624" y="172" width="210" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="624" y="172" width="210" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="624" y="172" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="729" y="203" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Breadth-first documents</text>
-<rect x="624" y="260" width="210" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="624" y="260" width="210" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="624" y="260" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="729" y="291" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Breadth-first media</text>
-<rect x="624" y="348" width="210" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="624" y="348" width="210" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="624" y="348" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="729" y="379" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Newer docs: elements too</text>
-<rect x="912" y="216" width="210" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="912" y="216" width="210" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="912" y="216" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="1017" y="247" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Union all keys</text>
-<rect x="1200" y="216" width="210" height="54" rx="10" fill="#f3f4fb" stroke="none" stroke-width="0" filter="url(#soft)"/>
+<rect x="1200" y="216" width="210" height="54" rx="10" fill="#fdf1f7" stroke="none" stroke-width="0" filter="url(#soft)"/>
 <rect x="1200" y="216" width="6" height="54" rx="3" fill="url(#lineGrad)"/>
 <text x="1305" y="247" text-anchor="middle" font-size="13" font-weight="400" fill="#2f3142">Warm selected cache entries</text>
 </svg>
